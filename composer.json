@@ -1,5 +1,5 @@
 {
-    "name": "Alexandre-T/zend-bootstrap",
+    "name": "alexandre-t/zend-bootstrap",
     "type": "library",
     "description": "Form for Bootstrap CSS with Zend_Form",
     "keywords": ["form","zend_form","css","Twitter","Bootstrap"],
