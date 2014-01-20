@@ -9,7 +9,7 @@
     "require": {
         "zendframework/zendframework": "2.2.*",
         "php": ">=5.3.0"
-    }
+    },
     "authors": [
         {
             "name": "Alexandre Tranchant",
