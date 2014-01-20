@@ -1,0 +1,26 @@
+{
+    "name": "Alexandre-T/zend-bootstrap",
+    "type": "library",
+    "description": "Form for Bootstrap CSS with Zend_Form",
+    "keywords": ["form","zend_form","css","Twitter","Bootstrap"],
+    "version": "v0.0.1-alpha",
+    "license": "MIT",
+    "homepage": "https://github.com/Alexandre-T/zend-bootstrap",
+    "require": {
+        "zendframework/zendframework": "2.2.*",
+        "php": ">=5.3.0"
+    }
+    "authors": [
+        {
+            "name": "Alexandre Tranchant",
+            "email": "Alexandre.Tranchant@gmail.com	",
+            "homepage": "https://github.com/Alexandre-T",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Bootstrap": "src"
+        }
+    }
+}
