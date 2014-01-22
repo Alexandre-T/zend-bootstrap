@@ -194,10 +194,12 @@ class FormTest extends PHPUnit_Framework_TestCase
      */
     public function testOpenTag()
     {
+        //without element
         $expected = '<form action="" method="get">';
         $actual = $this->formHelperBasic->openTag();
         $this->assertEquals($expected, $actual);
         
+        //with one element
         $expected = '<form action="" method="POST" class="">';
         $actual = $this->formHelperBasic->openTag($this->form);
         $this->assertEquals($expected, $actual);
@@ -214,6 +216,53 @@ class FormTest extends PHPUnit_Framework_TestCase
         $actual = $this->formHelperInline->openTag($this->form);
         $this->assertEquals($expected, $actual);
         
+        //two-elements basic
+        $expected = '<form action="" method="POST" class="">';
+        $actual = $this->formHelperBasic->openTag($this->form,'basic');
+        $this->assertEquals($expected, $actual);
+        
+        $expected = '<form action="" method="POST" class="">';
+        $actual = $this->formHelperVertical->openTag($this->form,'basic');
+        $this->assertEquals($expected, $actual);
+
+        $expected = '<form action="" method="POST" class="form-vertical">';
+        $actual = $this->formHelperBasic->openTag($this->form,'vertical');
+        $this->assertEquals($expected, $actual);
+
+        $expected = '<form action="" method="POST" class="form-vertical">';
+        $actual = $this->formHelperVertical->openTag($this->form,'vertical');
+        $this->assertEquals($expected, $actual);
+        
+        $expected = '<form action="" method="POST" class="form-vertical">';
+        $actual = $this->formHelperVertical->openTag($this->form,'vertical');
+        $this->assertEquals($expected, $actual);
+        
+        //three-elements
+        $expected = '<form action="" method="POST" class="">';
+        $actual = $this->formHelperBasic->openTag($this->form,'basic',array('id'=>'form-id'));
+        $this->assertEquals($expected, $actual);
+
+        $expected = '<form action="" method="POST" class="form-class-foobar">';
+        $actual = $this->formHelperBasic->openTag($this->form,'basic',array('class'=>'form-class-foobar'));
+        $this->assertEquals($expected, $actual);
+
+        $expected = '<form action="" method="POST" class="form-class-foobar form-vertical">';
+        $actual = $this->formHelperVertical->openTag($this->form,null,array('class'=>'form-class-foobar'));
+        $this->assertEquals($expected, $actual);
+
+        $expected = '<form action="" method="POST" class="form-class-foobar form-vertical">';
+        $actual = $this->formHelperVertical->openTag($this->form,'vertical',array('class'=>'form-class-foobar'));
+        $this->assertEquals($expected, $actual);
+        
+    }
+    
+    /**
+     * Tests Form->openTag()
+     */
+    public function testOpenTagException(){
+    	//throwed exception ?
+    	$this->setExpectedException('Bootstrap\Exception\InvalidParameterException');
+    	$this->formHelperBasic->openTag($this->form,'foobar');
     }
 }
 
