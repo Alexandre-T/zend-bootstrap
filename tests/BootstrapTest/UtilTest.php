@@ -13,12 +13,12 @@ class UtilTest extends PHPUnit_Framework_TestCase
     /**
      * @var string
      */
-    protected $words        = "      one  two three\rfour\nfive\r\nsix\n\rseven\t  eight    nine \f ten    ";
+    protected $words        = "      one ONE two three\rFour\nfive\r\nSix\n\rseven\t  Eight    nine \f ten    ";
     
     /**
      * @var string
      */
-    protected $correct      = 'one two three four five six seven eight nine ten';
+    protected $correct      = 'one two three Four five Six seven Eight nine ten';
     
     /**
      *
@@ -67,6 +67,20 @@ class UtilTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests Util->removeWords()
+     */
+    public function testRemoveWords()
+    {
+    
+    	$toRemovedWords     = "      alpha  three     six   beta \n gamma  nine   nine \t\t    alpha   delta \r  ";
+    	$correct            = "one two Four five seven Eight ten";
+    	$combined           = $this->Util->RemoveWords($toRemovedWords, $this->words);
+    	$this->assertEquals($correct, $combined);
+    
+    }
+    
+    
+    /**
      * Tests Util->addWordsToArrayItem()
      */
     public function testAddWordsToArrayItem()
@@ -103,7 +117,7 @@ class UtilTest extends PHPUnit_Framework_TestCase
      */
     public function testGetWordsArray()
     {
-        $correct    = array('one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten');
+        $correct    = array(0=>'one', 2=>'two', 3=>'three', 4=>'Four', 5=>'five', 6=>'Six', 7=>'seven', 8=>'Eight', 9=>'nine', 10=>'ten');
         $wordsArray = $this->Util->getWordsArray($this->words);
         $this->assertEquals($correct, $wordsArray);
     }
@@ -114,7 +128,8 @@ class UtilTest extends PHPUnit_Framework_TestCase
     public function testSingleSpace()
     {
         $singleSpaced   = $this->Util->singleSpace($this->words);
-        $this->assertEquals($this->correct, $singleSpaced);
+        $expected = "one ONE two three Four five Six seven Eight nine ten";
+        $this->assertEquals($expected, $singleSpaced);
     }
 }
 

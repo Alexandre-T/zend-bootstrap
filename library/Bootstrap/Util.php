@@ -49,6 +49,39 @@ class Util {
 		$text   = implode(' ', $currentWords);
 		return $text;
 	}
+
+	/**
+	 * If present in the text, removes the words from the text and returns the text
+	 * Words are compared in case insensitive manner
+	 * @param string|array $words A single word, space separated words or an array of words
+	 * @param string $text
+	 * @throws Exception\InvalidParameterTypeException
+	 * @return string
+	 */
+	public function removeWords($words, $text)
+	{
+		$text   = (string)$text;
+		if (is_null($words)) {
+			return $text;
+		}
+		if (is_string($words)) {
+			$words  = $this->getWordsArray($words);
+		}
+		if (!is_array($words)) {
+			throw new InvalidParameterTypeException(sprintf("%s expects either a string or an array as the 'spec' parameter.", __METHOD__));
+		}
+		$currentWords       = $this->getWordsArray($text);
+		$currentWordsLower  = $this->getWordsArray(strtolower($text));
+		foreach ($words as $word) {
+			$wordLower  = strtolower($word);
+			$key = array_search($wordLower, $currentWordsLower);
+			if ($key !== FALSE) {
+				unset($currentWords[$key]);
+			}
+		}
+		$text   = implode(' ', $currentWords);
+		return $text;
+	}
 	
 	/**
 	 * Adds space separated words to an array item, if the words are missing there
@@ -104,6 +137,9 @@ class Util {
 		} else {
 			$wordsAy    = explode(' ', $words);
 		}
+		//remove duplicates value and sort
+		$wordsAy = $this->_arrayIUnique($wordsAy);
+		
 		return $wordsAy;
 	}
 	
@@ -124,6 +160,13 @@ class Util {
 		$words   = trim($words);
 		$words   = preg_replace('/\s+/', ' ', $words);
 		return $words;
+	}
+	
+	private function _arrayIUnique($array) {
+		return array_intersect_key(
+				$array,
+				array_unique(array_map('strtolower',$array))
+		);
 	}
 	
 }
