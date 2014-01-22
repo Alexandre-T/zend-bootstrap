@@ -164,11 +164,6 @@ class FormTest extends PHPUnit_Framework_TestCase
     public function testRender()
     {
 
-        /*$expected = '';//The View is not pluggable
-        $actual = $this->formHelperBasic->render($this->form);
-        $this->assertEquals($expected, $actual);*/
-                
-        
         $expected = '<form action="" method="POST" class=""></form>';
         $actual = $this->formHelperBasic->render($this->form);
         $this->assertEquals($expected, $actual);
@@ -184,6 +179,13 @@ class FormTest extends PHPUnit_Framework_TestCase
         $expected = '<form action="" method="POST" class="form-inline"></form>';
         $actual = $this->formHelperInline->render($this->form);
         $this->assertEquals($expected, $actual);
+        
+        $view = new Zend\View\Renderer\ConsoleRenderer(); //unpluggable view
+        $expected = '';//The View is not pluggable
+        $this->formHelperBasic->setView($view);
+        $actual = $this->formHelperBasic->render($this->form);
+        $this->assertEquals($expected, $actual);
+        
         
     }
 
