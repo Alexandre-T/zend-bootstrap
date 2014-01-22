@@ -33,12 +33,12 @@ class Config implements ConfigInterface
 	 * @var array Pre-aliased view helpers
 	 */
 	protected $invokables = array(
-			'formcontrolgroup'                   => 'Bootstrap\Form\View\Helper\FormControlGroup',
-			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
-			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
-			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
-			'formhidden'                         => 'Bootstrap\Form\View\Helper\FormHidden',
-			'formhint'                           => 'Bootstrap\Form\View\Helper\FormHint',
+//			'formcontrolgroup'                   => 'Bootstrap\Form\View\Helper\FormControlGroup',
+//			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
+//			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
+//			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
+//			'formhidden'                         => 'Bootstrap\Form\View\Helper\FormHidden',
+//			'formhint'                           => 'Bootstrap\Form\View\Helper\FormHint',
 	);
 
 	/**
@@ -109,11 +109,10 @@ class Config implements ConfigInterface
 				'formelementerrors'              => function($sm) use ($bootstrapUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormElementErrors($bootstrapUtil);
 					return $instance;
-				},
-				'formfieldset'                   => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormFieldset($bootstrapUtil, $formUtil);
-					return $instance;
-				},
+				},*/
+				'fieldset'                   => function($sm) use ($bootstrapUtil, $formUtil) {
+					return new Fieldset($bootstrapUtil, $formUtil);
+				},/*
 				'formfile'                       => function($sm) use ($formUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormFile($formUtil);
 					return $instance;

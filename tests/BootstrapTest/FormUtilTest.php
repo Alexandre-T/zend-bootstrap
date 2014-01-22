@@ -1,4 +1,7 @@
 <?php
+
+namespace BootstrapTest;
+
 use Bootstrap\Form\Util;
 
 require_once 'PHPUnit/Framework/TestCase.php';
@@ -6,7 +9,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
 /**
  * Util test case.
  */
-class FormUtilTest extends PHPUnit_Framework_TestCase
+class FormUtilTest extends \PHPUnit_Framework_TestCase
 {
 
     /**

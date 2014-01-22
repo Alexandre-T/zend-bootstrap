@@ -87,11 +87,11 @@ class Form extends ViewHelperForm implements HelperInterface {
 		$formType   = $this->formUtil->filterFormType($formType);
 		//Open Tag
 		$html   = $this->openTag($form, $formType, $displayOptions);
-		//Form content
-		/*$fieldsetHelper = $renderer->plugin('form_fieldset_twb');
+		//Form content		
+		$fieldsetHelper = $renderer->plugin('fieldset');
 		$html   .= $fieldsetHelper($form, $formType, $displayOptions, false, false, $renderErrors);
 		//Form actions
-		$actionsHelper  = $renderer->plugin('form_actions_twb');
+		/*$actionsHelper  = $renderer->plugin('form_actions_twb');
 		$actions        = $this->getActions($form);
 		if (array_key_exists('elements', $displayOptions)) {
 			$displayOptionsActions  = $displayOptions['elements'];

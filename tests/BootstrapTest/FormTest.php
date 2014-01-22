@@ -1,18 +1,21 @@
 <?php
+
+namespace BootstrapTest;
+
 use Bootstrap\Form\View\Helper\Form as FormHelper;
 use Bootstrap\Util;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\Form;
-use Zend\View\View;
-use Zend\View\Helper\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
+use BootstrapTest\Util\ServiceManagerFactory;
+use Zend\View\Renderer\ConsoleRenderer;
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
  * Form test case.
  */
-class FormTest extends PHPUnit_Framework_TestCase
+class FormTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -53,8 +56,14 @@ class FormTest extends PHPUnit_Framework_TestCase
         parent::setUp();
         
         $this->form = new Form();
-        $view = new PhpRenderer();
-        
+        $serviceManager = ServiceManagerFactory::getServiceManager();
+        $application    = $serviceManager->get('Application');
+        $application->bootstrap();
+        //var_dump($serviceManager->getRegisteredServices());die();
+        $viewManager = $serviceManager->get('view_manager');
+        /* @var $viewManager \Zend\Mvc\View\Http\ViewManager */
+        $view = $viewManager->getRenderer();
+
         $this->formHelperBasic = new FormHelper(new Util(), new FormUtil());
         $this->formHelperHorizontal = new FormHelper(new Util(), new FormUtil(FormUtil::FORM_TYPE_HORIZONTAL));
         $this->formHelperVertical = new FormHelper(new Util(), new FormUtil(FormUtil::FORM_TYPE_VERTICAL));
@@ -108,40 +117,40 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->assertSame($this->formHelperVertical, $this->formHelperVertical->__invoke());
         
         //one element
-        $expected = '<form action="" method="POST" class=""></form>';
+        $expected = '<form action="" method="POST" class="">'."\n".'</form>';
         $actual = $this->formHelperBasic->__invoke($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-horizontal"></form>';
+        $expected = '<form action="" method="POST" class="form-horizontal">'."\n".'</form>';
         $actual = $this->formHelperHorizontal->__invoke($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
+        $expected = '<form action="" method="POST" class="form-vertical">'."\n".'</form>';
         $actual = $this->formHelperVertical->__invoke($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-inline"></form>';
+        $expected = '<form action="" method="POST" class="form-inline">'."\n".'</form>';
         $actual = $this->formHelperInline->__invoke($this->form);
         $this->assertEquals($expected, $actual);
         
         //two-elements basic
-        $expected = '<form action="" method="POST" class=""></form>';
+        $expected = '<form action="" method="POST" class="">'."\n".'</form>';
         $actual = $this->formHelperBasic->__invoke($this->form,'basic');
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class=""></form>';
+        $expected = '<form action="" method="POST" class="">'."\n".'</form>';
         $actual = $this->formHelperVertical->__invoke($this->form,'basic');
         $this->assertEquals($expected, $actual);
 
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
+        $expected = '<form action="" method="POST" class="form-vertical">'."\n".'</form>';
         $actual = $this->formHelperBasic->__invoke($this->form,'vertical');
         $this->assertEquals($expected, $actual);
 
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
+        $expected = '<form action="" method="POST" class="form-vertical">'."\n".'</form>';
         $actual = $this->formHelperVertical->__invoke($this->form,'vertical');
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
+        $expected = '<form action="" method="POST" class="form-vertical">'."\n".'</form>';
         $actual = $this->formHelperVertical->__invoke($this->form,'vertical');
         $this->assertEquals($expected, $actual);
         
@@ -164,23 +173,23 @@ class FormTest extends PHPUnit_Framework_TestCase
     public function testRender()
     {
 
-        $expected = '<form action="" method="POST" class=""></form>';
+        $expected = '<form action="" method="POST" class="">'."\n".'</form>';
         $actual = $this->formHelperBasic->render($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-horizontal"></form>';
+        $expected = '<form action="" method="POST" class="form-horizontal">'."\n".'</form>';
         $actual = $this->formHelperHorizontal->render($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
+        $expected = '<form action="" method="POST" class="form-vertical">'."\n".'</form>';
         $actual = $this->formHelperVertical->render($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-inline"></form>';
+        $expected = '<form action="" method="POST" class="form-inline">'."\n".'</form>';
         $actual = $this->formHelperInline->render($this->form);
         $this->assertEquals($expected, $actual);
         
-        $view = new Zend\View\Renderer\ConsoleRenderer(); //unpluggable view
+        $view = new ConsoleRenderer(); //unpluggable view
         $expected = '';//The View is not pluggable
         $this->formHelperBasic->setView($view);
         $actual = $this->formHelperBasic->render($this->form);

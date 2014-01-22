@@ -1,4 +1,7 @@
 <?php
+
+namespace BootstrapTest;
+
 use Bootstrap\Util;
 use \Zend\View\Helper\EscapeHtmlAttr;
 
@@ -8,7 +11,7 @@ require_once 'PHPUnit/Framework/TestCase.php';
 /**
  * Util test case.
  */
-class UtilTest extends PHPUnit_Framework_TestCase
+class UtilTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var string

@@ -1,9 +1,9 @@
 <?php
+
+namespace BootstrapTest;
+
 require_once 'PHPUnit/Framework/TestSuite.php';
 
-require_once 'tests/BootstrapTest/UtilTest.php';
-require_once 'tests/BootstrapTest/FormUtilTest.php';
-require_once 'tests/BootstrapTest/FormTest.php';
 
 /**
  * Static test suite.
