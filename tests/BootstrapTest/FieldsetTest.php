@@ -4,26 +4,39 @@ namespace BootstrapTest;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 use Bootstrap\Util;
-use Bootstrap\Form\View\Helper\Fieldset;
-use Bootstrap\Form\View\Helper\Form as FormHelper;
+use Bootstrap\Form\View\Helper\Fieldset as FieldsetHelper;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\Form;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\ServiceManager\ServiceManager;
 use BootstrapTest\Util\ServiceManagerFactory;
+use Zend\Form\Fieldset;
 
 /**
  * Fieldset test case.
  */
 class FieldsetTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * 
+     * @var Zend\Form\Form
+     */
+    private $form;
+    /**
+     *
+     * @var Bootstrap\Form\View\Helper\Fieldset
+     */
+    private $fieldsetHelper;
+    /**
+     * 
+     * @var Zend\Form\Fieldset
+     */
+    private $fieldset;
 
     /**
      *
-     * @var Fieldset
+     * @var Zend\Form\Fieldset
      */
-    private $Fieldset;
-
+    private $fieldsetNamed;
+    
     /**
      * Prepares the environment before running a test.
      */
@@ -34,8 +47,17 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $serviceManager = ServiceManagerFactory::getServiceManager();
         $application    = $serviceManager->get('Application');
         $application->bootstrap();
-
-        $this->Fieldset = new Fieldset(new Util(), new FormUtil());
+        $viewManager = $serviceManager->get('view_manager');
+        $view = $viewManager->getRenderer();
+        
+        $this->fieldsetHelper = new FieldsetHelper(new Util(), new FormUtil());
+        $this->fieldsetHelper->setView($view);
+        
+        $this->fieldset = new Fieldset();
+        $this->fieldsetNamed = new Fieldset('senderbar');
+        $this->fieldsetNamedAndId = new Fieldset('senderfoobar');
+        $this->fieldsetNamedAndId->setAttribute('id', 'sender-foobar-id');
+        $this->fieldsetNamedAndId->setAttribute('disabled', '');
         
     }
 
@@ -44,39 +66,30 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->Fieldset = null;
+        $this->fieldsetHelper = null;
+        $this->form = null;
         
         parent::tearDown();
     }
 
-    /**
-     * Constructs the test case.
-     */
-    public function __construct()
-    {
-        // TODO Auto-generated constructor
-    }
-
-    /**
-     * Tests Fieldset->__construct()
-     */
-    public function test__construct()
-    {
-        // TODO Auto-generated FieldsetTest->test__construct()
-        $this->markTestIncomplete("__construct test not implemented");
-        
-        $this->Fieldset->__construct(/* parameters */);
-    }
 
     /**
      * Tests Fieldset->openTag()
      */
     public function testOpenTag()
     {
-        // TODO Auto-generated FieldsetTest->testOpenTag()
-        $this->markTestIncomplete("openTag test not implemented");
+        //one element
+        $expected = '<fieldset>';
+        $actual = $this->fieldsetHelper->openTag($this->fieldset);
+        $this->assertEquals($expected, $actual);
         
-        $this->Fieldset->openTag(/* parameters */);
+        $expected = '<fieldset name="senderbar">';
+        $actual = $this->fieldsetHelper->openTag($this->fieldsetNamed);
+        $this->assertEquals($expected, $actual);
+        
+        $expected = '<fieldset name="senderfoobar" id="sender-foobar-id" disabled>';
+        $actual = $this->fieldsetHelper->openTag($this->fieldsetNamed);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -87,7 +100,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         // TODO Auto-generated FieldsetTest->testCloseTag()
         $this->markTestIncomplete("closeTag test not implemented");
         
-        $this->Fieldset->closeTag(/* parameters */);
+        $this->fieldsetHelper->closeTag(/* parameters */);
     }
 
     /**
@@ -98,7 +111,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         // TODO Auto-generated FieldsetTest->testContent()
         $this->markTestIncomplete("content test not implemented");
         
-        $this->Fieldset->content(/* parameters */);
+        $this->fieldsetHelper->content(/* parameters */);
     }
 
     /**
@@ -109,7 +122,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         // TODO Auto-generated FieldsetTest->testRender()
         $this->markTestIncomplete("render test not implemented");
         
-        $this->Fieldset->render(/* parameters */);
+        $this->fieldsetHelper->render(/* parameters */);
     }
 
     /**
@@ -120,7 +133,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         // TODO Auto-generated FieldsetTest->test__invoke()
         $this->markTestIncomplete("__invoke test not implemented");
         
-        $this->Fieldset->__invoke(/* parameters */);
+        $this->fieldsetHelper->__invoke(/* parameters */);
     }
 }
 
