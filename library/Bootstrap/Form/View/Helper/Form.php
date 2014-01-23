@@ -9,6 +9,7 @@ use Bootstrap\Form\Exception\UnsupportedFormTypeException;
 use Zend\Form\FormInterface;
 use Zend\View\Helper\HelperInterface;
 use Zend\Form\View\Helper\Form as ViewHelperForm;
+use Zend\Form\FieldsetInterface;
 /**
  * Form
  * @package zend-bootstrap
@@ -84,24 +85,26 @@ class Form extends ViewHelperForm implements HelperInterface {
 			// Bail early if renderer is not pluggable
 			return '';
 		}
+		
+		if (method_exists($form, 'prepare')) {
+			$form->prepare();
+		}
+		
 		$formType   = $this->formUtil->filterFormType($formType);
 		//Open Tag
 		$html   = $this->openTag($form, $formType, $displayOptions);
-		//Form content		
-		$fieldsetHelper = $renderer->plugin('fieldset');
-		$html   .= $fieldsetHelper($form, $formType, $displayOptions, false, false, $renderErrors);
-		//Form actions
-		/*$actionsHelper  = $renderer->plugin('form_actions_twb');
-		$actions        = $this->getActions($form);
-		if (array_key_exists('elements', $displayOptions)) {
-			$displayOptionsActions  = $displayOptions['elements'];
-		} else {
-			$displayOptionsActions  = array();
-		}
-		$html   .= $actionsHelper($actions, $formType, $displayOptionsActions);
-		*/
+		//Form content
+	    $formContent = '';
+
+        foreach ($form as $element) {
+            if ($element instanceof FieldsetInterface) {
+                $formContent.= $this->getView()->formCollection($element);
+            } else {
+                $formContent.= $this->getView()->formRow($element);
+            }
+        }	
 		//Close Tag
-		$html   .= $this->closeTag();
+		$html   .= $formContent . $this->closeTag();
 		return $html;
 	}
 	

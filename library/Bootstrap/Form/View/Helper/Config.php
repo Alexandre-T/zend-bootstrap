@@ -93,7 +93,11 @@ class Config implements ConfigInterface
 		$bootstrapUtil    = $this->bootstrapUtil;
 		$formUtil   = $this->formUtil;
 		return array(
-		      /*
+				'collection'                    => function($sm) use ($bootstrapUtil,$formUtil) {
+					$instance       = new Collection($bootstrapUtil,$formUtil);
+					return $instance;
+				},
+		    /*
 				'formactions'                    => function($sm) use ($formUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormActions($formUtil);
 					return $instance;
