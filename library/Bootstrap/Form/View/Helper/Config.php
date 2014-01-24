@@ -132,11 +132,11 @@ class Config implements ConfigInterface
 					$instance       = new \Bootstrap\Form\View\Helper\FormInput($formUtil);
 					return $instance;
 				},
-				'formlabel'                      => function($sm) use ($bootstrapUtil) {
+				'form_label'                      => function($sm) use ($bootstrapUtil) {
 					$formLabelHelper    = $sm->get('formLabel');
 					$instance           = new \Bootstrap\Form\View\Helper\FormLabel($formLabelHelper, $bootstrapUtil);
 					return $instance;
-				},
+				},/*
 				'formmulticheckbox'              => function($sm) use ($bootstrapUtil) {
 					$formMultiCheckboxHelper    = $sm->get('formMultiCheckbox');
 					$instance                   = new \Bootstrap\Form\View\Helper\FormMultiCheckbox(
@@ -169,8 +169,8 @@ class Config implements ConfigInterface
 					$instance       = new \Bootstrap\Form\View\Helper\FormSubmit($bootstrapUtil);
 					return $instance;
 				},
-				'formtext'                       => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormText($bootstrapUtil, $formUtil);
+				'formText'                       => function($sm) use ($bootstrapUtil, $formUtil) {
+					$instance       = new Text($bootstrapUtil, $formUtil);
 					return $instance;
 				},
 				'formtextarea'                   => function($sm) use ($bootstrapUtil, $formUtil) {

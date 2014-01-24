@@ -54,12 +54,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         
         $this->form = new Form();
+        
         $serviceManager = ServiceManagerFactory::getServiceManager();
         $application = $serviceManager->get('Application');
         $application->bootstrap();
-        // var_dump($serviceManager->getRegisteredServices());die();
-        $viewManager = $serviceManager->get('view_manager');
+        
         /* @var $viewManager \Zend\Mvc\View\Http\ViewManager */
+        $viewManager = $serviceManager->get('view_manager');
         $view = $viewManager->getRenderer();
         
         $this->formHelperBasic = new FormHelper(new Util(), new FormUtil());
