@@ -14,9 +14,12 @@ namespace Bootstrap\Form\View\Helper;
 
 use Bootstrap\Util;
 use Bootstrap\Form\Util as FormUtil;
+use Bootstrap\Form\View\Helper\Collection;
 
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceManager;
+//use Zend\Form\Fieldset;
+
 
 /**
  * Service manager configuration for form view helpers
@@ -113,10 +116,10 @@ class Config implements ConfigInterface
 				'formelementerrors'              => function($sm) use ($bootstrapUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormElementErrors($bootstrapUtil);
 					return $instance;
-				},*/
+				},
 				'fieldset'                   => function($sm) use ($bootstrapUtil, $formUtil) {
 					return new Fieldset($bootstrapUtil, $formUtil);
-				},/*
+				},
 				'formfile'                       => function($sm) use ($formUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormFile($formUtil);
 					return $instance;
