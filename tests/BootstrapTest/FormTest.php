@@ -234,7 +234,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderEntityForm(){
         $form = new CreateProduct();
-        echo $this->formHelperHorizontal->render($form);
+        $actual = $this->formHelperHorizontal->render($form);
+        $expected = file_get_contents('resources/entityForm.html',true);
+        $expected = sprintf($expected,$form->get('csrf')->getValue());
+        $this->assertEquals($expected, $actual);
     }
     
 
