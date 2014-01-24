@@ -33,12 +33,6 @@ class Form extends ViewHelperForm implements HelperInterface {
 	);
 	
 	/**
-	 * Bootstrap utils
-	 * @var Util
-	 */
-	protected $bootstrapUtil;
-	
-	/**
 	 * @var FormUtil
 	 */
 	protected $formUtil;
@@ -48,8 +42,7 @@ class Form extends ViewHelperForm implements HelperInterface {
 	 * @param \Bootstrap\Util $genUtil
 	 * @param \Bootstrap\Form\FormUtil $formUtil
 	 */
-	public function __construct(Util $genUtil, FormUtil $formUtil) {
-		$this->bootstrapUtil  = $genUtil;
+	public function __construct(FormUtil $formUtil) {
 		$this->formUtil = $formUtil;
 	}
 	
@@ -126,14 +119,14 @@ class Form extends ViewHelperForm implements HelperInterface {
 		//Add the good Class Attribute
 		if ($form) {
 		    //remove all formTypeMap
-		    $class  = $this->bootstrapUtil->removeWords($this->formTypeMap, $form->getAttribute('class'));
+		    $class  = Util::removeWords($this->formTypeMap, $form->getAttribute('class'));
 		    //add selected formTypeMap
-			$class  = $this->bootstrapUtil->addWords($this->formTypeMap[$formType], $class);
+			$class  = Util::addWords($this->formTypeMap[$formType], $class);
 			if (array_key_exists('class', $displayOptions)) {
-				$class  = $this->bootstrapUtil->addWords($displayOptions['class'], $class);
+				$class  = Util::addWords($displayOptions['class'], $class);
 			}
 			$escapeHtmlAttrHelper   = $this->getEscapeHtmlAttrHelper();
-			$class                  = $this->bootstrapUtil->escapeWords($class, $escapeHtmlAttrHelper);
+			$class                  = Util::escapeWords($class, $escapeHtmlAttrHelper);
 			$form->setAttribute('class', $class);
 		}
 		return parent::openTag($form);

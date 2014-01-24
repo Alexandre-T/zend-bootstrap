@@ -63,10 +63,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $viewManager = $serviceManager->get('view_manager');
         $view = $viewManager->getRenderer();
         
-        $this->formHelperBasic = new FormHelper(new Util(), new FormUtil());
-        $this->formHelperHorizontal = new FormHelper(new Util(), new FormUtil(FormUtil::FORM_TYPE_HORIZONTAL));
-        $this->formHelperVertical = new FormHelper(new Util(), new FormUtil(FormUtil::FORM_TYPE_VERTICAL));
-        $this->formHelperInline = new FormHelper(new Util(), new FormUtil(FormUtil::FORM_TYPE_INLINE));
+        $this->formHelperBasic = new FormHelper(new FormUtil());
+        $this->formHelperHorizontal = new FormHelper(new FormUtil(FormUtil::FORM_TYPE_HORIZONTAL));
+        $this->formHelperVertical = new FormHelper(new FormUtil(FormUtil::FORM_TYPE_VERTICAL));
+        $this->formHelperInline = new FormHelper(new FormUtil(FormUtil::FORM_TYPE_INLINE));
         
         $this->formHelperBasic->setView($view);
         $this->formHelperHorizontal->setView($view);

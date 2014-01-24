@@ -13,9 +13,8 @@ class ViewHelperConfigFactory implements FactoryInterface{
 	 * @see \Zend\ServiceManager\FactoryInterface::createService()
 	 */
 	public function createService(ServiceLocatorInterface $serviceLocator) {
-        $bootstrapUtil = new Util();		
         $formUtil = new FormUtil();
-		return new Config($bootstrapUtil, $formUtil);
+		return new Config($formUtil);
 	}
     
 }

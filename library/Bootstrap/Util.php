@@ -25,20 +25,20 @@ class Util {
 	 * @throws Exception\InvalidParameterTypeException
 	 * @return string
 	 */
-	public function addWords($words, $text)
+	public static function addWords($words, $text)
 	{
 		$text   = (string)$text;
 		if (is_null($words)) {
 			$words  = '';
 		}
 		if (is_string($words)) {
-			$words  = $this->getWordsArray($words);
+			$words  = self::getWordsArray($words);
 		}
 		if (!is_array($words)) {
 			throw new InvalidParameterTypeException(sprintf("%s expects either a string or an array as the 'spec' parameter.", __METHOD__));
 		}
-		$currentWords       = $this->getWordsArray($text);
-		$currentWordsLower  = $this->getWordsArray(strtolower($text));
+		$currentWords       = self::getWordsArray($text);
+		$currentWordsLower  = self::getWordsArray(strtolower($text));
 		foreach ($words as $word) {
 			$wordLower  = strtolower($word);
 			if (!in_array($wordLower, $currentWordsLower)) {
@@ -58,20 +58,20 @@ class Util {
 	 * @throws Exception\InvalidParameterTypeException
 	 * @return string
 	 */
-	public function removeWords($words, $text)
+	public static function removeWords($words, $text)
 	{
 		$text   = (string)$text;
 		if (is_null($words)) {
 			return $text;
 		}
 		if (is_string($words)) {
-			$words  = $this->getWordsArray($words);
+			$words  = self::getWordsArray($words);
 		}
 		if (!is_array($words)) {
 			throw new InvalidParameterTypeException(sprintf("%s expects either a string or an array as the 'spec' parameter.", __METHOD__));
 		}
-		$currentWords       = $this->getWordsArray($text);
-		$currentWordsLower  = $this->getWordsArray(strtolower($text));
+		$currentWords       = self::getWordsArray($text);
+		$currentWordsLower  = self::getWordsArray(strtolower($text));
 		foreach ($words as $word) {
 			$wordLower  = strtolower($word);
 			$key = array_search($wordLower, $currentWordsLower);
@@ -92,13 +92,13 @@ class Util {
 	 * @param string $key
 	 * @return array
 	 */
-	public function addWordsToArrayItem($words, array $ay, $key)
+	public static function addWordsToArrayItem($words, array $ay, $key)
 	{
 		if (!array_key_exists($key, $ay)) {
 			$ay[$key]   = '';
 		}
 		$text       = $ay[$key];
-		$text       = $this->addWords($words, $text);
+		$text       = self::addWords($words, $text);
 		$ay[$key]   = $text;
 		return $ay;
 	}
@@ -111,12 +111,12 @@ class Util {
 	 * @return string
 	 * @throws Exception\InvalidParameterException
 	 */
-	public function escapeWords($words, $escaper)
+	public static function escapeWords($words, $escaper)
 	{
 		if (!is_callable($escaper)) {
 			throw new InvalidParameterException(sprintf('%s: The escaper must be a callable.', __METHOD__));
 		}
-		$wordsAy    = $this->getWordsArray($words);
+		$wordsAy    = self::getWordsArray($words);
 		foreach ($wordsAy as $key => $word) {
 			$wordsAy[$key]  = $escaper($word);
 		}
@@ -129,16 +129,16 @@ class Util {
 	 * @param string $words
 	 * @return array
 	 */
-	public function getWordsArray($words)
+	public static function getWordsArray($words)
 	{
-		$words      = $this->singleSpace($words);
+		$words      = self::singleSpace($words);
 		if (empty($words)) {
 			$wordsAy    = array();
 		} else {
 			$wordsAy    = explode(' ', $words);
 		}
 		//remove duplicates value and sort
-		$wordsAy = $this->_arrayIUnique($wordsAy);
+		$wordsAy = self::_arrayIUnique($wordsAy);
 		
 		return $wordsAy;
 	}
@@ -149,7 +149,7 @@ class Util {
 	 * @return string
 	 * @throws Exception\InvalidParameterTypeException
 	 */
-	public function singleSpace($words)
+	public static function singleSpace($words)
 	{
 		if (is_null($words)) {
 			$words  = '';
@@ -162,7 +162,7 @@ class Util {
 		return $words;
 	}
 	
-	private function _arrayIUnique($array) {
+	private static function _arrayIUnique($array) {
 		return array_intersect_key(
 				$array,
 				array_unique(array_map('strtolower',$array))

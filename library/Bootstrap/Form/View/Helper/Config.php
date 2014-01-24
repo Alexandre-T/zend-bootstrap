@@ -59,9 +59,8 @@ class Config implements ConfigInterface
 	 * @param BootstrapUtil $bootstrapUtil
 	 * @param FormUtil $formUtil
 	 */
-	public function __construct(Util $bootstrapUtil, FormUtil $formUtil)
+	public function __construct(FormUtil $formUtil)
 	{
-		$this->bootstrapUtil  = $bootstrapUtil;
 		$this->formUtil = $formUtil;
 	}
 
@@ -93,15 +92,14 @@ class Config implements ConfigInterface
 	 */
 	protected function getFactories()
 	{
-		$bootstrapUtil    = $this->bootstrapUtil;
 		$formUtil   = $this->formUtil;
 		return array(
-				'collection'                    => function($sm) use ($bootstrapUtil,$formUtil) {
-					$instance       = new Collection($bootstrapUtil,$formUtil);
+				'collection'                    => function($sm) use ($formUtil) {
+					$instance       = new Collection($formUtil);
 					return $instance;
 				},
-				'row'                    => function($sm) use ($bootstrapUtil,$formUtil) {
-					$instance       = new Row($bootstrapUtil,$formUtil);
+				'row'                    => function($sm) use ($formUtil) {
+					$instance       = new Row($formUtil);
 					return $instance;
 				},
 		    /*
@@ -177,8 +175,8 @@ class Config implements ConfigInterface
 					$instance       = new \Bootstrap\Form\View\Helper\FormTextarea($bootstrapUtil, $formUtil);
 					return $instance;
 				},*/
-				'form'                           => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\Form($bootstrapUtil, $formUtil);
+				'form'                           => function($sm) use ($formUtil) {
+					$instance       = new \Bootstrap\Form\View\Helper\Form($formUtil);
 					return $instance;
 				},
 		);

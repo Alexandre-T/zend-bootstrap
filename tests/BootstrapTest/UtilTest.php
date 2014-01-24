@@ -24,19 +24,12 @@ class UtilTest extends \PHPUnit_Framework_TestCase
     protected $correct      = 'one two three Four five Six seven Eight nine ten';
     
     /**
-     *
-     * @var Util
-     */
-    private $Util;
-
-    /**
      * Prepares the environment before running a test.
      */
     protected function setUp()
     {
         parent::setUp();
         
-        $this->Util = new Util();
     }
 
     /**
@@ -64,7 +57,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
         
         $newWords           = "      alpha  three     six   beta \n gamma     nine \t\t    alpha   delta \r  ";
         $correct            = $this->correct . ' alpha beta gamma delta';
-        $combined           = $this->Util->addWords($newWords, $this->words);
+        $combined           = Util::addWords($newWords, $this->words);
         $this->assertEquals($correct, $combined);
         
     }
@@ -77,7 +70,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
     
     	$toRemovedWords     = "      alpha  three     six   beta \n gamma  nine   nine \t\t    alpha   delta \r  ";
     	$correct            = "one two Four five seven Eight ten";
-    	$combined           = $this->Util->RemoveWords($toRemovedWords, $this->words);
+    	$combined           = Util::RemoveWords($toRemovedWords, $this->words);
     	$this->assertEquals($correct, $combined);
     
     }
@@ -99,7 +92,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
             'my'        => $this->correct . ' alpha beta gamma delta',
             'b'         => 'bar',
         );
-        $combined   = $this->Util->addWordsToArrayItem($newWords, $ay, 'my');
+        $combined   = Util::addWordsToArrayItem($newWords, $ay, 'my');
         $this->assertEquals($correct, $combined);
     }
 
@@ -111,7 +104,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
         $escaper    = new EscapeHtmlAttr();
         $words      = "   \n  mon&day  tues<da>y     wed\"nesday thu'rsday    fri\\day     ";
         $correct    = 'mon&amp;day tues&lt;da&gt;y wed&quot;nesday thu&#x27;rsday fri&#x5C;day';
-        $escaped    = $this->Util->escapeWords($words, $escaper);
+        $escaped    = Util::escapeWords($words, $escaper);
         $this->assertEquals($correct, $escaped);
     }
 
@@ -121,7 +114,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
     public function testGetWordsArray()
     {
         $correct    = array(0=>'one', 2=>'two', 3=>'three', 4=>'Four', 5=>'five', 6=>'Six', 7=>'seven', 8=>'Eight', 9=>'nine', 10=>'ten');
-        $wordsArray = $this->Util->getWordsArray($this->words);
+        $wordsArray = Util::getWordsArray($this->words);
         $this->assertEquals($correct, $wordsArray);
     }
 
@@ -130,7 +123,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
      */
     public function testSingleSpace()
     {
-        $singleSpaced   = $this->Util->singleSpace($this->words);
+        $singleSpaced   = Util::singleSpace($this->words);
         $expected = "one ONE two three Four five Six seven Eight nine ten";
         $this->assertEquals($expected, $singleSpaced);
     }
