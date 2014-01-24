@@ -8,7 +8,7 @@
 		<env name="ZF2_PATH" value="/home/alexandre/Zend/workspaces/DefaultWorkspace/gmao/vendor/zendframework/zendframework/library/"/>
 	</php>
 	<testsuites>
-		<testsuite name="BootstrapTestSuite">
+		<testsuite>
 			<directory>./BootstrapTest</directory>
 		</testsuite>
 	</testsuites>
