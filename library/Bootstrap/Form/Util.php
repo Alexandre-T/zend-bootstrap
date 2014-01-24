@@ -3,6 +3,7 @@
 namespace Bootstrap\Form;
 
 use Bootstrap\Exception\InvalidParameterException;
+use Zend\Form\FormInterface;
 /**
  *
  * @author alexandre
@@ -105,6 +106,17 @@ class Util {
 			throw new InvalidParameterException(sprintf("Form type '%s' is not supported.", $formType));
 		}
 		return $formType;
+	}
+	
+	public function positionLabel($formType){
+	    if (is_null($formType)) {
+	    	$formType   = $this->getDefaultFormType();
+	    }
+	    if (!$this->isFormTypeSupported($formType)) {
+	    	throw new InvalidParameterException(sprintf("Form type '%s' is not supported.", $formType));
+	    }
+	    //@FIXME
+	    return $formType;
 	}
 	
 }
