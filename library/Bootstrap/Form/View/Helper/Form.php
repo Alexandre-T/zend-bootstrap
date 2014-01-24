@@ -100,7 +100,7 @@ class Form extends ViewHelperForm implements HelperInterface {
             if ($element instanceof FieldsetInterface) {
                 $formContent.= $this->getView()->collection($element);
             } else {
-                $formContent.= $this->getView()->formRow($element);
+                $formContent.= $this->getView()->row($element);
             }
         }	
 		//Close Tag

@@ -5,6 +5,7 @@ return array(
   'Bootstrap\Form\View\Helper\Collection'                 => __DIR__ . '/library/Bootstrap/Form/View/Helper/Collection.php',
   'Bootstrap\Form\View\Helper\Config'                     => __DIR__ . '/library/Bootstrap/Form/View/Helper/Config.php',
   'Bootstrap\Form\View\Helper\Form'                       => __DIR__ . '/library/Bootstrap/Form/View/Helper/Form.php',
+  'Bootstrap\Form\View\Helper\Row'                        => __DIR__ . '/library/Bootstrap/Form/View/Helper/Row.php',
   'Bootstrap\Form\Exception\UnsupportedFormTypeException' => __DIR__ . '/library/Bootstrap/Form/Exception/UnsupportedFormTypeException.php',
   'Bootstrap\Util'                                        => __DIR__ . '/library/Bootstrap/Util.php',
   'Bootstrap\Form'                                        => __DIR__ . '/library/Bootstrap/Form.php',

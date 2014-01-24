@@ -100,6 +100,10 @@ class Config implements ConfigInterface
 					$instance       = new Collection($bootstrapUtil,$formUtil);
 					return $instance;
 				},
+				'row'                    => function($sm) use ($bootstrapUtil,$formUtil) {
+					$instance       = new Row($bootstrapUtil,$formUtil);
+					return $instance;
+				},
 		    /*
 				'formactions'                    => function($sm) use ($formUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormActions($formUtil);
