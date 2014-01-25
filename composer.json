@@ -1,10 +1,10 @@
 {
     "name": "alexandre-t/zend-bootstrap",
     "type": "library",
-    "description": "Form for Bootstrap CSS with Zend_Form",
+    "description": "Form View Helpers for Bootstrap CSS with Zend Form",
     "keywords": ["form","zend_form","css","Twitter","Bootstrap"],
     "version": "0.0.1",
-    "license": "MIT",
+    "license": "License Apache v2",
     "homepage": "https://github.com/Alexandre-T/zend-bootstrap",
     "require": {
         "zendframework/zendframework": "2.2.*",
