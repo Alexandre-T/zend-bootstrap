@@ -1,15 +1,16 @@
 <?php
-
+namespace BootstrapTest;
 use Bootstrap\Form\View\Helper\Row;
 use Zend\Form\Element\Text;
 use BootstrapTest\Util\ServiceManagerFactory;
 use Zend\View\Renderer\ConsoleRenderer;
+use Bootstrap\Form\Util;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
  * Row test case.
  */
-class RowTest extends PHPUnit_Framework_TestCase
+class RowTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -39,7 +40,7 @@ class RowTest extends PHPUnit_Framework_TestCase
         
         $this->elementText = new Text('text-name');
 
-        $this->rowHelper = new Row();
+        $this->rowHelper = new Row(new Util());
         $this->rowHelper->setView($view);
     }
 

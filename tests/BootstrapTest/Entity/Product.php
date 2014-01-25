@@ -1,6 +1,8 @@
 <?php 
 namespace BootstrapTest\Entity;
 
+use BootstrapTest\Entity\Brand;
+
  class Product
  {
      /**

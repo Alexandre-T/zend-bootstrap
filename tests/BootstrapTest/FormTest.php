@@ -2,7 +2,6 @@
 namespace BootstrapTest;
 
 use Bootstrap\Form\View\Helper\Form as FormHelper;
-use Bootstrap\Util;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\Form;
 use BootstrapTest\Util\ServiceManagerFactory;
@@ -109,6 +108,18 @@ class FormTest extends \PHPUnit_Framework_TestCase
      */
     public function test__invoke()
     {
+        //is_callable
+        $this->assertTrue(is_callable($this->formHelperBasic));
+        $this->assertTrue(is_callable($this->formHelperHorizontal));
+        $this->assertTrue(is_callable($this->formHelperInline));
+        $this->assertTrue(is_callable($this->formHelperVertical));
+        
+        //Callable Object
+        $basic = $this->formHelperBasic;
+        $horizontal = $this->formHelperHorizontal;
+        $vertical = $this->formHelperVertical;
+        $inline = $this->formHelperInline;
+        
         // no-elements
         $this->assertSame($this->formHelperBasic, $this->formHelperBasic->__invoke());
         $this->assertSame($this->formHelperHorizontal, $this->formHelperHorizontal->__invoke());
@@ -119,39 +130,43 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $expected = '<form action="" method="POST" class=""></form>';
         $actual = $this->formHelperBasic->__invoke($this->form);
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $basic($this->form));
         
         $expected = '<form action="" method="POST" class="form-horizontal"></form>';
         $actual = $this->formHelperHorizontal->__invoke($this->form);
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $horizontal($this->form));
         
         $expected = '<form action="" method="POST" class="form-vertical"></form>';
         $actual = $this->formHelperVertical->__invoke($this->form);
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $vertical($this->form));
         
         $expected = '<form action="" method="POST" class="form-inline"></form>';
         $actual = $this->formHelperInline->__invoke($this->form);
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $inline($this->form));
         
         // two-elements basic
         $expected = '<form action="" method="POST" class=""></form>';
         $actual = $this->formHelperBasic->__invoke($this->form, 'basic');
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $basic($this->form,'basic'));
         
         $expected = '<form action="" method="POST" class=""></form>';
         $actual = $this->formHelperVertical->__invoke($this->form, 'basic');
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $vertical($this->form,'basic'));
         
         $expected = '<form action="" method="POST" class="form-vertical"></form>';
         $actual = $this->formHelperBasic->__invoke($this->form, 'vertical');
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $basic($this->form,'vertical'));
         
         $expected = '<form action="" method="POST" class="form-vertical"></form>';
         $actual = $this->formHelperVertical->__invoke($this->form, 'vertical');
         $this->assertEquals($expected, $actual);
-        
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
-        $actual = $this->formHelperVertical->__invoke($this->form, 'vertical');
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $vertical($this->form,'vertical'));
         
         // three elements
         // $this->markTestIncomplete("__invoke test not implemented with 3 elements");

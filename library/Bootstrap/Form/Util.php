@@ -3,7 +3,6 @@
 namespace Bootstrap\Form;
 
 use Bootstrap\Exception\InvalidParameterException;
-use Zend\Form\FormInterface;
 /**
  *
  * @author alexandre
@@ -52,12 +51,20 @@ class Util {
 	protected $defaultFormType = self::FORM_TYPE_BASIC;
 	
 	/**
+	 * Override the DefaultZendViewHelper
+	 * 
+	 * @var boolean
+	 */
+	protected $overrideZendHelper = true;
+	
+	/**
 	 * Constructor
 	 * @param string|null $defaultFormType
 	 */
-	public function __construct($defaultFormType = self::FORM_TYPE_BASIC)
+	public function __construct($defaultFormType = self::FORM_TYPE_BASIC,$override = true)
 	{
 		$this->setDefaultFormType($defaultFormType);
+		$this->overrideZendHelper = (boolean)$override;
 	}
 	
 	/**
@@ -118,6 +125,20 @@ class Util {
 	    //@FIXME
 	    return $formType;
 	}
+	/**
+	 * @return the $override
+	 */
+	public function getOverride() {
+		return $this->overrideZendHelper;
+	}
+
+	/**
+	 * @param boolean $override
+	 */
+	public function setOverride($override = true) {
+		$this->overrideZendHelper = (boolean)$override;
+	}
+
 	
 }
 

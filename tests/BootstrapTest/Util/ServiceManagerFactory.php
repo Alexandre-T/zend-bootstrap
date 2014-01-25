@@ -38,7 +38,7 @@ class ServiceManagerFactory
         );
         $serviceManager->setFactory(
             'bootstrap_view_helper_configurator', 
-            'BootstrapTest\Util\ViewHelperConfigFactory'
+            'BootstrapTest\Util\ViewHelperConfigOverrideFactory'
         );
         /** @var $moduleManager \Zend\ModuleManager\ModuleManager */
         $moduleManager = $serviceManager->get('ModuleManager');

@@ -35,21 +35,25 @@ class FormUtilTest extends \PHPUnit_Framework_TestCase
         $formUtil = new Util();
         $expected = Util::FORM_TYPE_BASIC;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
+        $this->assertTrue($formUtil->getOverride());
         $formUtil = new Util(Util::FORM_TYPE_BASIC);
         $expected = Util::FORM_TYPE_BASIC;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
+        $this->assertTrue($formUtil->getOverride());
         $formUtil = new Util(Util::FORM_TYPE_HORIZONTAL);
         $expected = Util::FORM_TYPE_HORIZONTAL;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
         $formUtil = new Util(Util::FORM_TYPE_VERTICAL);
         $expected = Util::FORM_TYPE_VERTICAL;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
-        $formUtil = new Util(Util::FORM_TYPE_INLINE);
+        $formUtil = new Util(Util::FORM_TYPE_INLINE,false);
         $expected = Util::FORM_TYPE_INLINE;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
-        $formUtil = new Util('foobar');
+        $this->assertFalse($formUtil->getOverride());
+        $formUtil = new Util('foobar','foobar');
         $expected = Util::FORM_TYPE_BASIC;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
+        $this->assertTrue($formUtil->getOverride());
     }
 
     /**
@@ -112,6 +116,33 @@ class FormUtilTest extends \PHPUnit_Framework_TestCase
         
     }
 
+    
+    /**
+     * Tests Util->getOverride()
+     */
+    public function testGetOverride()
+    {
+        $this->assertTrue($this->formUtil->getOverride());
+        $this->formUtil->setOverride(false);
+        $this->assertFalse($this->formUtil->getOverride());
+    }
+    
+    /**
+     * Tests Util->getOverride()
+     */
+    public function testSetOverride()
+    {
+        $this->formUtil->setOverride(false);
+        $this->assertFalse($this->formUtil->getOverride());
+        $this->formUtil->setOverride(true);
+        $this->assertTrue($this->formUtil->getOverride());
+        $this->formUtil->setOverride();
+        $this->assertTrue($this->formUtil->getOverride());
+        $this->formUtil->setOverride('foobar');
+        $this->assertTrue($this->formUtil->getOverride());
+        
+    }
+    
     /**
      * Tests Util->filterFormType()
      */

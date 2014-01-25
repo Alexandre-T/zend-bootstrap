@@ -36,14 +36,24 @@ class Config implements ConfigInterface
 	 * @var array Pre-aliased view helpers
 	 */
 	protected $invokables = array(
-//			'formcontrolgroup'                   => 'Bootstrap\Form\View\Helper\FormControlGroup',
+			'bsgroup'         => 'Bootstrap\Form\View\Helper\Group',
+			'bshelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
 //			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
 //			'formhidden'                         => 'Bootstrap\Form\View\Helper\FormHidden',
 //			'formhint'                           => 'Bootstrap\Form\View\Helper\FormHint',
 	);
-
+	protected $overrideInvokables = array(
+			'formgroup'         => 'Bootstrap\Form\View\Helper\Group',
+			'formhelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
+//			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
+//			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
+//			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
+//			'formhidden'                         => 'Bootstrap\Form\View\Helper\FormHidden',
+//			'formhint'                           => 'Bootstrap\Form\View\Helper\FormHint',
+	);
+	
 	/**
 	 * @var Util
 	*/
@@ -80,6 +90,13 @@ class Config implements ConfigInterface
 		foreach ($this->invokables as $name => $service) {
 			$serviceManager->setInvokableClass($name, $service);
 		}
+		if ($this->formUtil->getOverride()){
+		    $serviceManager->setAllowOverride(true);
+		    
+		    foreach ($this->overrideInvokables as $name => $service) {
+		    	$serviceManager->setInvokableClass($name, $service);
+		    }
+		}
 		$factories  = $this->getFactories();
 		foreach ($factories as $name => $factory) {
 			$serviceManager->setFactory($name, $factory);
@@ -93,12 +110,12 @@ class Config implements ConfigInterface
 	protected function getFactories()
 	{
 		$formUtil   = $this->formUtil;
-		return array(
-				'collection'                    => function($sm) use ($formUtil) {
+		$results = array(
+				'collection'    => function($sm) use ($formUtil) {
 					$instance       = new Collection($formUtil);
 					return $instance;
 				},
-				'row'                    => function($sm) use ($formUtil) {
+				'row'           => function($sm) use ($formUtil) {
 					$instance       = new Row($formUtil);
 					return $instance;
 				},
@@ -129,10 +146,10 @@ class Config implements ConfigInterface
 				'forminput'                      => function($sm) use ($formUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormInput($formUtil);
 					return $instance;
-				},
-				'form_label'                      => function($sm) use ($bootstrapUtil) {
-					$formLabelHelper    = $sm->get('formLabel');
-					$instance           = new \Bootstrap\Form\View\Helper\FormLabel($formLabelHelper, $bootstrapUtil);
+				},*/
+				'label'                      => function($sm) use ($formUtil) {
+					//$formLabelHelper    = $sm->get('formLabel');
+					$instance           = new Label($formUtil);
 					return $instance;
 				},/*
 				'formmulticheckbox'              => function($sm) use ($bootstrapUtil) {
@@ -153,10 +170,6 @@ class Config implements ConfigInterface
 				},
 				'formreset'                      => function($sm) use ($bootstrapUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormReset($bootstrapUtil);
-					return $instance;
-				},
-				'formrow'                        => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormRow($bootstrapUtil, $formUtil);
 					return $instance;
 				},
 				'formselect'                     => function($sm) use ($bootstrapUtil, $formUtil) {
@@ -180,5 +193,15 @@ class Config implements ConfigInterface
 					return $instance;
 				},
 		);
+		$factories = array();
+		foreach ($results as $name => $factory){
+		    $factories['bs'.$name] = $factory;
+		    if ('form' == $name && $formUtil->getOverride()){
+		        $factories[$name] = $factory;
+		    }elseif($formUtil->getOverride()){
+		        $factories['form'.$name] = $factory;
+		    }
+		}
+		return $factories;
 	}
 }

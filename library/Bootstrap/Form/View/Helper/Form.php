@@ -91,9 +91,9 @@ class Form extends ViewHelperForm implements HelperInterface {
 
         foreach ($form as $element) {
             if ($element instanceof FieldsetInterface) {
-                $formContent.= $this->getView()->collection($element);
+                $formContent.= $this->getView()->bscollection($element);
             } else {
-                $formContent.= $this->getView()->row($element);
+                $formContent.= $this->getView()->bsrow($element);
             }
         }	
 		//Close Tag
