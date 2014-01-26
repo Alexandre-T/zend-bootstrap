@@ -48,7 +48,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    protected function setUp ()
     {
         parent::setUp();
         
@@ -63,9 +63,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $view = $viewManager->getRenderer();
         
         $this->formHelperBasic = new FormHelper(new FormUtil());
-        $this->formHelperHorizontal = new FormHelper(new FormUtil(FormUtil::FORM_TYPE_HORIZONTAL));
-        $this->formHelperVertical = new FormHelper(new FormUtil(FormUtil::FORM_TYPE_VERTICAL));
-        $this->formHelperInline = new FormHelper(new FormUtil(FormUtil::FORM_TYPE_INLINE));
+        $this->formHelperHorizontal = new FormHelper(
+                new FormUtil(FormUtil::FORM_TYPE_HORIZONTAL));
+        $this->formHelperVertical = new FormHelper(
+                new FormUtil(FormUtil::FORM_TYPE_VERTICAL));
+        $this->formHelperInline = new FormHelper(
+                new FormUtil(FormUtil::FORM_TYPE_INLINE));
         
         $this->formHelperBasic->setView($view);
         $this->formHelperHorizontal->setView($view);
@@ -76,7 +79,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown()
+    protected function tearDown ()
     {
         $this->formHelperBasic = null;
         $this->formHelperHorizontal = null;
@@ -89,7 +92,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     /**
      * Constructs the test case.
      */
-    public function __construct()
+    public function __construct ()
     {
         // TODO Auto-generated constructor
     }
@@ -97,34 +100,39 @@ class FormTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Form->__construct()
      */
-    public function test__construct()
+    public function test__construct ()
     {
         $this->form = new Form();
-        $this->assertEquals('Bootstrap\Form\View\Helper\Form', get_class($this->formHelperBasic));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Form', 
+                get_class($this->formHelperBasic));
     }
 
     /**
      * Tests Form->__invoke()
      */
-    public function test__invoke()
+    public function test__invoke ()
     {
-        //is_callable
+        // is_callable
         $this->assertTrue(is_callable($this->formHelperBasic));
         $this->assertTrue(is_callable($this->formHelperHorizontal));
         $this->assertTrue(is_callable($this->formHelperInline));
         $this->assertTrue(is_callable($this->formHelperVertical));
         
-        //Callable Object
+        // Callable Object
         $basic = $this->formHelperBasic;
         $horizontal = $this->formHelperHorizontal;
         $vertical = $this->formHelperVertical;
         $inline = $this->formHelperInline;
         
         // no-elements
-        $this->assertSame($this->formHelperBasic, $this->formHelperBasic->__invoke());
-        $this->assertSame($this->formHelperHorizontal, $this->formHelperHorizontal->__invoke());
-        $this->assertSame($this->formHelperInline, $this->formHelperInline->__invoke());
-        $this->assertSame($this->formHelperVertical, $this->formHelperVertical->__invoke());
+        $this->assertSame($this->formHelperBasic, 
+                $this->formHelperBasic->__invoke());
+        $this->assertSame($this->formHelperHorizontal, 
+                $this->formHelperHorizontal->__invoke());
+        $this->assertSame($this->formHelperInline, 
+                $this->formHelperInline->__invoke());
+        $this->assertSame($this->formHelperVertical, 
+                $this->formHelperVertical->__invoke());
         
         // one element
         $expected = '<form action="" method="POST" class=""></form>';
@@ -151,41 +159,43 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $expected = '<form action="" method="POST" class=""></form>';
         $actual = $this->formHelperBasic->__invoke($this->form, 'basic');
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $basic($this->form,'basic'));
+        $this->assertEquals($expected, $basic($this->form, 'basic'));
         
         $expected = '<form action="" method="POST" class=""></form>';
         $actual = $this->formHelperVertical->__invoke($this->form, 'basic');
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $vertical($this->form,'basic'));
+        $this->assertEquals($expected, $vertical($this->form, 'basic'));
         
         $expected = '<form action="" method="POST" class="form-vertical"></form>';
         $actual = $this->formHelperBasic->__invoke($this->form, 'vertical');
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $basic($this->form,'vertical'));
+        $this->assertEquals($expected, $basic($this->form, 'vertical'));
         
         $expected = '<form action="" method="POST" class="form-vertical"></form>';
         $actual = $this->formHelperVertical->__invoke($this->form, 'vertical');
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $vertical($this->form,'vertical'));
+        $this->assertEquals($expected, $vertical($this->form, 'vertical'));
         
         // three elements
-        // $this->markTestIncomplete("__invoke test not implemented with 3 elements");
+        // $this->markTestIncomplete("__invoke test not implemented with 3
+        // elements");
     }
 
     /**
      * Tests Form->__invoke()
      */
-    public function test__InvokeException()
+    public function test__InvokeException ()
     {
         // throwed exception ?
-        $this->setExpectedException('Bootstrap\Exception\InvalidParameterException');
+        $this->setExpectedException(
+                'Bootstrap\Exception\InvalidParameterException');
         $this->formHelperBasic->__invoke($this->form, 'foobar');
     }
 
     /**
      * Tests Form->render()
      */
-    public function testRender()
+    public function testRender ()
     {
         $expected = '<form action="" method="POST" class=""></form>';
         $actual = $this->formHelperBasic->render($this->form);
@@ -213,54 +223,119 @@ class FormTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Form->render() with a complex Form
      */
-    public function testRenderComplexForm()
+    public function testRenderComplexForm ()
     {
         $this->form->setName('my-form-name');
-        $this->form->setAttributes(array(
-            'id' => 'form-id',
-            'role' => 'role',
-            'accesskey' => 'c',
-            'foo' => 'bar',
-            'class' => 'form-class'
-        ));
+        $this->form->setAttributes(
+                array(
+                        'id' => 'form-id',
+                        'role' => 'role',
+                        'accesskey' => 'c',
+                        'foo' => 'bar',
+                        'class' => 'form-class'
+                ));
         
         $actual = $this->formHelperVertical->render($this->form);
         // must contained them
         $matcher = array(
-            'id' => 'form-id',
-            'attributes' => array(
-                'role' => 'role',
-                'accesskey' => 'c',
-                'class' => 'form-class form-vertical'
-            ),
-            'tag' => 'form'
+                'id' => 'form-id',
+                'attributes' => array(
+                        'role' => 'role',
+                        'accesskey' => 'c',
+                        'class' => 'form-class form-vertical'
+                ),
+                'tag' => 'form'
         );
         $this->assertTag($matcher, $actual);
-        //shouldn't contain them        
+        // shouldn't contain them
         $matcher = array(
-            'attributes' => array(
-                'foo' => 'bar',
-            )
+                'attributes' => array(
+                        'foo' => 'bar'
+                )
         );
-        $this->assertNotTag($matcher,$actual);
+        $this->assertNotTag($matcher, $actual);
     }
-    
+
     /**
      * Tests Form->render() with a complex Form
      */
-    public function testRenderEntityForm(){
+    public function testRenderEntityForm ()
+    {
         $form = new CreateProduct();
         $actual = $this->formHelperHorizontal->render($form);
-        $expected = file_get_contents('resources/entityForm.html',true);
-        $expected = sprintf($expected,$form->get('csrf')->getValue());
+        $expected = file_get_contents('resources/entityForm.html', true);
+        $expected = preg_replace('/\s+/', ' ', $expected);
+        $expected = preg_replace('/> </', '><', $expected);
+        $expected = sprintf($expected, $form->get('csrf')->getValue());
         $this->assertEquals($expected, $actual);
     }
-    
+
+    /**
+     * Tests Form->render() with a complex Form
+     */
+    public function testRenderFormBasic ()
+    {
+        $this->markTestSkipped('Some Element Helper must be developped');
+        $form = new Form('form-basic');
+        $form->setAttribute('role', 'form');
+        $form->add(
+                array(
+                        'name' => 'exampleInputEmail1',
+                        'options' => array(
+                                'label' => 'Email address',
+                                'type' => 'email'
+                        ),
+                        'attributes' => array(
+                                'placeholder' => 'Enter email'
+                        )
+                ));
+        $form->add(
+        		array(
+        				'name' => 'exampleInputPassword1',
+        				'options' => array(
+        						'label' => 'Password',
+        						'type' => 'password'
+        				),
+        				'attributes' => array(
+        						'placeholder' => 'Enter password'
+        				)
+        		)
+        );
+        $form->add(
+        		array(
+        				'name' => 'exampleInputFile',
+        				'options' => array(
+        						'label' => 'File input',
+        						'type' => 'file',
+        				        'help' => 'Example block-level help text here.'
+        				),
+        				'attributes' => array(
+        				)
+        		)
+        );
+        $form->add(array(
+            'name' => 'submit',
+            'attributes' => array(
+                'type' => 'submit',
+                'value' => 'Send'
+            )
+        ));
+        /*
+         * $this->add(array( 'name' => 'name', 'options' => array( 'label' =>
+         * 'Name of the brand', ), 'attributes' => array( 'required' =>
+         * 'required', ), ));
+         */
+        $actual = $this->formHelperBasic->render($form);
+        $expected = file_get_contents('resources/form-basic.html', true);
+        $expected = preg_replace('/\s+/', ' ', $expected);
+        $expected = preg_replace('/> </', '><', $expected);
+        $this->assertEquals($expected, $actual);
+    }
 
     /**
      * Tests Form->openTag()
      */
-    public function testOpenTag()
+    public function testOpenTag ()
     {
         // without element
         $expected = '<form action="" method="get">';
@@ -307,37 +382,42 @@ class FormTest extends \PHPUnit_Framework_TestCase
         
         // three-elements
         $expected = '<form action="" method="POST" class="">';
-        $actual = $this->formHelperBasic->openTag($this->form, 'basic', array(
-            'id' => 'form-id'
-        ));
+        $actual = $this->formHelperBasic->openTag($this->form, 'basic', 
+                array(
+                        'id' => 'form-id'
+                ));
         $this->assertEquals($expected, $actual);
         
         $expected = '<form action="" method="POST" class="form-class-foobar">';
-        $actual = $this->formHelperBasic->openTag($this->form, 'basic', array(
-            'class' => 'form-class-foobar'
-        ));
+        $actual = $this->formHelperBasic->openTag($this->form, 'basic', 
+                array(
+                        'class' => 'form-class-foobar'
+                ));
         $this->assertEquals($expected, $actual);
         
         $expected = '<form action="" method="POST" class="form-class-foobar form-vertical">';
-        $actual = $this->formHelperVertical->openTag($this->form, null, array(
-            'class' => 'form-class-foobar'
-        ));
+        $actual = $this->formHelperVertical->openTag($this->form, null, 
+                array(
+                        'class' => 'form-class-foobar'
+                ));
         $this->assertEquals($expected, $actual);
         
         $expected = '<form action="" method="POST" class="form-class-foobar form-vertical">';
-        $actual = $this->formHelperVertical->openTag($this->form, 'vertical', array(
-            'class' => 'form-class-foobar'
-        ));
+        $actual = $this->formHelperVertical->openTag($this->form, 'vertical', 
+                array(
+                        'class' => 'form-class-foobar'
+                ));
         $this->assertEquals($expected, $actual);
     }
 
     /**
      * Tests Form->openTag()
      */
-    public function testOpenTagException()
+    public function testOpenTagException ()
     {
         // throwed exception ?
-        $this->setExpectedException('Bootstrap\Exception\InvalidParameterException');
+        $this->setExpectedException(
+                'Bootstrap\Exception\InvalidParameterException');
         $this->formHelperBasic->openTag($this->form, 'foobar');
     }
 }

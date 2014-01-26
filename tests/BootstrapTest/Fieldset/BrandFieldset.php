@@ -42,6 +42,14 @@ namespace BootstrapTest\Fieldset;
                  'required' => 'required',
              ),
          ));
+         
+         $this->add(array(
+         		'name' => 'usefull',
+         		'type' => 'Zend\Form\Element\Checkbox',
+         		'options' => array(
+         				'label' => 'Usefull',
+         		),
+         ));
      }
 
      /**

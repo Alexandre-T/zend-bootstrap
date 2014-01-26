@@ -27,45 +27,51 @@ class Element extends HelperElement
             return '';
         }
         
-        if ($element instanceof Element\Button) {
+        if ($element instanceof FormElement\Button) {
         	$helper = $renderer->plugin('bs_button');
+        	return $helper($element);
+        }
+
+        if ($element instanceof FormElement\Collection) {
+        	$helper = $renderer->plugin('bs_collection');
+        	return $helper($element);
+        }
+        
+        $type = $element->getAttribute('type');
+        
+        if ('checkbox' == $type) {
+        	$helper = $renderer->plugin('bs_checkbox');
         	return $helper($element);
         }
         
         //FIXME to render unmodify Element
         parent::render($element,$formType,$displayOptions);
         
-        
-        if ($element instanceof FormElement\Button) {
-            $helper = $renderer->plugin('form_button');
-            return $helper($element);
-        }
-
+        //FIXME Have I to overload Element\Captcha ?        
         if ($element instanceof FormElement\Captcha) {
             $helper = $renderer->plugin('form_captcha');
             return $helper($element);
         }
 
+        //FIXME Have I to overload Element\Csrf ?        
         if ($element instanceof FormElement\Csrf) {
             $helper = $renderer->plugin('form_hidden');
             return $helper($element);
         }
 
-        if ($element instanceof FormElement\Collection) {
-            $helper = $renderer->plugin('form_collection');
-            return $helper($element);
-        }
-
+        //FIXME Have I to overload FormElement\DateTimeSelect ?
         if ($element instanceof FormElement\DateTimeSelect) {
             $helper = $renderer->plugin('form_date_time_select');
             return $helper($element);
         }
 
+        //FIXME Have I to overload FormElement\DateSelect
         if ($element instanceof FormElement\DateSelect) {
             $helper = $renderer->plugin('form_date_select');
             return $helper($element);
         }
 
+        //FIXME Have I to overload FormElement\MonthSelect
         if ($element instanceof FormElement\MonthSelect) {
             $helper = $renderer->plugin('form_month_select');
             return $helper($element);
