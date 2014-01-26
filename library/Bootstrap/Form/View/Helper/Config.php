@@ -18,7 +18,6 @@ use Bootstrap\Form\View\Helper\Collection;
 
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceManager;
-//use Zend\Form\Fieldset;
 
 
 /**
@@ -41,6 +40,8 @@ class Config implements ConfigInterface
 			'bsbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
 	        'bselement'       => 'Bootstrap\Form\View\Helper\Element',
 	        'bscheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
+	        'bsemail'         => 'Bootstrap\Form\View\Helper\Element\Email',
+	        'bspassword'      => 'Bootstrap\Form\View\Helper\Element\Password',
 //			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
@@ -53,6 +54,8 @@ class Config implements ConfigInterface
 			'formbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
 	        'formelement'       => 'Bootstrap\Form\View\Helper\Element',
 	        'formcheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
+	        'formemail'         => 'Bootstrap\Form\View\Helper\Element\Email',
+	        'formpassword'      => 'Bootstrap\Form\View\Helper\Element\Password',
 //			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',

@@ -60,6 +60,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('bselement')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
         //Are Zend View Helper preserved ?
         $this->assertEquals('Zend\Form\View\Helper\FormCollection',get_class($helperPluginManager->get('formcollection')));
         $this->assertEquals('Zend\Form\View\Helper\Form',get_class($helperPluginManager->get('form')));
@@ -68,6 +70,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Form\View\Helper\FormElement',get_class($helperPluginManager->get('formelement')));
         $this->assertEquals('Zend\Form\View\Helper\FormButton',get_class($helperPluginManager->get('formbutton')));
         $this->assertEquals('Zend\Form\View\Helper\FormCheckbox',get_class($helperPluginManager->get('formcheckbox')));
+        $this->assertEquals('Zend\Form\View\Helper\FormEmail',get_class($helperPluginManager->get('formemail')));
+        $this->assertEquals('Zend\Form\View\Helper\FormPassword',get_class($helperPluginManager->get('formpassword')));
         //$this->assertEmpty(get_class($helperPluginManager->get('formgroup')));
         //$this->assertEquals('',get_class($helperPluginManager->get('formhelp')));
         
@@ -89,6 +93,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('bslabel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
         //Are Zend View Helper override ?
         $this->assertEquals('Bootstrap\Form\View\Helper\Group',get_class($helperPluginManager->get('formgroup')));
         $this->assertEquals('Bootstrap\Form\View\Helper\HelpBlock',get_class($helperPluginManager->get('formhelp')));
@@ -99,7 +105,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('formelement')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('formbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('formcheckbox')));
-        
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('formemail')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('formpassword')));
         
         
         // TODO Auto-generated ConfigTest->test__construct()

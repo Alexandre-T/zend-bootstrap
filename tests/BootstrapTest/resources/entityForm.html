@@ -1,27 +1,31 @@
 <form action="" method="post" name="create_product"
 	class="form-horizontal" id="create_product">
 	<div class="form-group">
-		<label for="product[name]">Name of the product</label><input
-			name="product[name]" required="required" type="text" value="">
+		<label for="product-name">Name of the product</label><input
+			name="product[name]" required="required" id="product-name"
+			type="text" value="">
 	</div>
 	<div class="form-group">
 		<label for="product[price]">Price of the product</label><input
-			name="product[price]" required="required" type="text" value="">
+			name="product[price]" required="required" id="product[price]"
+			type="text" value="">
 	</div>
 	<fieldset>
 		<legend>Brand of the product</legend>
 		<div class="form-group">
 			<label for="product[brand][name]">Name of the brand</label><input
-				name="product[brand][name]" required="required" type="text" value="">
+				name="product[brand][name]" required="required"
+				id="product[brand][name]" type="text" value="">
 		</div>
 		<div class="form-group">
 			<label for="product[brand][url]">Website of the brand</label><input
-				type="url" name="product[brand][url]" required="required" value="">
+				type="url" name="product[brand][url]" required="required"
+				id="product[brand][url]" value="">
 		</div>
 		<div class="checkbox">
-			<label for="product[brand][url]"><input type="hidden"
-				name="product[brand][usefull]" value="0"><input
-				type="checkbox" name="product[brand][usefull]" value="1">Usefull</label>
+			<label><input type="hidden" name="product[brand][usefull]"
+				value="0"><input type="checkbox"
+				name="product[brand][usefull]" value="1">Usefull</label>
 		</div>
 	</fieldset>
 	<fieldset>
@@ -31,7 +35,8 @@
 			<div class="form-group">
 				<label for="product[categories][0][name]">Name of the
 					category</label><input name="product[categories][0][name]"
-					required="required" type="text" value="">
+					required="required" id="product[categories][0][name]" type="text"
+					value="">
 			</div>
 		</fieldset>
 		<fieldset>
@@ -39,13 +44,14 @@
 			<div class="form-group">
 				<label for="product[categories][1][name]">Name of the
 					category</label><input name="product[categories][1][name]"
-					required="required" type="text" value="">
+					required="required" id="product[categories][1][name]" type="text"
+					value="">
 			</div>
 		</fieldset>
 		<span
-			data-template="&lt;fieldset&gt;&lt;legend&gt;Category&lt;&#x2F;legend&gt;&lt;div&#x20;class&#x3D;&quot;form-group&quot;&gt;&lt;label&#x20;for&#x3D;&quot;product&#x5B;categories&#x5D;&#x5B;__index__&#x5D;&#x5B;name&#x5D;&quot;&gt;Name&#x20;of&#x20;the&#x20;category&lt;&#x2F;label&gt;&lt;input&#x20;name&#x3D;&quot;product&#x5B;categories&#x5D;&#x5B;__index__&#x5D;&#x5B;name&#x5D;&quot;&#x20;required&#x3D;&quot;required&quot;&#x20;type&#x3D;&quot;text&quot;&#x20;value&#x3D;&quot;&quot;&gt;&lt;&#x2F;div&gt;&lt;&#x2F;fieldset&gt;"></span>
+			data-template="&lt;fieldset&gt;&lt;legend&gt;Category&lt;&#x2F;legend&gt;&lt;div&#x20;class&#x3D;&quot;form-group&quot;&gt;&lt;label&#x20;for&#x3D;&quot;product&#x5B;categories&#x5D;&#x5B;__index__&#x5D;&#x5B;name&#x5D;&quot;&gt;Name&#x20;of&#x20;the&#x20;category&lt;&#x2F;label&gt;&lt;input&#x20;name&#x3D;&quot;product&#x5B;categories&#x5D;&#x5B;__index__&#x5D;&#x5B;name&#x5D;&quot;&#x20;required&#x3D;&quot;required&quot;&#x20;id&#x3D;&quot;product&#x5B;categories&#x5D;&#x5B;__index__&#x5D;&#x5B;name&#x5D;&quot;&#x20;type&#x3D;&quot;text&quot;&#x20;value&#x3D;&quot;&quot;&gt;&lt;&#x2F;div&gt;&lt;&#x2F;fieldset&gt;"></span>
 	</fieldset>
-	<input type="hidden" name="csrf"
+	<input type="hidden" name="csrf" id="csrf"
 		value="%s"><input name="submit"
-		type="submit" value="Send">
+		type="submit" id="submit" value="Send">
 </form>

@@ -6,6 +6,8 @@ use Zend\Form\Form;
 use BootstrapTest\Util\ServiceManagerFactory;
 use Zend\View\Renderer\ConsoleRenderer;
 use BootstrapTest\Form\CreateProduct;
+use Zend\Form\Element\Checkbox;
+use Zend\Form\Element\File;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -274,7 +276,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderFormBasic ()
     {
-        $this->markTestSkipped('Some Element Helper must be developped');
+        //$this->markTestSkipped('Some Element Helper must be developped');
         $form = new Form('form-basic');
         $form->setAttribute('role', 'form');
         $form->add(
@@ -299,25 +301,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                 'placeholder' => 'Enter password'
                         )
                 ));
-        $form->add(
-                array(
-                        'name' => 'exampleInputFile',
-                        'type' => 'file',
-                        'options' => array(
-                                'label' => 'File input',
-                                'help' => 'Example block-level help text here.'
-                        ),
-                        'attributes' => array()
-                ));
-        $form->add(
-                array(
-                        'name' => 'checkbox',
-                        'type' => 'checkbox',
-                        'options' => array(
-                                'label' => 'Check me out'
-                        ),
-                        'attributes' => array()
-                ));
+        $file = new File('exampleInputFile');
+        $file->setLabel('File input');
+        $file->setOptions(array('help' => 'Example block-level help text here.'));
+        $form->add($file);
+        $checkbox = new Checkbox('checkbox');
+        $checkbox->setLabel('Check me out');
+        $form->add($checkbox);
         $form->add(
                 array(
                         'name' => 'submit',

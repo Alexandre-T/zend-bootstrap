@@ -7,6 +7,8 @@ use Zend\Form\View\Helper\FormLabel as ViewHelperFormLabel;
 use Bootstrap\Util;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
+use Zend\Form\Element\Radio;
+use Zend\Form\Element\Checkbox;
 
 /**
  * Form
@@ -56,8 +58,11 @@ class Label extends ViewHelperFormLabel implements HelperInterface
                 $attributesOrElement = Util::addClassToArray($attributesOrElement,'sr-only');
             }
             $attributes = $this->createAttributesString($attributesOrElement);
-            
-            return sprintf('<label %s>', $attributes);
+            if ($attributes){
+                return sprintf('<label %s>', $attributes);
+            }else{
+                return '<label>';
+            }
         }
         
         if (! $attributesOrElement instanceof ElementInterface) {
@@ -79,7 +84,7 @@ class Label extends ViewHelperFormLabel implements HelperInterface
             }
         }
         $attributes = array(
-            'for' => $id
+            'for' => $this->getId($attributesOrElement)
         );
         
         if (! empty($labelAttributes)) {

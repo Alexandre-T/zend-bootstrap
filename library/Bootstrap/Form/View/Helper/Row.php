@@ -111,9 +111,13 @@ class Row extends FormRow
         //Position Label
         if ($element instanceof Checkbox || $element instanceof Radio){
             $this->labelPosition = self::LABEL_APPEND;
+            unset($this->labelAttributes['for']);
         }else{
             $this->labelPosition = self::LABEL_TOTAL_PREPEND;
-            $this->labelAttributes['for'] = $this->getId($element);
+            $id = $this->getId($element);
+            $this->labelAttributes['for'] = $id;
+            //if there is only name, we must have an id because of "for" attribute label cf. HTML5 Spec
+            $element->setAttribute('id', $id); 
         }
 
         if ($this->partial) {

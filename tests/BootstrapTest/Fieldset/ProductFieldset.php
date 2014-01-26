@@ -21,7 +21,8 @@ class ProductFieldset extends Fieldset implements InputFilterProviderInterface
                 'label' => 'Name of the product'
             ),
             'attributes' => array(
-                'required' => 'required'
+                'required' => 'required',
+                'id'       => 'product-name'
             )
         ));
         

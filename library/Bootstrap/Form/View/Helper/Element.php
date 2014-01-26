@@ -44,6 +44,16 @@ class Element extends HelperElement
         	return $helper($element);
         }
         
+        if ('email' == $type) {
+        	$helper = $renderer->plugin('bs_email');
+        	return $helper($element);
+        }
+
+        if ('password' == $type) {
+        	$helper = $renderer->plugin('bs_password');
+        	return $helper($element);
+        }
+        
         //FIXME to render unmodify Element
         parent::render($element,$formType,$displayOptions);
         
@@ -78,34 +88,28 @@ class Element extends HelperElement
         }
 
         $type = $element->getAttribute('type');
-
-        if ('checkbox' == $type) {
-            $helper = $renderer->plugin('form_checkbox');
-            return $helper($element);
-        }
-
+        
+        //FIXME Have I to overload FormElement\Color
         if ('color' == $type) {
             $helper = $renderer->plugin('form_color');
             return $helper($element);
         }
 
+        //FIXME Have I to overload FormElement\Date
         if ('date' == $type) {
             $helper = $renderer->plugin('form_date');
             return $helper($element);
         }
 
+        //FIXME Have I to overload FormElement\DateTime
         if ('datetime' == $type) {
             $helper = $renderer->plugin('form_date_time');
             return $helper($element);
         }
 
+        //FIXME Have I to overload FormElement\DateTimeLocal
         if ('datetime-local' == $type) {
             $helper = $renderer->plugin('form_date_time_local');
-            return $helper($element);
-        }
-
-        if ('email' == $type) {
-            $helper = $renderer->plugin('form_email');
             return $helper($element);
         }
 
@@ -136,11 +140,6 @@ class Element extends HelperElement
 
         if ('number' == $type) {
             $helper = $renderer->plugin('form_number');
-            return $helper($element);
-        }
-
-        if ('password' == $type) {
-            $helper = $renderer->plugin('form_password');
             return $helper($element);
         }
 
