@@ -161,6 +161,22 @@ class Util {
 		$words   = preg_replace('/\s+/', ' ', $words);
 		return $words;
 	}
+	/**
+	 * Add Some class to an array of attributes
+	 * 
+	 * @param array $attributes
+	 * @param string $class
+	 * @return array
+	 */
+	public static function addClassToArray(array $attributes = array(),$class){
+	    $result = $attributes;
+	    if (array_key_exists('class', $attributes)) {
+	    	$result['class'] = Util::addWords($class, $attributes['class']);
+	    } else {
+	    	$result['class'] = $class;
+	    }
+	    return $result;
+	}
 	
 	private static function _arrayIUnique($array) {
 		return array_intersect_key(

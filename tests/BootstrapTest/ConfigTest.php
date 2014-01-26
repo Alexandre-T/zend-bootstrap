@@ -38,14 +38,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Constructs the test case.
-     */
-    public function __construct()
-    {
-        // TODO Auto-generated constructor
-    }
-
-    /**
      * Tests Config->configureServiceManager()
      */
     public function testConfigureServiceManagerWithoutOverride()
@@ -65,13 +57,19 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\HelpBlock',get_class($helperPluginManager->get('bshelp')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('bslabel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('bselement')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
         //Are Zend View Helper preserved ?
         $this->assertEquals('Zend\Form\View\Helper\FormCollection',get_class($helperPluginManager->get('formcollection')));
         $this->assertEquals('Zend\Form\View\Helper\Form',get_class($helperPluginManager->get('form')));
         $this->assertEquals('Zend\Form\View\Helper\FormLabel',get_class($helperPluginManager->get('formlabel')));
         $this->assertEquals('Zend\Form\View\Helper\FormRow',get_class($helperPluginManager->get('formrow')));
+        $this->assertEquals('Zend\Form\View\Helper\FormElement',get_class($helperPluginManager->get('formelement')));
+        $this->assertEquals('Zend\Form\View\Helper\FormButton',get_class($helperPluginManager->get('formbutton')));
         //$this->assertEmpty(get_class($helperPluginManager->get('formgroup')));
         //$this->assertEquals('',get_class($helperPluginManager->get('formhelp')));
+        
+        //var_dump($helperPluginManager->getRegisteredServices());
     }
     public function testConfigureServiceManagerWithOverride(){
         $this->Config = new Config(new Util(null,true));
@@ -95,6 +93,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Form',get_class($helperPluginManager->get('form')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('formlabel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('formrow')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('formelement')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('formbutton')));
         
         
         

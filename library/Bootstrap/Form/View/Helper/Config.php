@@ -38,6 +38,8 @@ class Config implements ConfigInterface
 	protected $invokables = array(
 			'bsgroup'         => 'Bootstrap\Form\View\Helper\Group',
 			'bshelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
+			'bsbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
+	        'bselement'       => 'Bootstrap\Form\View\Helper\Element',
 //			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
@@ -47,6 +49,8 @@ class Config implements ConfigInterface
 	protected $overrideInvokables = array(
 			'formgroup'         => 'Bootstrap\Form\View\Helper\Group',
 			'formhelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
+			'formbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
+	        'formelement'       => 'Bootstrap\Form\View\Helper\Element',
 //			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',

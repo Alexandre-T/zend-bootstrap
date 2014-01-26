@@ -7,8 +7,9 @@ error_reporting( E_ALL | E_STRICT );
 //ZF2 Path is taken form the ZF2_PATH environment variable
 $zf2Path    = getenv('ZF2_PATH');
 if (!$zf2Path) {
-    throw new \RuntimeException("Test bootstrap: Environment variable 'ZF2_PATH' not found."
-                                . ' Set this variable to point to the ZF2 library and run the test again.');
+    $zf2Path = "/home/alexandre/Zend/workspaces/DefaultWorkspace/gmao/vendor/zendframework/zendframework/library/";
+    //throw new \RuntimeException("Test bootstrap: Environment variable 'ZF2_PATH' not found."
+    //                           . ' Set this variable to point to the ZF2 library and run the test again.');
 }
 
 chdir(dirname(__DIR__));

@@ -53,11 +53,7 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         if (is_array($attributesOrElement)) {
             // add class sr-only when Inline Form
             if (FormUtil::FORM_TYPE_INLINE == $this->formUtil->getDefaultFormType()) {
-                if (array_key_exists('class', $attributesOrElement)) {
-                    $attributesOrElement['class'] = Util::addWords('sr-only', $attributesOrElement['class']);
-                } else {
-                    $attributesOrElement['class'] = 'sr-only';
-                }
+                $attributesOrElement = Util::addClassToArray($attributesOrElement,'sr-only');
             }
             $attributes = $this->createAttributesString($attributesOrElement);
             
