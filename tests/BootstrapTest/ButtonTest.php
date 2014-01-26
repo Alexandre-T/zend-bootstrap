@@ -80,6 +80,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
         		Button::BUTTON_OPTION => 'foo',
         		Button::BUTTON_SIZE   => 'bar',
         ));
+        $this->button5->setValue(17);
         
     }
 
@@ -110,19 +111,19 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
         $actual = $this->buttonHelper->openTag(array('class' => 'foo','type' => 'submit','foo'=>'bar'));
         $this->assertEquals($expected, $actual);
         
-        $expected = '<button type="button" name="button1" class="btn-default btn" value="">';
+        $expected = '<button type="button" name="button1" class="btn-default btn">';
         $this->assertEquals($expected, $this->buttonHelper->openTag($this->button1));
         
-        $expected = '<button type="button" name="button2" class="btn-success btn-lg btn-block active btn" value="">';
+        $expected = '<button type="button" name="button2" class="btn-success btn-lg btn-block active btn">';
         $this->assertEquals($expected, $this->buttonHelper->openTag($this->button2));
 
-        $expected = '<button type="button" name="button3" class="btn-success btn-lg btn-block active btn foo bar" value="">';
+        $expected = '<button type="button" name="button3" class="btn-success btn-lg btn-block active btn foo bar">';
         $this->assertEquals($expected, $this->buttonHelper->openTag($this->button3));
         
-        $expected = '<button type="button" name="button4" class="btn-default btn" value="">';
+        $expected = '<button type="button" name="button4" class="btn-default btn">';
         $this->assertEquals($expected, $this->buttonHelper->openTag($this->button4));
         
-        $expected = '<button type="button" name="button5" class="btn-default btn-block active btn" value="">';
+        $expected = '<button type="button" name="button5" class="btn-default btn-block active btn" value="17">';
         $this->assertEquals($expected, $this->buttonHelper->openTag($this->button5));
     }
 }

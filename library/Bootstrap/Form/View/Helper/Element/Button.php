@@ -60,7 +60,7 @@ class Button extends FormButton
      * (non-PHPdoc) @see \Zend\Form\View\Helper\FormButton::openTag()
      */
     public function openTag($attributesOrElement = null)
-    {
+    {        
         if (null === $attributesOrElement) {
             return '<button class="btn btn-default">';
         }
@@ -94,7 +94,10 @@ class Button extends FormButton
         $attributes['class'] = Util::addWords($attributes['class'],$class);
         $attributes['name'] = $name;
         $attributes['type'] = $this->getType($element);
-        $attributes['value'] = $element->getValue();
+        $value = $element->getValue();
+        if (!empty($value)){
+            $attributes['value'] = $value;
+        }
         
         return sprintf('<button %s>', $this->createAttributesString($attributes));
     }

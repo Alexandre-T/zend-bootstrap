@@ -1,6 +1,5 @@
 <?php
 namespace BootstrapTest;
-
 use Bootstrap\Form\View\Helper\Form as FormHelper;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\Form;
@@ -281,45 +280,52 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $form->add(
                 array(
                         'name' => 'exampleInputEmail1',
+                        'type' => 'email',
                         'options' => array(
-                                'label' => 'Email address',
-                                'type' => 'email'
+                                'label' => 'Email address'
                         ),
                         'attributes' => array(
                                 'placeholder' => 'Enter email'
                         )
                 ));
         $form->add(
-        		array(
-        				'name' => 'exampleInputPassword1',
-        				'options' => array(
-        						'label' => 'Password',
-        						'type' => 'password'
-        				),
-        				'attributes' => array(
-        						'placeholder' => 'Enter password'
-        				)
-        		)
-        );
+                array(
+                        'name' => 'exampleInputPassword1',
+                        'type' => 'password',
+                        'options' => array(
+                                'label' => 'Password'
+                        ),
+                        'attributes' => array(
+                                'placeholder' => 'Enter password'
+                        )
+                ));
         $form->add(
-        		array(
-        				'name' => 'exampleInputFile',
-        				'options' => array(
-        						'label' => 'File input',
-        						'type' => 'file',
-        				        'help' => 'Example block-level help text here.'
-        				),
-        				'attributes' => array(
-        				)
-        		)
-        );
-        $form->add(array(
-            'name' => 'submit',
-            'attributes' => array(
-                'type' => 'submit',
-                'value' => 'Send'
-            )
-        ));
+                array(
+                        'name' => 'exampleInputFile',
+                        'type' => 'file',
+                        'options' => array(
+                                'label' => 'File input',
+                                'help' => 'Example block-level help text here.'
+                        ),
+                        'attributes' => array()
+                ));
+        $form->add(
+                array(
+                        'name' => 'checkbox',
+                        'type' => 'checkbox',
+                        'options' => array(
+                                'label' => 'Check me out'
+                        ),
+                        'attributes' => array()
+                ));
+        $form->add(
+                array(
+                        'name' => 'submit',
+                        'type' => 'button',
+                        'options' => array(
+                                'label' => 'Send'
+                        ),
+                ));
         /*
          * $this->add(array( 'name' => 'name', 'options' => array( 'label' =>
          * 'Name of the brand', ), 'attributes' => array( 'required' =>

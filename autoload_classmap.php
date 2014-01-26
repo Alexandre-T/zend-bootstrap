@@ -28,6 +28,7 @@ return array(
   'Bootstrap\Form\View\Helper\Row'                          => __DIR__ . '/library/Bootstrap/Form/View/Helper/Row.php',
   'Bootstrap\Form\View\Helper\Config'                       => __DIR__ . '/library/Bootstrap/Form/View/Helper/Config.php',
   'Bootstrap\Form\View\Helper\Label'                        => __DIR__ . '/library/Bootstrap/Form/View/Helper/Label.php',
+  'Bootstrap\Form\View\Helper\Element\Checkbox'             => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Checkbox.php',
   'Bootstrap\Form\View\Helper\Element\Button'               => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Button.php',
   'Bootstrap\Form\View\Helper\Group'                        => __DIR__ . '/library/Bootstrap/Form/View/Helper/Group.php',
   'Bootstrap\Form\View\Helper\Element'                      => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element.php',

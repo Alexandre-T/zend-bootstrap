@@ -1,6 +1,7 @@
 <?php
 namespace Bootstrap\Form\View\Helper;
 
+use Bootstrap\Form\View\Helper\Element as HelperElement;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\View\Helper\FormRow;
 use Bootstrap\Form\Exception\UnsupportedHelperTypeException;
@@ -277,6 +278,28 @@ class Row extends FormRow
     		}
     	}
     	return $this->helpBlockHelper;
+    }
+    
+    /**
+     * Retrieve the FormElement helper
+     *
+     * @return FormElement
+     */
+    protected function getElementHelper()
+    {
+    	if ($this->elementHelper) {
+    		return $this->elementHelper;
+    	}
+    
+    	if (method_exists($this->view, 'plugin')) {
+    		$this->elementHelper = $this->view->plugin('bselement');
+    	}
+    
+    	if (!$this->elementHelper instanceof HelperElement ) {
+    		$this->elementHelper = new HelperElement();
+    	}
+    
+    	return $this->elementHelper;
     }
     
     
