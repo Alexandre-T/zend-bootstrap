@@ -28,7 +28,6 @@ class Form extends ViewHelperForm implements HelperInterface {
 	protected $formTypeMap      = array(
 			FormUtil::FORM_TYPE_BASIC      => '',
 			FormUtil::FORM_TYPE_HORIZONTAL => 'form-horizontal',
-			FormUtil::FORM_TYPE_VERTICAL   => 'form-vertical',
 			FormUtil::FORM_TYPE_INLINE     => 'form-inline',
 	);
 	

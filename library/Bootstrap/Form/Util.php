@@ -22,12 +22,6 @@ class Util {
 	const FORM_TYPE_HORIZONTAL  = 'horizontal';
 	
 	/**
-	 * Form type Vertical
-	 * @var string
-	 */
-	const FORM_TYPE_VERTICAL    = 'vertical';
-	
-	/**
 	 * Form type Inline
 	 * @var string
 	 */
@@ -40,7 +34,6 @@ class Util {
 	protected $supportedFormTypes   = array(
 			self::FORM_TYPE_BASIC,
 			self::FORM_TYPE_HORIZONTAL,
-			self::FORM_TYPE_VERTICAL,
 			self::FORM_TYPE_INLINE,
 	);
 	

@@ -43,9 +43,6 @@ class FormUtilTest extends \PHPUnit_Framework_TestCase
         $formUtil = new Util(Util::FORM_TYPE_HORIZONTAL);
         $expected = Util::FORM_TYPE_HORIZONTAL;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
-        $formUtil = new Util(Util::FORM_TYPE_VERTICAL);
-        $expected = Util::FORM_TYPE_VERTICAL;
-        $this->assertEquals($expected,$formUtil->getDefaultFormType());
         $formUtil = new Util(Util::FORM_TYPE_INLINE,false);
         $expected = Util::FORM_TYPE_INLINE;
         $this->assertEquals($expected,$formUtil->getDefaultFormType());
@@ -87,11 +84,6 @@ class FormUtilTest extends \PHPUnit_Framework_TestCase
         $actual = $this->formUtil->getDefaultFormType();
         $this->assertEquals($expected,$actual);
         
-        $expected = Util::FORM_TYPE_VERTICAL;
-        $this->formUtil->setDefaultFormType(Util::FORM_TYPE_VERTICAL);
-        $actual = $this->formUtil->getDefaultFormType();
-        $this->assertEquals($expected,$actual);
-        
         $expected = Util::FORM_TYPE_BASIC;
         $this->formUtil->setDefaultFormType('fooBar');
         $actual = $this->formUtil->getDefaultFormType();
@@ -107,7 +99,6 @@ class FormUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->formUtil->isFormTypeSupported(Util::FORM_TYPE_BASIC));
         $this->assertTrue($this->formUtil->isFormTypeSupported(Util::FORM_TYPE_HORIZONTAL));
         $this->assertTrue($this->formUtil->isFormTypeSupported(Util::FORM_TYPE_INLINE));
-        $this->assertTrue($this->formUtil->isFormTypeSupported(Util::FORM_TYPE_VERTICAL));
 
         $this->assertFalse($this->formUtil->isFormTypeSupported(null));
         $this->assertFalse($this->formUtil->isFormTypeSupported(false));
@@ -159,10 +150,6 @@ class FormUtilTest extends \PHPUnit_Framework_TestCase
         
         $expected = Util::FORM_TYPE_INLINE;
         $actual   = $this->formUtil->filterFormType(Util::FORM_TYPE_INLINE);
-        $this->assertEquals($expected,$actual);
-        
-        $expected = Util::FORM_TYPE_VERTICAL;
-        $actual   = $this->formUtil->filterFormType(Util::FORM_TYPE_VERTICAL);
         $this->assertEquals($expected,$actual);
         
         $expected = Util::FORM_TYPE_BASIC;

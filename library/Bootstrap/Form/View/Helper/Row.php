@@ -222,8 +222,7 @@ class Row extends FormRow
         }
         
         if ($markup && $this->getFormGroup()) {
-            // && ($formType == FormUtil::FORM_TYPE_HORIZONTAL || $formType ==
-            // FormUtil::FORM_TYPE_VERTICAL)
+            // && ($formType == FormUtil::FORM_TYPE_HORIZONTAL )
             $this->formGroupHelper = $this->getFormGroupHelper();
             $markup = $this->formGroupHelper->render($element, $markup);
         }

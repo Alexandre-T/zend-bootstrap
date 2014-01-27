@@ -95,13 +95,6 @@ class LabelTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests Label->openTag()
      */
-    public function testOpenTagFormVertical(){
-    	$this->formUtil->setDefaultFormType(Util::FORM_TYPE_VERTICAL);
-    	$this->_testOpenTag();
-    }
-    /**
-     * Tests Label->openTag()
-     */
     public function testOpenTagFormInline(){
     	$this->formUtil->setDefaultFormType(Util::FORM_TYPE_INLINE);    	
         

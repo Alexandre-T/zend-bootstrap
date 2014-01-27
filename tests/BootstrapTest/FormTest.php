@@ -36,12 +36,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @var FormHelper
-     */
-    private $formHelperVertical;
-
-    /**
-     *
      * @var Form
      */
     private $form;
@@ -72,15 +66,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formHelperBasic = new FormHelper(new FormUtil());
         $this->formHelperHorizontal = new FormHelper(
                 new FormUtil(FormUtil::FORM_TYPE_HORIZONTAL));
-        $this->formHelperVertical = new FormHelper(
-                new FormUtil(FormUtil::FORM_TYPE_VERTICAL));
         $this->formHelperInline = new FormHelper(
                 new FormUtil(FormUtil::FORM_TYPE_INLINE));
         
         $this->formHelperBasic->setView($view);
         $this->formHelperHorizontal->setView($view);
         $this->formHelperInline->setView($view);
-        $this->formHelperVertical->setView($view);
         
         //Form Build
         $this->formComplex = new Form('form-complex');
@@ -107,10 +98,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
         						'placeholder' => 'Enter password'
         				)
         		));
-        $file = new File('exampleInputFile');
-        $file->setLabel('File input');
-        $file->setOptions(array('help' => 'Example block-level help text here.'));
-        $this->formComplex->add($file);
+        //$file = new File('exampleInputFile');
+        //$file->setLabel('File input');
+        //$file->setOptions(array('help' => 'Example block-level help text here.'));
+        //$this->formComplex->add($file);
         $checkbox = new Checkbox('checkbox');
         $checkbox->setLabel('Check me out');
         $this->formComplex->add($checkbox);
@@ -133,7 +124,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formHelperBasic = null;
         $this->formHelperHorizontal = null;
         $this->formHelperInline = null;
-        $this->formHelperVertical = null;
         $this->form = null;
         $this->formComplex = null;
         parent::tearDown();
@@ -166,12 +156,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_callable($this->formHelperBasic));
         $this->assertTrue(is_callable($this->formHelperHorizontal));
         $this->assertTrue(is_callable($this->formHelperInline));
-        $this->assertTrue(is_callable($this->formHelperVertical));
         
         // Callable Object
         $basic = $this->formHelperBasic;
         $horizontal = $this->formHelperHorizontal;
-        $vertical = $this->formHelperVertical;
         $inline = $this->formHelperInline;
         
         // no-elements
@@ -181,8 +169,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 $this->formHelperHorizontal->__invoke());
         $this->assertSame($this->formHelperInline, 
                 $this->formHelperInline->__invoke());
-        $this->assertSame($this->formHelperVertical, 
-                $this->formHelperVertical->__invoke());
         
         // one element
         $expected = '<form action="" method="POST" class=""></form>';
@@ -194,11 +180,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $actual = $this->formHelperHorizontal->__invoke($this->form);
         $this->assertEquals($expected, $actual);
         $this->assertEquals($expected, $horizontal($this->form));
-        
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
-        $actual = $this->formHelperVertical->__invoke($this->form);
-        $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $vertical($this->form));
         
         $expected = '<form action="" method="POST" class="form-inline"></form>';
         $actual = $this->formHelperInline->__invoke($this->form);
@@ -212,19 +193,19 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $basic($this->form, 'basic'));
         
         $expected = '<form action="" method="POST" class=""></form>';
-        $actual = $this->formHelperVertical->__invoke($this->form, 'basic');
+        $actual = $this->formHelperHorizontal->__invoke($this->form, 'basic');
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $vertical($this->form, 'basic'));
+        $this->assertEquals($expected, $horizontal($this->form, 'basic'));
         
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
-        $actual = $this->formHelperBasic->__invoke($this->form, 'vertical');
+        $expected = '<form action="" method="POST" class="form-horizontal"></form>';
+        $actual = $this->formHelperBasic->__invoke($this->form, 'horizontal');
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $basic($this->form, 'vertical'));
+        $this->assertEquals($expected, $basic($this->form, 'horizontal'));
         
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
-        $actual = $this->formHelperVertical->__invoke($this->form, 'vertical');
+        $expected = '<form action="" method="POST" class="form-horizontal"></form>';
+        $actual = $this->formHelperHorizontal->__invoke($this->form, 'horizontal');
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($expected, $vertical($this->form, 'vertical'));
+        $this->assertEquals($expected, $horizontal($this->form, 'horizontal'));
         
         // three elements
         // $this->markTestIncomplete("__invoke test not implemented with 3
@@ -255,10 +236,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $actual = $this->formHelperHorizontal->render($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical"></form>';
-        $actual = $this->formHelperVertical->render($this->form);
-        $this->assertEquals($expected, $actual);
-        
         $expected = '<form action="" method="POST" class="form-inline"></form>';
         $actual = $this->formHelperInline->render($this->form);
         $this->assertEquals($expected, $actual);
@@ -285,14 +262,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
                         'class' => 'form-class'
                 ));
         
-        $actual = $this->formHelperVertical->render($this->form);
+        $actual = $this->formHelperHorizontal->render($this->form);
         // must contained them
         $matcher = array(
                 'id' => 'form-id',
                 'attributes' => array(
                         'role' => 'role',
                         'accesskey' => 'c',
-                        'class' => 'form-class form-vertical'
+                        'class' => 'form-class form-horizontal'
                 ),
                 'tag' => 'form'
         );
@@ -337,12 +314,11 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testRenderFoms(){
         //Rendering
         $formBasic = $this->formHelperBasic->render($this->formComplex);
-        $formVertical = $this->formHelperVertical->render($this->formComplex);
         $formHorizontal = $this->formHelperHorizontal->render($this->formComplex);
         $formInline = $this->formHelperInline->render($this->formComplex);
         //Merging
         $expected = file_get_contents('resources/layout.html', true);
-        $expected = sprintf($expected, $formBasic, $formVertical, $formHorizontal, $formInline);
+        $expected = sprintf($expected, $formBasic, $formHorizontal, $formInline);
         //Writing
         $byte = file_put_contents('resources/results/render.html', $expected, FILE_USE_INCLUDE_PATH | LOCK_EX);
         $this->assertInternalType('integer', $byte);
@@ -367,10 +343,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $actual = $this->formHelperHorizontal->openTag($this->form);
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical">';
-        $actual = $this->formHelperVertical->openTag($this->form);
-        $this->assertEquals($expected, $actual);
-        
         $expected = '<form action="" method="POST" class="form-inline">';
         $actual = $this->formHelperInline->openTag($this->form);
         $this->assertEquals($expected, $actual);
@@ -381,19 +353,19 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
         
         $expected = '<form action="" method="POST" class="">';
-        $actual = $this->formHelperVertical->openTag($this->form, 'basic');
+        $actual = $this->formHelperHorizontal->openTag($this->form, 'basic');
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical">';
-        $actual = $this->formHelperBasic->openTag($this->form, 'vertical');
+        $expected = '<form action="" method="POST" class="form-horizontal">';
+        $actual = $this->formHelperBasic->openTag($this->form, 'horizontal');
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical">';
-        $actual = $this->formHelperVertical->openTag($this->form, 'vertical');
+        $expected = '<form action="" method="POST" class="form-horizontal">';
+        $actual = $this->formHelperHorizontal->openTag($this->form, 'horizontal');
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-vertical">';
-        $actual = $this->formHelperVertical->openTag($this->form, 'vertical');
+        $expected = '<form action="" method="POST" class="form-horizontal">';
+        $actual = $this->formHelperHorizontal->openTag($this->form, 'horizontal');
         $this->assertEquals($expected, $actual);
         
         // three-elements
@@ -411,19 +383,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 ));
         $this->assertEquals($expected, $actual);
         
-        $expected = '<form action="" method="POST" class="form-class-foobar form-vertical">';
-        $actual = $this->formHelperVertical->openTag($this->form, null, 
-                array(
-                        'class' => 'form-class-foobar'
-                ));
-        $this->assertEquals($expected, $actual);
-        
-        $expected = '<form action="" method="POST" class="form-class-foobar form-vertical">';
-        $actual = $this->formHelperVertical->openTag($this->form, 'vertical', 
-                array(
-                        'class' => 'form-class-foobar'
-                ));
-        $this->assertEquals($expected, $actual);
     }
 
     /**

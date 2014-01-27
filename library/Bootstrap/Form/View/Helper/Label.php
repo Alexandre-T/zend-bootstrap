@@ -7,6 +7,8 @@ use Zend\Form\View\Helper\FormLabel as ViewHelperFormLabel;
 use Bootstrap\Util;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
+use Zend\Form\Element\Checkbox;
+use Zend\Form\Element\Radio;
 
 /**
  * Form
@@ -79,7 +81,8 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         
         if (is_array($attributesOrElement)) {
             // add class sr-only when Inline Form
-            if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()) {
+            // @todo add to test
+            if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType() && isset($attributesOrElement['type']) && ( 'checkbox' == $attributesOrElement['type'] || 'radio' == $attributesOrElement['type'])) {
                 $attributesOrElement = Util::addClassToArray($attributesOrElement,'sr-only');
             }
             $attributes = $this->createAttributesString($attributesOrElement);
@@ -101,7 +104,8 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         
         $labelAttributes = $attributesOrElement->getLabelAttributes();
         // add class sr-only when Inline Form
-        if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()) {
+        // @todo add to test
+        if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType() && ! ($attributesOrElement instanceof Checkbox || $attributesOrElement instanceof Radio)) {
             if (is_array($labelAttributes) && array_key_exists('class', $labelAttributes)) {
                 Util::addWords('sr-only', $labelAttributes['class']);
             } else {
