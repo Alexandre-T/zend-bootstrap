@@ -135,6 +135,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formHelperInline = null;
         $this->formHelperVertical = null;
         $this->form = null;
+        $this->formComplex = null;
         parent::tearDown();
     }
 
