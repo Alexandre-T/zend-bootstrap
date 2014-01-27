@@ -7,8 +7,6 @@ use Zend\Form\View\Helper\FormLabel as ViewHelperFormLabel;
 use Bootstrap\Util;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
-use Zend\Form\Element\Radio;
-use Zend\Form\Element\Checkbox;
 
 /**
  * Form
@@ -39,13 +37,40 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         $this->formUtil = $formUtil;
     }
     
+    /**
+     * Generate a form label, optionally with content
+     *
+     * Always generates a "for" statement, as we cannot assume the form input
+     * will be provided in the $labelContent.
+     *
+     * @param  ElementInterface $element
+     * @param  null|string      $labelContent
+     * @param  null|FormUtil|string  $position
+     * @throws Exception\DomainException
+     * @return string|FormLabel
+     */
+    public function __invoke(ElementInterface $element = null, $labelContent = null, $position = null)
+    {
+    	if (!$element) {
+    		return $this;
+    	}
+    	if ($position instanceof FormUtil){
+    	    $this->formUtil = $position;
+    	    $position = self::PREPEND;
+    	}
+        return parent::__invoke($element,$labelContent,$position);
+    }
+    
     /*
      * (non-PHPdoc) @see \Zend\Form\View\Helper\FormLabel::openTag() Generate an opening label tag @param null|array|ElementInterface $attributesOrElement @throws Exception\InvalidArgumentException @throws Exception\DomainException @return string
      */
-    public function openTag($attributesOrElement = null)
+    public function openTag($attributesOrElement = null, FormUtil $formUtil = null)
     {
-        if (null === $attributesOrElement) {
-            if (FormUtil::FORM_TYPE_INLINE == $this->formUtil->getDefaultFormType()) {
+        if (null === $formUtil){
+            $formUtil = $this->formUtil;
+        }
+        if (null === $attributesOrElement) {            
+            if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()) {
                 return '<label class="sr-only">';
             } else {
                 return '<label>';
@@ -54,7 +79,7 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         
         if (is_array($attributesOrElement)) {
             // add class sr-only when Inline Form
-            if (FormUtil::FORM_TYPE_INLINE == $this->formUtil->getDefaultFormType()) {
+            if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()) {
                 $attributesOrElement = Util::addClassToArray($attributesOrElement,'sr-only');
             }
             $attributes = $this->createAttributesString($attributesOrElement);
@@ -76,7 +101,7 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         
         $labelAttributes = $attributesOrElement->getLabelAttributes();
         // add class sr-only when Inline Form
-        if (FormUtil::FORM_TYPE_INLINE == $this->formUtil->getDefaultFormType()) {
+        if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()) {
             if (is_array($labelAttributes) && array_key_exists('class', $labelAttributes)) {
                 Util::addWords('sr-only', $labelAttributes['class']);
             } else {

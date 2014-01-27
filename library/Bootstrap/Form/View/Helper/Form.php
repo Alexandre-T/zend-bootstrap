@@ -82,8 +82,11 @@ class Form extends ViewHelperForm implements HelperInterface {
 		if (method_exists($form, 'prepare')) {
 			$form->prepare();
 		}
-		
-		$formType   = $this->formUtil->filterFormType($formType);
+		if (null == $formType){
+		    $formType = $this->formUtil->getDefaultFormType();
+		}else{
+		    $formType   = $this->formUtil->filterFormType($formType);
+		}
 		//Open Tag
 		$html   = $this->openTag($form, $formType, $displayOptions);
 		//Form content
@@ -93,7 +96,7 @@ class Form extends ViewHelperForm implements HelperInterface {
             if ($element instanceof FieldsetInterface) {
                 $formContent.= $this->getView()->bscollection($element);
             } else {
-                $formContent.= $this->getView()->bsrow($element);
+                $formContent.= $this->getView()->bsrow($element,$this->formUtil);
             }
         }	
 		//Close Tag
