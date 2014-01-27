@@ -45,6 +45,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
      * @var Form
      */
     private $form;
+    
+    /**
+     *
+     * @var Form
+     */
+    private $formComplex;
 
     /**
      * Prepares the environment before running a test.
@@ -75,6 +81,48 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formHelperHorizontal->setView($view);
         $this->formHelperInline->setView($view);
         $this->formHelperVertical->setView($view);
+        
+        //Form Build
+        $this->formComplex = new Form('form-complex');
+        $this->formComplex->setAttribute('role', 'form');
+        $this->formComplex->add(
+        		array(
+        				'name' => 'exampleInputEmail1',
+        				'type' => 'email',
+        				'options' => array(
+        						'label' => 'Email address'
+        				),
+        				'attributes' => array(
+        						'placeholder' => 'Enter email'
+        				)
+        		));
+        $this->formComplex->add(
+        		array(
+        				'name' => 'exampleInputPassword1',
+        				'type' => 'password',
+        				'options' => array(
+        						'label' => 'Password'
+        				),
+        				'attributes' => array(
+        						'placeholder' => 'Enter password'
+        				)
+        		));
+        $file = new File('exampleInputFile');
+        $file->setLabel('File input');
+        $file->setOptions(array('help' => 'Example block-level help text here.'));
+        $this->formComplex->add($file);
+        $checkbox = new Checkbox('checkbox');
+        $checkbox->setLabel('Check me out');
+        $this->formComplex->add($checkbox);
+        $this->formComplex->add(
+        		array(
+        				'name' => 'submit',
+        				'type' => 'button',
+        				'options' => array(
+        						'label' => 'Send'
+        				),
+        		));
+        
     }
 
     /**
@@ -276,56 +324,27 @@ class FormTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderFormBasic ()
     {
-        //$this->markTestSkipped('Some Element Helper must be developped');
-        $form = new Form('form-basic');
-        $form->setAttribute('role', 'form');
-        $form->add(
-                array(
-                        'name' => 'exampleInputEmail1',
-                        'type' => 'email',
-                        'options' => array(
-                                'label' => 'Email address'
-                        ),
-                        'attributes' => array(
-                                'placeholder' => 'Enter email'
-                        )
-                ));
-        $form->add(
-                array(
-                        'name' => 'exampleInputPassword1',
-                        'type' => 'password',
-                        'options' => array(
-                                'label' => 'Password'
-                        ),
-                        'attributes' => array(
-                                'placeholder' => 'Enter password'
-                        )
-                ));
-        $file = new File('exampleInputFile');
-        $file->setLabel('File input');
-        $file->setOptions(array('help' => 'Example block-level help text here.'));
-        $form->add($file);
-        $checkbox = new Checkbox('checkbox');
-        $checkbox->setLabel('Check me out');
-        $form->add($checkbox);
-        $form->add(
-                array(
-                        'name' => 'submit',
-                        'type' => 'button',
-                        'options' => array(
-                                'label' => 'Send'
-                        ),
-                ));
-        /*
-         * $this->add(array( 'name' => 'name', 'options' => array( 'label' =>
-         * 'Name of the brand', ), 'attributes' => array( 'required' =>
-         * 'required', ), ));
-         */
-        $actual = $this->formHelperBasic->render($form);
+        $actual = $this->formHelperBasic->render($this->formComplex);
         $expected = file_get_contents('resources/form-basic.html', true);
         $expected = preg_replace('/\s+/', ' ', $expected);
         $expected = preg_replace('/> </', '><', $expected);
         $this->assertEquals($expected, $actual);
+    }
+    /**
+     * Render all forms and put them in an html page to have a look
+     */
+    public function testRenderFoms(){
+        //Rendering
+        $formBasic = $this->formHelperBasic->render($this->formComplex);
+        $formVertical = $this->formHelperVertical->render($this->formComplex);
+        $formHorizontal = $this->formHelperHorizontal->render($this->formComplex);
+        $formInline = $this->formHelperInline->render($this->formComplex);
+        //Merging
+        $expected = file_get_contents('resources/layout.html', true);
+        $expected = sprintf($expected, $formBasic, $formVertical, $formHorizontal, $formInline);
+        //Writing
+        $byte = file_put_contents('resources/results/render.html', $expected, FILE_USE_INCLUDE_PATH | LOCK_EX);
+        $this->assertInternalType('integer', $byte);
     }
 
     /**
