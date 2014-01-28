@@ -92,7 +92,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         				'name' => 'exampleInputPassword1',
         				'type' => 'password',
         				'options' => array(
-        						'label' => 'Password'
+        						'label' => 'Password',
+        				        'help' => 'Example block-level help text here.'
         				),
         				'attributes' => array(
         						'placeholder' => 'Enter password'
@@ -110,7 +111,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         				'name' => 'submit',
         				'type' => 'button',
         				'options' => array(
-        						'label' => 'Send'
+        						'label' => 'Send',
         				),
         		));
         
@@ -290,6 +291,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         $form = new CreateProduct();
         $actual = $this->formHelperHorizontal->render($form);
+        $actual = preg_replace('/> </', '><', $actual);
         $expected = file_get_contents('resources/entityForm.html', true);
         $expected = preg_replace('/\s+/', ' ', $expected);
         $expected = preg_replace('/> </', '><', $expected);
@@ -303,6 +305,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testRenderFormBasic ()
     {
         $actual = $this->formHelperBasic->render($this->formComplex);
+        $actual = preg_replace('/> </', '><', $actual);
         $expected = file_get_contents('resources/form-basic.html', true);
         $expected = preg_replace('/\s+/', ' ', $expected);
         $expected = preg_replace('/> </', '><', $expected);
