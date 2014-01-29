@@ -64,7 +64,8 @@ class Group extends AbstractHelper
      */
     public function closeTag()
     {
-        return '</div>';
+        //don't forget triming space because of form-inline separation
+        return '</div> ';
     }
 
     /**
