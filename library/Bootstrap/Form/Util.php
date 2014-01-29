@@ -303,7 +303,6 @@ class Util
     }
     /**
 	 * @return the $xsColSize
-<<<<<<< HEAD
 	 */
 	public function getXsColSize() {
 		return $this->xsColSize;
@@ -358,79 +357,8 @@ class Util
 		$this->lgColSize = $this->filterSize($lgColSize);
 	}
 
-	/**
-	 * Return the position label
-	 * @todo unused ?
-	 * @param unknown $formType
-	 * @throws InvalidParameterException
-	 * @return string
-	 */
-	public function positionLabel($formType){
-		if (is_null($formType)) {
-			$formType   = $this->getDefaultFormType();
-		}
-		if (!$this->isFormTypeSupported($formType)) {
-			throw new InvalidParameterException(sprintf("Form type '%s' is not supported.", $formType));
-		}
-		return Label::APPEND;
-		return $formType;
-	}
-=======
-	 */
-	public function getXsColSize() {
-		return $this->xsColSize;
-	}
 
-	/**
-	 * @param number $xsColSize
-	 */
-	public function setXsColSize($xsColSize = 0) {
-		$this->xsColSize = $this->filterSize($xsColSize);
-	}
 
-	/**
-	 * @return the $smColSize
-	 */
-	public function getSmColSize() {
-		return $this->smColSize;
-	}
-
-	/**
-	 * @param number $smColSize
-	 */
-	public function setSmColSize($smColSize = 0) {
-		$this->smColSize = $this->filterSize($smColSize);
-	}
-
-	/**
-	 * @return the $mdColSize
-	 */
-	public function getMdColSize() {
-		return $this->mdColSize;
-	}
-
-	/**
-	 * @param number $mdColSize
-	 */
-	public function setMdColSize($mdColSize = 0) {
-		$this->mdColSize = $this->filterSize($mdColSize);
-	}
-
-	/**
-	 * @return the $lgColSize
-	 */
-	public function getLgColSize() {
-		return $this->lgColSize;
-	}
-
-	/**
-	 * @param number $lgColSize
-	 */
-	public function setLgColSize($lgColSize = 0) {
-		$this->lgColSize = $this->filterSize($lgColSize);
-	}
-
->>>>>>> 4cad0abe05cfbde9e375329d1343caacff3b733b
 }
 
 ?>
