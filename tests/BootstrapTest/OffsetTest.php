@@ -51,7 +51,7 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->offset->render('Some text'));
         $this->assertEquals($expected, $this->offset->render('Some text'),$this->formUtil);
         
-        $expected = '<div class="col-sm-offset-8">Some text</div>';
+        $expected = '<div class="col-sm-offset-4">Some text</div>';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_HORIZONTAL);
         $this->assertEquals($expected, $this->offset->render('Some text'));
         $this->assertEquals($expected, $this->offset->render('Some text',$this->formUtil));
@@ -68,7 +68,7 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
      */
     public function testOpenTag ()
     {
-        $this->assertEquals('<div class="col-sm-offset-8">', 
+        $this->assertEquals('<div class="col-sm-offset-4">', 
                 $this->offset->openTag());
     }
 
@@ -98,7 +98,7 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $offset('Some text'));
         $this->assertEquals($expected, $offset('Some text'),$this->formUtil);
         
-        $expected = '<div class="col-sm-offset-8">Some text</div>';
+        $expected = '<div class="col-sm-offset-4">Some text</div>';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_HORIZONTAL);
         $this->assertEquals($expected, $offset('Some text'));
         $this->assertEquals($expected, $offset('Some text',$this->formUtil));

@@ -288,16 +288,16 @@ class Util
     public function getOffsetCss(){
         $result = array();
         if($this->xsColSize){
-            $result[] = self::OFFSET_XS . (12 - $this->xsColSize); 
+            $result[] = self::OFFSET_XS . $this->xsColSize; 
         }
         if($this->smColSize){
-        	$result[] = self::OFFSET_SM . (12 - $this->smColSize);
+        	$result[] = self::OFFSET_SM . $this->smColSize;
         }
         if($this->mdColSize){
-        	$result[] = self::OFFSET_MD . (12 - $this->mdColSize);
+        	$result[] = self::OFFSET_MD . $this->mdColSize;
         }
         if($this->lgColSize){
-        	$result[] = self::OFFSET_LG . (12 - $this->lgColSize);
+        	$result[] = self::OFFSET_LG . $this->lgColSize;
         }
         return implode(' ',$result);
     }

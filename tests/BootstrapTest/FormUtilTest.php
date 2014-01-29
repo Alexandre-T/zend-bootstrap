@@ -274,15 +274,15 @@ class FormUtilTest extends \PHPUnit_Framework_TestCase
      * Test->getOffsetCss()
      */
     public function testGetOffsetCss(){
-        $this->assertEquals('col-sm-offset-8',$this->formUtil->getOffsetCss());
+        $this->assertEquals('col-sm-offset-4',$this->formUtil->getOffsetCss());
         $this->formUtil->setXsColSize(7);
-        $this->assertEquals('col-xs-offset-5 col-sm-offset-8',$this->formUtil->getOffsetCss());
+        $this->assertEquals('col-xs-offset-7 col-sm-offset-4',$this->formUtil->getOffsetCss());
         $this->formUtil->setMdColSize(8);
-        $this->assertEquals('col-xs-offset-5 col-sm-offset-8 col-md-offset-4',$this->formUtil->getOffsetCss());
+        $this->assertEquals('col-xs-offset-7 col-sm-offset-4 col-md-offset-8',$this->formUtil->getOffsetCss());
         $this->formUtil->setLgColSize(10);
-        $this->assertEquals('col-xs-offset-5 col-sm-offset-8 col-md-offset-4 col-lg-offset-2',$this->formUtil->getOffsetCss());
+        $this->assertEquals('col-xs-offset-7 col-sm-offset-4 col-md-offset-8 col-lg-offset-10',$this->formUtil->getOffsetCss());
         $this->formUtil->setMdColSize();
-        $this->assertEquals('col-xs-offset-5 col-sm-offset-8 col-lg-offset-2',$this->formUtil->getOffsetCss());
+        $this->assertEquals('col-xs-offset-7 col-sm-offset-4 col-lg-offset-10',$this->formUtil->getOffsetCss());
     }
 }
 
