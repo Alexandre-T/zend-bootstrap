@@ -62,6 +62,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         //Are Zend View Helper preserved ?
         $this->assertEquals('Zend\Form\View\Helper\FormCollection',get_class($helperPluginManager->get('formcollection')));
         $this->assertEquals('Zend\Form\View\Helper\Form',get_class($helperPluginManager->get('form')));
@@ -95,9 +96,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         //Are Zend View Helper override ?
-        $this->assertEquals('Bootstrap\Form\View\Helper\Group',get_class($helperPluginManager->get('formgroup')));
-        $this->assertEquals('Bootstrap\Form\View\Helper\HelpBlock',get_class($helperPluginManager->get('formhelp')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Collection',get_class($helperPluginManager->get('formcollection')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Form',get_class($helperPluginManager->get('form')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('formlabel')));
@@ -107,7 +107,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('formcheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('formemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('formpassword')));
-        
+        //We don't create new plugin who didn't exists before override, no formoffset as example
+        $this->assertFalse($helperPluginManager->has('formgroup'));
+        $this->assertFalse($helperPluginManager->has('formhelp'));
+        $this->assertFalse($helperPluginManager->has('formoffset'));
         
         // TODO Auto-generated ConfigTest->test__construct()
         $this->markTestIncomplete("testConfigureServiceManager test is not finished");

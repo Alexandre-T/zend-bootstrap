@@ -49,8 +49,8 @@ class Config implements ConfigInterface
 //			'formhint'                           => 'Bootstrap\Form\View\Helper\FormHint',
 	);
 	protected $overrideInvokables = array(
-			'formgroup'         => 'Bootstrap\Form\View\Helper\Group',
-			'formhelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
+//			'formgroup'         => 'Bootstrap\Form\View\Helper\Group',
+//			'formhelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
 			'formbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
 	        'formelement'       => 'Bootstrap\Form\View\Helper\Element',
 	        'formcheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
@@ -106,7 +106,7 @@ class Config implements ConfigInterface
 		    	$serviceManager->setInvokableClass($name, $service);
 		    }
 		}
-		$factories  = $this->getFactories();
+		$factories  = $this->getFactories($serviceManager);
 		foreach ($factories as $name => $factory) {
 			$serviceManager->setFactory($name, $factory);
 		}
@@ -116,7 +116,7 @@ class Config implements ConfigInterface
 	 * Returns an array of view helper factories
 	 * @return array
 	 */
-	protected function getFactories()
+	protected function getFactories(ServiceManager $serviceManager)
 	{
 		$formUtil   = $this->formUtil;
 		$results = array(
@@ -126,6 +126,10 @@ class Config implements ConfigInterface
 				},
 				'row'           => function($sm) use ($formUtil) {
 					$instance       = new Row($formUtil);
+					return $instance;
+				},
+				'offset'           => function($sm) use ($formUtil) {
+					$instance       = new Offset($formUtil);
 					return $instance;
 				},
 		    /*
@@ -207,7 +211,7 @@ class Config implements ConfigInterface
 		    $factories['bs'.$name] = $factory;
 		    if ('form' == $name && $formUtil->getOverride()){
 		        $factories[$name] = $factory;
-		    }elseif($formUtil->getOverride()){
+		    }elseif($formUtil->getOverride() && $serviceManager->has('form'.$name)){
 		        $factories['form'.$name] = $factory;
 		    }
 		}
