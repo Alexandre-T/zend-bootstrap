@@ -104,7 +104,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
         
         //CheckboxElement
-        $expected = '<label class="sr-only" for="checkboxName">';
+        $expected = '<label for="checkboxName">';
         $actual   = $this->label->openTag($this->checkboxElement);
         $this->assertEquals($expected, $actual);
         

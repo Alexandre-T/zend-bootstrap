@@ -47,7 +47,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
-        $expected = '<div class="form-group">Some text</div>';
+        $expected = '<div class="form-group">Some text</div> ';
         $actual   = $this->group->render(new Text('name'),'Some text');
         $this->assertEquals($expected, $actual);
         $expected = 'Some text';
@@ -70,7 +70,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function testCloseTag()
     {
-        $this->assertEquals('</div>',$this->group->closeTag());
+        $this->assertEquals('</div> ',$this->group->closeTag());
     }
 
     /**
@@ -81,7 +81,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $group = $this->group;
         $this->assertTrue(is_callable($group));
         
-        $expected = '<div class="form-group">Some text</div>';
+        $expected = '<div class="form-group">Some text</div> ';
         $actual   = $this->group->__invoke(new Text('name'),'Some text');
         $this->assertEquals($expected, $actual);
 
@@ -89,7 +89,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->group->__invoke(new Button('name'),'Some text');
         $this->assertEquals($expected, $actual);
         
-        $expected = '<div class="form-group">Some text</div>';
+        $expected = '<div class="form-group">Some text</div> ';
         $actual   = $group(new Text('name'),'Some text');
         $this->assertEquals($expected, $actual);
         
