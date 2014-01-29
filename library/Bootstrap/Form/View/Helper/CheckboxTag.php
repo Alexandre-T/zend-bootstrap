@@ -9,13 +9,13 @@ use Zend\Form\ElementInterface;
  * @author alexandre
  *        
  */
-class Group extends AbstractHelper
+class CheckboxTag extends AbstractHelper
 {
 
-    const DEFAULT_CLASS = 'form-group';
+    const DEFAULT_CLASS = 'checkbox';
 
     /**
-     * Renders the form group div tag
+     * Renders the checkbox div tag
      *
      * @param string $content            
      * @return string

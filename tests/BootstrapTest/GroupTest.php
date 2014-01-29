@@ -2,12 +2,7 @@
 
 namespace BootstrapTest;
 
-use Zend\Form\Element\Text;
-use Zend\Form\Element\Csrf;
-use Zend\Form\Element\Hidden;
-use Zend\Form\Element\Button;
 use Bootstrap\Form\View\Helper\Group;
-use Zend\Form\Element\Submit;
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
@@ -48,13 +43,11 @@ class GroupTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $expected = '<div class="form-group">Some text</div> ';
-        $actual   = $this->group->render(new Text('name'),'Some text');
+        $actual   = $this->group->render('Some text');
         $this->assertEquals($expected, $actual);
-        $expected = 'Some text';
-        $this->assertEquals($expected, $this->group->render(new Hidden('name'),'Some text'));
-        $this->assertEquals($expected, $this->group->render(new Button('name'),'Some text'));
-        $this->assertEquals($expected, $this->group->render(new Csrf('name'),'Some text'));
-        $this->assertEquals($expected, $this->group->render(new Submit('name'),'Some text'));
+        $expected = '<div class="foo bar">Some text</div> ';
+        $actual   = $this->group->render('Some text','foo bar');
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -63,6 +56,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
     public function testOpenTag()
     {
         $this->assertEquals('<div class="form-group">',$this->group->openTag());
+        $this->assertEquals('<div class="foo bar">',$this->group->openTag('foo bar'));
     }
 
     /**
@@ -82,19 +76,15 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_callable($group));
         
         $expected = '<div class="form-group">Some text</div> ';
-        $actual   = $this->group->__invoke(new Text('name'),'Some text');
+        $actual   = $this->group->__invoke('Some text');        
+        $this->assertEquals($expected, $actual);
+        $actual   = $group('Some text');
         $this->assertEquals($expected, $actual);
 
-        $expected = 'Some text';
-        $actual   = $this->group->__invoke(new Button('name'),'Some text');
+        $expected = '<div class="foo bar">Some text</div> ';
+        $actual   = $this->group->__invoke('Some text','foo bar');
         $this->assertEquals($expected, $actual);
-        
-        $expected = '<div class="form-group">Some text</div> ';
-        $actual   = $group(new Text('name'),'Some text');
-        $this->assertEquals($expected, $actual);
-        
-        $expected = 'Some text';
-        $actual   = $group(new Button('name'),'Some text');
+        $actual   = $group('Some text','foo bar');
         $this->assertEquals($expected, $actual);
         
     }
