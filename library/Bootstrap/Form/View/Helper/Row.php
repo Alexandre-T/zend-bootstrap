@@ -127,8 +127,8 @@ class Row extends FormRow
         //Helper order are in different order 
         switch ($this->formUtil->getDefaultFormType()){
         	case FormUtil::FORM_TYPE_BASIC :
+        	    //FIXME add helperBlock !!!!
         	    if ($element instanceof Button){
-        	        echo('ooooo');
         	        $markup  = $elementHelper->render($element);
         	    }elseif ($element instanceof Checkbox || $element instanceof Radio){
         	        $markup  = $elementHelper->render($element);
@@ -142,10 +142,36 @@ class Row extends FormRow
         	    }
         	    break;
         	case FormUtil::FORM_TYPE_INLINE :
-        	    
-        	    break;
+        	    if ($element instanceof Button){
+        	    	$markup  = $elementHelper->render($element);
+        	    }elseif ($element instanceof Checkbox || $element instanceof Radio){
+        	    	$markup  = $elementHelper->render($element);
+        	    	$markup .= $label;
+        	    	$markup  = $labelHelper->render($markup,$element,$this->formUtil);
+        	    	$markup  = $checkboxTagHelper->render($markup);
+        	    }else{
+        	    	$markup  = $labelHelper->render($label,$element,$this->formUtil);
+        	    	$markup .= $elementHelper->render($element);
+        	    	$markup  = $groupHelper->render($markup);
+        	    }
+                break;
         	case FormUtil::FORM_TYPE_HORIZONTAL :
-        	    
+        	    if ($element instanceof Button){
+        	    	$markup  = $elementHelper->render($element);
+        	    	$markup  = $offsetHelper->render($markup,$this->formUtil);
+        	    	$markup  = $groupHelper->render($markup);
+        	    }elseif ($element instanceof Checkbox || $element instanceof Radio){
+        	    	$markup  = $elementHelper->render($element);
+        	    	$markup .= $label;
+        	    	$markup  = $labelHelper->render($markup,$element,$this->formUtil);
+        	    	$markup  = $checkboxTagHelper->render($markup);
+        	    	$markup  = $offsetHelper->render($markup,$this->formUtil);
+        	    	$markup  = $groupHelper->render($markup);
+        	    }else{
+        	    	$markup  = $labelHelper->render($label,$element,$this->formUtil);
+        	    	$markup .= $offsetHelper->render($elementHelper->render($element),$this->formUtil);
+        	    	$markup  = $groupHelper->render($markup);
+        	    }
         	    break;
         }
         return $markup;
