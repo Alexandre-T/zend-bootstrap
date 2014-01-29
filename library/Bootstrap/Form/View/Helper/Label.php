@@ -139,6 +139,17 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         $attributes = $this->createAttributesString($attributes);
         return sprintf('<label %s>', $attributes);
     }
+    /**
+     * Render Label Tag
+     * 
+     * @param string $content
+     * @param  null|array|ElementInterface $attributesOrElement
+     * @param FormUtil $formUtil
+     * @return string
+     */
+    public function render($content,$attributesOrElement = null, FormUtil $formUtil = null){
+        return $this->openTag($attributesOrElement,$formUtil) . $content . $this->closeTag();
+    }
 }
 
 ?>

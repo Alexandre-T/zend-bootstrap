@@ -72,29 +72,5 @@ class RowTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('',$this->rowHelper->render($this->elementText));
     }
 
-    /**
-     * Tests Row->getFormGroup()
-     */
-    public function testGetFormGroup()
-    {
-        $this->assertTrue($this->rowHelper->getFormGroup());
-        $this->rowHelper->setFormGroup(false);
-        $this->assertFalse($this->rowHelper->getFormGroup());
-        $this->rowHelper->setFormGroup(true);
-        $this->assertTrue($this->rowHelper->getFormGroup());
-    }
-
-    /**
-     * Tests Row->setFormGroup()
-     */
-    public function testSetFormGroup()
-    {
-        $this->rowHelper->setFormGroup(true);
-        $this->assertTrue($this->rowHelper->getFormGroup());
-        $this->rowHelper->setFormGroup(false);
-        $this->assertFalse($this->rowHelper->getFormGroup());
-        $this->rowHelper->setFormGroup();
-        $this->assertTrue($this->rowHelper->getFormGroup());
-    }
 }
 

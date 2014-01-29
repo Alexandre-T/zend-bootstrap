@@ -1,6 +1,8 @@
 <?php
 namespace Bootstrap\Form\View\Helper;
 use Bootstrap\Form\View\Helper\Element as HelperElement;
+use Bootstrap\Form\View\Helper\Offset as HelperOffset;
+use Bootstrap\Form\View\Helper\CheckboxTag as HelperCheckboxTag;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\View\Helper\FormRow;
 use Bootstrap\Form\Exception\UnsupportedHelperTypeException;
@@ -8,6 +10,8 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Radio;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
 
 /**
  *
@@ -33,30 +37,26 @@ class Row extends FormRow
      * @var HelpBlock
      */
     protected $helpBlockHelper;
+    
+    /**
+     * @var CheckboxTag
+     */
+    protected $checkboxTagHelper;
 
     /**
-     * @var 
+     * @var Group 
      */
-    protected $formGroupHelper;
+    protected $groupHelper;
+    
+    /**
+     * @var Offset
+     */
+    protected $offsetHelper;
 
     /**
      * @var FormControlsTwb
      */
     protected $controlsHelper;
-    
-    /**
-     * Add The Form Group Helper render
-     * 
-     * @var boolean
-     */
-    protected $formGroup = true;
-
-    /**
-     * Add The Help Block Helper render
-     * 
-     * @var boolean
-     */
-    protected $helpBlock = true;
     
     /**
      * @var FormUtil
@@ -92,31 +92,81 @@ class Row extends FormRow
         if (null == $formUtil) {
             $formUtil = $this->formUtil;
         }
-        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-        $labelHelper = $this->getLabelHelper();
-        $elementHelper = $this->getElementHelper();
+        
+        //Retrieving Helpers  
+        $checkboxTagHelper = $this->getCheckboxTagHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
+        $elementHelper = $this->getElementHelper();
+        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+        $groupHelper = $this->getGroupHelper();
+        $helpBlockHelper = $this->getHelpBlockHelper();
+        $labelHelper = $this->getLabelHelper();
+        $offsetHelper = $this->getOffsetHelper();
         
+        //Label computing
         $label = $element->getLabel();
-        $inputErrorClass = $this->getInputErrorClass();
-        
-        // translation
-        if (isset($label) && '' !== $label) {
-            // Translate the label
-            if (null !== ($translator = $this->getTranslator())) {
-                $label = $translator->translate($label, 
-                        $this->getTranslatorTextDomain());
-            }
+        if (!empty($label)) {
+        	// Translate the label
+        	if (null !== ($translator = $this->getTranslator())) {
+        		$label = $translator->translate($label,
+        				$this->getTranslatorTextDomain());
+        	}
         }
         
+        //Errors computing
+        $inputErrorClass = $this->getInputErrorClass();
         // Does this element have errors ?
         if (count($element->getMessages()) > 0 && ! empty($inputErrorClass)) {
             $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute(
                     'class') . ' ' : '');
             $classAttributes = $classAttributes . $inputErrorClass;
-            
             $element->setAttribute('class', $classAttributes);
         }
+        
+        $markup = 'EMPTY';
+        //Helper order are in different order 
+        switch ($this->formUtil->getDefaultFormType()){
+        	case FormUtil::FORM_TYPE_BASIC :
+        	    if ($element instanceof Button){
+        	        echo('ooooo');
+        	        $markup  = $elementHelper->render($element);
+        	    }elseif ($element instanceof Checkbox || $element instanceof Radio){
+        	        $markup  = $elementHelper->render($element);
+        	        $markup .= $label;
+        	        $markup  = $labelHelper->render($markup,$element,$this->formUtil);
+                    $markup  = $checkboxTagHelper->render($markup); 
+        	    }else{
+                    $markup  = $labelHelper->render($label,$element,$this->formUtil);
+                    $markup .= $elementHelper->render($element);
+                    $markup  = $groupHelper->render($markup);
+        	    }
+        	    break;
+        	case FormUtil::FORM_TYPE_INLINE :
+        	    
+        	    break;
+        	case FormUtil::FORM_TYPE_HORIZONTAL :
+        	    
+        	    break;
+        }
+        return $markup;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+        
+        
+        
+        
+        
+        
+        
         
         // Position Label
         if ($element instanceof Checkbox || $element instanceof Radio) {
@@ -226,7 +276,7 @@ class Row extends FormRow
             $this->formGroupHelper = $this->getFormGroupHelper();
             $markup = $this->formGroupHelper->render($element, $markup);
         }
-        return $markup;
+        return $markup;*/
     }
 
     /**
@@ -265,18 +315,18 @@ class Row extends FormRow
      * @return Group
      * @throws \Bootstrap\Form\Exception\UnsupportedHelperTypeException
      */
-    protected function getFormGroupHelper ()
+    protected function getGroupHelper ()
     {
-        if (! $this->formGroupHelper) {
+        if (! $this->groupHelper) {
             if (method_exists($this->view, 'plugin')) {
-                $this->formGroupHelper = $this->view->plugin('bs_group');
+                $this->groupHelper = $this->view->plugin('bs_group');
             }
-            if (! $this->formGroupHelper instanceof Group) {
+            if (! $this->groupHelper instanceof Group) {
                 throw new UnsupportedHelperTypeException(
                         'Form group helper Bootstrap\Form\View\Helper\Group unavailable or unsupported type.');
             }
         }
-        return $this->formGroupHelper;
+        return $this->groupHelper;
     }
 
     /**
@@ -304,6 +354,50 @@ class Row extends FormRow
     }
 
     /**
+     * Retrieve the CheckboxTag helper
+     *
+     * @return FormElement
+     */
+    protected function getCheckboxTagHelper ()
+    {
+    	if ($this->checkboxTagHelper) {
+    		return $this->checkboxTagHelper;
+    	}
+    
+    	if (method_exists($this->view, 'plugin')) {
+    		$this->checkboxTagHelper = $this->view->plugin('bscheckboxtag');
+    	}
+    
+    	if (! $this->checkboxTagHelper instanceof HelperCheckboxTag) {
+    		$this->checkboxTagHelper = new HelperCheckboxTag();
+    	}
+    
+    	return $this->checkboxTagHelper;
+    }
+
+    /**
+     * Retrieve the Offset helper
+     *
+     * @return HelperOffset
+     */
+    protected function getOffsetHelper ()
+    {
+    	if ($this->offsetHelper) {
+    		return $this->offsetHelper;
+    	}
+    
+    	if (method_exists($this->view, 'plugin')) {
+    		$this->offsetHelper = $this->view->plugin('bsoffset');
+    	}
+    
+    	if (! $this->offsetHelper instanceof HelperOffset) {
+    		$this->offsetHelper = new HelperOffset();
+    	}
+    
+    	return $this->offsetHelper;
+    }
+    
+    /**
      * Retrieve the FormElement helper
      *
      * @return FormElement
@@ -325,41 +419,6 @@ class Row extends FormRow
         return $this->elementHelper;
     }
 
-    /**
-     *
-     * @return the $formGroup
-     */
-    public function getFormGroup ()
-    {
-        return $this->formGroup;
-    }
-
-    /**
-     *
-     * @param boolean $formGroup            
-     */
-    public function setFormGroup ($formGroup = true)
-    {
-        $this->formGroup = (boolean) $formGroup;
-    }
-
-    /**
-     *
-     * @return the $helpBlock
-     */
-    public function getHelpBlock ()
-    {
-        return $this->helpBlock;
-    }
-
-    /**
-     *
-     * @param boolean $helpBlock            
-     */
-    public function setHelpBlock ($helpBlock)
-    {
-        $this->helpBlock = (boolean) $helpBlock;
-    }
     /*
      * (non-PHPdoc) @see \Zend\Form\View\Helper\FormRow::__invoke()
      */
