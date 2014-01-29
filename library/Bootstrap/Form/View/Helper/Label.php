@@ -71,20 +71,28 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         if (null === $formUtil){
             $formUtil = $this->formUtil;
         }
+        
         if (null === $attributesOrElement) {            
             if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()) {
                 return '<label class="sr-only">';
-            } else {
+            } elseif (FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()) {
+                $colSize = $this->formUtil->getCss();
+                return '<label class="control-label '.$colSize.'">';
+            }  {
                 return '<label>';
             }
         }
         
         if (is_array($attributesOrElement)) {
-            // add class sr-only when Inline Form
-            // @todo add to test
+            
             if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()
-                && ! (isset($attributesOrElement['type']) && ( 'checkbox' == $attributesOrElement['type'] || 'radio' == $attributesOrElement['type']))){ 
+                && ! (isset($attributesOrElement['type']) && ( 'checkbox' == $attributesOrElement['type'] || 'radio' == $attributesOrElement['type']))){
+                    // add class sr-only when Inline Form and not (checkbox or radio type)
+                    // @todo add to test
                     $attributesOrElement = Util::addClassToArray($attributesOrElement,'sr-only');
+            }elseif(FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()){
+                $colSize = $this->formUtil->getCss();
+                $attributesOrElement = Util::addClassToArray($attributesOrElement,"control-label $colSize");
             }
             $attributes = $this->createAttributesString($attributesOrElement);
             if ($attributes){
@@ -111,6 +119,13 @@ class Label extends ViewHelperFormLabel implements HelperInterface
                 Util::addWords('sr-only', $labelAttributes['class']);
             } else {
                 $labelAttributes['class'] = 'sr-only';
+            }
+        }elseif(FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()){
+            $colSize = $this->formUtil->getCss();
+            if (is_array($labelAttributes) && array_key_exists('class', $labelAttributes)) {
+                Util::addWords("control-label $colSize", $labelAttributes['class']);
+            } else {
+                $labelAttributes['class'] = "control-label $colSize";
             }
         }
         $attributes = array(

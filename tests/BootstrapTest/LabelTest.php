@@ -81,7 +81,28 @@ class LabelTest extends \PHPUnit_Framework_TestCase
      * Tests Label->openTag()
      */
     public function testOpenTagFormBasic(){
-        $this->_testOpenTag();
+        //None element
+        $expected = '<label>';
+        $actual   = $this->label->openTag();
+        $this->assertEquals($expected, $actual);
+        //CheckboxElement
+        $expected = '<label for="checkboxName">';
+        $actual   = $this->label->openTag($this->checkboxElement);
+        $this->assertEquals($expected, $actual);
+        //Text-Element
+        $expected = '<label for="textName">';
+        $actual   = $this->label->openTag($this->textElement);
+        $this->assertEquals($expected, $actual);
+        
+        //Tableau sans classe
+        $expected = '<label id="label-id" for="label-for">';
+        $actual   = $this->label->openTag($this->attributesArray);
+        $this->assertEquals($expected, $actual);
+        
+        //Tableau avec classe
+        $expected = '<label id="label-id" for="label-for" class="classBar classFoo">';
+        $actual   = $this->label->openTag($this->attributesComplex);
+        $this->assertEquals($expected, $actual);
     }
     
     /**
@@ -89,7 +110,28 @@ class LabelTest extends \PHPUnit_Framework_TestCase
      */
     public function testOpenTagFormHorizontal(){
         $this->formUtil->setDefaultFormType(Util::FORM_TYPE_HORIZONTAL);
-        $this->_testOpenTag();
+        //None element
+        $expected = '<label class="control-label col-sm-4">';
+        $actual   = $this->label->openTag();
+        $this->assertEquals($expected, $actual);
+        //CheckboxElement
+        $expected = '<label class="control-label col-sm-4" for="checkboxName">';
+        $actual   = $this->label->openTag($this->checkboxElement);
+        $this->assertEquals($expected, $actual);
+        //Text-Element
+        $expected = '<label class="control-label col-sm-4" for="textName">';
+        $actual   = $this->label->openTag($this->textElement);
+        $this->assertEquals($expected, $actual);
+        
+        //Tableau sans classe
+        $expected = '<label id="label-id" for="label-for" class="control-label col-sm-4">';
+        $actual   = $this->label->openTag($this->attributesArray);
+        $this->assertEquals($expected, $actual);
+        
+        //Tableau avec classe
+        $expected = '<label id="label-id" for="label-for" class="classBar classFoo control-label col-sm-4">';
+        $actual   = $this->label->openTag($this->attributesComplex);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -120,32 +162,6 @@ class LabelTest extends \PHPUnit_Framework_TestCase
         
         //Tableau avec classe
         $expected = '<label id="label-id" for="label-for" class="classBar classFoo sr-only">';
-        $actual   = $this->label->openTag($this->attributesComplex);
-        $this->assertEquals($expected, $actual);
-        
-    }
-    
-    private function _testOpenTag(){
-        //None element
-        $expected = '<label>';
-        $actual   = $this->label->openTag();
-        $this->assertEquals($expected, $actual);
-        //CheckboxElement
-        $expected = '<label for="checkboxName">';
-        $actual   = $this->label->openTag($this->checkboxElement);
-        $this->assertEquals($expected, $actual);
-        //Text-Element
-        $expected = '<label for="textName">';
-        $actual   = $this->label->openTag($this->textElement);
-        $this->assertEquals($expected, $actual);
-        
-        //Tableau sans classe
-        $expected = '<label id="label-id" for="label-for">';
-        $actual   = $this->label->openTag($this->attributesArray);
-        $this->assertEquals($expected, $actual);
-        
-        //Tableau avec classe
-        $expected = '<label id="label-id" for="label-for" class="classBar classFoo">';
         $actual   = $this->label->openTag($this->attributesComplex);
         $this->assertEquals($expected, $actual);
         
