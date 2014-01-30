@@ -78,21 +78,20 @@ class Label extends ViewHelperFormLabel implements HelperInterface
             } elseif (FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()) {
                 $colSize = $this->formUtil->getCss();
                 return '<label class="control-label '.$colSize.'">';
-            }  {
+            } else {
                 return '<label>';
             }
         }
         
         if (is_array($attributesOrElement)) {
-            
-            if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()
-                && ! (isset($attributesOrElement['type']) && ( 'checkbox' == $attributesOrElement['type'] || 'radio' == $attributesOrElement['type']))){
-                    // add class sr-only when Inline Form and not (checkbox or radio type)
-                    // @todo add to test
+            //this isn't a checkbox nor a radio
+            if(isset($attributesOrElement['type']) && ( 'checkbox' == $attributesOrElement['type'] || 'radio' == $attributesOrElement['type'])){
+                if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()){
                     $attributesOrElement = Util::addClassToArray($attributesOrElement,'sr-only');
-            }elseif(FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()){
-                $colSize = $this->formUtil->getCss();
-                $attributesOrElement = Util::addClassToArray($attributesOrElement,"control-label $colSize");
+                }elseif (FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()){
+                    $colSize = $this->formUtil->getCss();
+                    $attributesOrElement = Util::addClassToArray($attributesOrElement,"control-label $colSize");
+                } 
             }
             $attributes = $this->createAttributesString($attributesOrElement);
             if ($attributes){
