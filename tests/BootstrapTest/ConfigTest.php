@@ -62,6 +62,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Text',get_class($helperPluginManager->get('bstext')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         //Are Zend View Helper preserved ?
         $this->assertEquals('Zend\Form\View\Helper\FormCollection',get_class($helperPluginManager->get('formcollection')));
@@ -73,6 +74,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Form\View\Helper\FormCheckbox',get_class($helperPluginManager->get('formcheckbox')));
         $this->assertEquals('Zend\Form\View\Helper\FormEmail',get_class($helperPluginManager->get('formemail')));
         $this->assertEquals('Zend\Form\View\Helper\FormPassword',get_class($helperPluginManager->get('formpassword')));
+        $this->assertEquals('Zend\Form\View\Helper\FormText',get_class($helperPluginManager->get('formtext')));
         //$this->assertEmpty(get_class($helperPluginManager->get('formgroup')));
         //$this->assertEquals('',get_class($helperPluginManager->get('formhelp')));
         
@@ -107,6 +109,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('formcheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('formemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('formpassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Text',get_class($helperPluginManager->get('formtext')));
         //We don't create new plugin who didn't exists before override, no formoffset as example
         $this->assertFalse($helperPluginManager->has('formgroup'));
         $this->assertFalse($helperPluginManager->has('formhelp'));

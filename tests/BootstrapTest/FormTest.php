@@ -8,6 +8,8 @@ use Zend\View\Renderer\ConsoleRenderer;
 use BootstrapTest\Form\CreateProduct;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\File;
+use Zend\Form\Element\Text;
+use Zend\Form\Element\Password;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -39,12 +41,19 @@ class FormTest extends \PHPUnit_Framework_TestCase
      * @var Form
      */
     private $form;
-    
+
     /**
      *
      * @var Form
      */
     private $formComplex;
+
+    /**
+     * A form with all Input type
+     *
+     * @var Form
+     */
+    private $formDemonstration;
 
     /**
      * Prepares the environment before running a test.
@@ -73,48 +82,51 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formHelperHorizontal->setView($view);
         $this->formHelperInline->setView($view);
         
-        //Form Build
+        // Form Build
         $this->formComplex = new Form('form-complex');
         $this->formComplex->setAttribute('role', 'form');
         $this->formComplex->add(
-        		array(
-        				'name' => 'exampleInputEmail1',
-        				'type' => 'email',
-        				'options' => array(
-        						'label' => 'Email address'
-        				),
-        				'attributes' => array(
-        						'placeholder' => 'Enter email'
-        				)
-        		));
-        $this->formComplex->add(
-        		array(
-        				'name' => 'exampleInputPassword1',
-        				'type' => 'password',
-        				'options' => array(
-        						'label' => 'Password',
-        				        'help' => 'Example block-level help text here.'
-        				),
-        				'attributes' => array(
-        						'placeholder' => 'Enter password'
-        				)
-        		));
-        //$file = new File('exampleInputFile');
-        //$file->setLabel('File input');
-        //$file->setOptions(array('help' => 'Example block-level help text here.'));
-        //$this->formComplex->add($file);
+                array(
+                        'name' => 'exampleInputEmail1',
+                        'type' => 'email',
+                        'options' => array(
+                                'label' => 'Email address'
+                        ),
+                        'attributes' => array(
+                                'placeholder' => 'Enter email'
+                        )
+                ));
+        $password = new Password('exampleInputPassword1');
+        $password->setLabel('Password');
+        $password->setOptions(
+                array(
+                        'options' => array(
+                                'help' => 'Example block-level help text here.'
+                        ),
+                        'attributes' => array(
+                                'placeholder' => 'Enter password'
+                        )
+                ));
+        $this->formComplex->add($password);
         $checkbox = new Checkbox('checkbox');
         $checkbox->setLabel('Check me out');
         $this->formComplex->add($checkbox);
         $this->formComplex->add(
-        		array(
-        				'name' => 'submit',
-        				'type' => 'button',
-        				'options' => array(
-        						'label' => 'Send',
-        				),
-        		));
+                array(
+                        'name' => 'submit',
+                        'type' => 'button',
+                        'options' => array(
+                                'label' => 'Send'
+                        )
+                ));
         
+        $this->formDemonstration = new Form();
+        
+        $text = new Text('text-name');
+        $text->setLabel('Text type');
+        
+        $this->formDemonstration->add($text);
+        $this->formDemonstration->add($password);
     }
 
     /**
@@ -196,7 +208,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $basic($this->form, 'horizontal'));
         
         $expected = '<form action="" method="POST" class="form-horizontal"></form>';
-        $actual = $this->formHelperHorizontal->__invoke($this->form, 'horizontal');
+        $actual = $this->formHelperHorizontal->__invoke($this->form, 
+                'horizontal');
         $this->assertEquals($expected, $actual);
         $this->assertEquals($expected, $horizontal($this->form, 'horizontal'));
         
@@ -305,19 +318,26 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $expected = preg_replace('/> </', '><', $expected);
         $this->assertEquals($expected, $actual);
     }
+
     /**
      * Render all forms and put them in an html page to have a look
      */
-    public function testRenderFoms(){
-        //Rendering
+    public function testRenderFoms ()
+    {
+        // Rendering
         $formBasic = $this->formHelperBasic->render($this->formComplex);
-        $formHorizontal = $this->formHelperHorizontal->render($this->formComplex);
+        $formHorizontal = $this->formHelperHorizontal->render(
+                $this->formComplex);
         $formInline = $this->formHelperInline->render($this->formComplex);
-        //Merging
+        $formDemonstration = $this->formHelperHorizontal->render(
+                $this->formDemonstration);
+        // Merging
         $expected = file_get_contents('resources/layout.html', true);
-        $expected = sprintf($expected, $formBasic, $formHorizontal, $formInline);
-        //Writing
-        $byte = file_put_contents('resources/results/render.html', $expected, FILE_USE_INCLUDE_PATH | LOCK_EX);
+        $expected = sprintf($expected, $formDemonstration, $formBasic, $formHorizontal, $formInline 
+                );
+        // Writing
+        $byte = file_put_contents('resources/results/render.html', $expected, 
+                FILE_USE_INCLUDE_PATH | LOCK_EX);
         $this->assertInternalType('integer', $byte);
     }
 
@@ -358,11 +378,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
         
         $expected = '<form action="" method="POST" class="form-horizontal">';
-        $actual = $this->formHelperHorizontal->openTag($this->form, 'horizontal');
+        $actual = $this->formHelperHorizontal->openTag($this->form, 
+                'horizontal');
         $this->assertEquals($expected, $actual);
         
         $expected = '<form action="" method="POST" class="form-horizontal">';
-        $actual = $this->formHelperHorizontal->openTag($this->form, 'horizontal');
+        $actual = $this->formHelperHorizontal->openTag($this->form, 
+                'horizontal');
         $this->assertEquals($expected, $actual);
         
         // three-elements
@@ -379,7 +401,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
                         'class' => 'form-class-foobar'
                 ));
         $this->assertEquals($expected, $actual);
-        
     }
 
     /**
@@ -393,4 +414,3 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formHelperBasic->openTag($this->form, 'foobar');
     }
 }
-
