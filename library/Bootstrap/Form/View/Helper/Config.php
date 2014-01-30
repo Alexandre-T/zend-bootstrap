@@ -42,7 +42,7 @@ class Config implements ConfigInterface
 	        'bscheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
 	        'bsemail'         => 'Bootstrap\Form\View\Helper\Element\Email',
 	        'bspassword'      => 'Bootstrap\Form\View\Helper\Element\Password',
-//			'formcontrols'                       => 'Bootstrap\Form\View\Helper\FormControls',
+			'bscheckboxtag'   => 'Bootstrap\Form\View\Helper\CheckboxTag',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
 //			'formhidden'                         => 'Bootstrap\Form\View\Helper\FormHidden',

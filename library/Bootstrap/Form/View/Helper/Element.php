@@ -29,7 +29,7 @@ class Element extends HelperElement
         
         if ($element instanceof FormElement\Button) {
         	$helper = $renderer->plugin('bs_button');
-        	return $helper($element);
+        	return $helper($element,$element->getLabel());
         }
 
         if ($element instanceof FormElement\Collection) {
