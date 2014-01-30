@@ -86,7 +86,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->label->openTag();
         $this->assertEquals($expected, $actual);
         //CheckboxElement
-        $expected = '<label for="checkboxName">';
+        $expected = '<label >';
         $actual   = $this->label->openTag($this->checkboxElement);
         $this->assertEquals($expected, $actual);
         //Text-Element
@@ -115,7 +115,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->label->openTag();
         $this->assertEquals($expected, $actual);
         //CheckboxElement
-        $expected = '<label class="control-label col-sm-4" for="checkboxName">';
+        $expected = '<label >';
         $actual   = $this->label->openTag($this->checkboxElement);
         $this->assertEquals($expected, $actual);
         //Text-Element
@@ -146,7 +146,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
         
         //CheckboxElement
-        $expected = '<label for="checkboxName">';
+        $expected = '<label >';
         $actual   = $this->label->openTag($this->checkboxElement);
         $this->assertEquals($expected, $actual);
         
