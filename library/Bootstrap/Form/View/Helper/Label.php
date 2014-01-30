@@ -84,8 +84,8 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         }
         
         if (is_array($attributesOrElement)) {
-            //this isn't a checkbox nor a radio
-            if(isset($attributesOrElement['type']) && ( 'checkbox' == $attributesOrElement['type'] || 'radio' == $attributesOrElement['type'])){
+            if(! (isset($attributesOrElement['type']) && ( 'checkbox' == $attributesOrElement['type'] || 'radio' == $attributesOrElement['type']))){
+                //this isn't a checkbox nor a radio                
                 if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType()){
                     $attributesOrElement = Util::addClassToArray($attributesOrElement,'sr-only');
                 }elseif (FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()){
@@ -120,16 +120,31 @@ class Label extends ViewHelperFormLabel implements HelperInterface
                 $labelAttributes['class'] = 'sr-only';
             }
         }elseif(FormUtil::FORM_TYPE_HORIZONTAL == $formUtil->getDefaultFormType()){
-            $colSize = $this->formUtil->getCss();
-            if (is_array($labelAttributes) && array_key_exists('class', $labelAttributes)) {
-                Util::addWords("control-label $colSize", $labelAttributes['class']);
-            } else {
-                $labelAttributes['class'] = "control-label $colSize";
+            if ($attributesOrElement instanceof Checkbox || $attributesOrElement instanceof Radio ){
+                
+            }else{
+                $colSize = $this->formUtil->getCss();
+                if (is_array($labelAttributes) && array_key_exists('class', $labelAttributes)) {
+                	Util::addWords("control-label $colSize", $labelAttributes['class']);
+                } else {
+                	$labelAttributes['class'] = "control-label $colSize";
+                }
             }
         }
-        $attributes = array(
-            'for' => $this->getId($attributesOrElement)
-        );
+        if (!($attributesOrElement instanceof Checkbox || $attributesOrElement instanceof Radio )){
+            $id = $attributesOrElement->getAttribute('id');
+            if (empty($id)){
+                $id = $this->getId($attributesOrElement);
+                $attributesOrElement->setAttribute('id',$id);
+            }
+            $attributes = array(
+            	'for' => $id
+            );
+            
+        }else{
+            $attributes = array();
+            unset ($labelAttributes['for']);
+        }
         
         if (! empty($labelAttributes)) {
             $attributes = array_merge($labelAttributes, $attributes);

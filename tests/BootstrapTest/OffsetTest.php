@@ -2,6 +2,7 @@
 namespace BootstrapTest;
 use Bootstrap\Form\View\Helper\Offset;
 use Bootstrap\Form\Util as FormUtil;
+use Zend\Form\Element\Checkbox;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -42,24 +43,27 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
     public function testRender ()
     {
         $this->assertNull($this->offset->render());
-        $this->assertNull($this->offset->render(null,$this->formUtil));
+        $this->assertNull($this->offset->render(null, null,$this->formUtil));
         
         $expected = 'Some text';
-        $this->assertEquals($expected, $this->offset->render('Some text'));
-        $this->assertEquals($expected, $this->offset->render('Some text'),$this->formUtil);
+        $this->assertEquals($expected, $this->offset->render(null,'Some text'));
+        $this->assertEquals($expected, $this->offset->render(null,'Some text'),$this->formUtil);
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_INLINE);
-        $this->assertEquals($expected, $this->offset->render('Some text'));
-        $this->assertEquals($expected, $this->offset->render('Some text'),$this->formUtil);
+        $this->assertEquals($expected, $this->offset->render(null,'Some text'));
+        $this->assertEquals($expected, $this->offset->render(null,'Some text'),$this->formUtil);
         
         $expected = '<div class="col-sm-offset-4">Some text</div>';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_HORIZONTAL);
-        $this->assertEquals($expected, $this->offset->render('Some text'));
-        $this->assertEquals($expected, $this->offset->render('Some text',$this->formUtil));
+        $this->assertEquals($expected, $this->offset->render(null,'Some text'));
+        $this->assertEquals($expected, $this->offset->render(null,'Some text',$this->formUtil));
+        $element = new Checkbox('foo');
+        $expected = '<div class="col-sm-offset-4 col-sm-8">Some text</div>';
+        $this->assertEquals($expected, $this->offset->render($element,'Some text',$this->formUtil));
         
         $expected = 'Some text';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_BASIC);
-        $this->assertEquals($expected, $this->offset->render('Some text'));
-        $this->assertEquals($expected, $this->offset->render('Some text'),$this->formUtil);
+        $this->assertEquals($expected, $this->offset->render(null,'Some text'));
+        $this->assertEquals($expected, $this->offset->render(null,'Some text'),$this->formUtil);
         
     }
 
@@ -89,24 +93,29 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_callable($offset));
         
         $this->assertNull($offset());
-        $this->assertNull($offset(null,$this->formUtil));
+        $this->assertNull($offset(null,null,$this->formUtil));
         
         $expected = 'Some text';
-        $this->assertEquals($expected, $offset('Some text'));
-        $this->assertEquals($expected, $offset('Some text'),$this->formUtil);
+        $this->assertEquals($expected, $offset(null,'Some text'));
+        $this->assertEquals($expected, $offset(null,'Some text'),$this->formUtil);
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_INLINE);
-        $this->assertEquals($expected, $offset('Some text'));
-        $this->assertEquals($expected, $offset('Some text'),$this->formUtil);
+        $this->assertEquals($expected, $offset(null,'Some text'));
+        $this->assertEquals($expected, $offset(null,'Some text'),$this->formUtil);
         
         $expected = '<div class="col-sm-offset-4">Some text</div>';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_HORIZONTAL);
-        $this->assertEquals($expected, $offset('Some text'));
-        $this->assertEquals($expected, $offset('Some text',$this->formUtil));
+        $this->assertEquals($expected, $offset(null,'Some text'));
+        $this->assertEquals($expected, $offset(null,'Some text',$this->formUtil));
+        
+        $expected = '<div class="col-sm-offset-4 col-sm-8">Some text</div>';
+        $checkbox = new Checkbox();
+        $this->assertEquals($expected, $offset($checkbox,'Some text'));
+        $this->assertEquals($expected, $offset($checkbox,'Some text',$this->formUtil));
         
         $expected = 'Some text';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_BASIC);
-        $this->assertEquals($expected, $offset('Some text'));
-        $this->assertEquals($expected, $offset('Some text'),$this->formUtil);
+        $this->assertEquals($expected, $offset(null,'Some text'));
+        $this->assertEquals($expected, $offset(null,'Some text'),$this->formUtil);
         
         /*$expected = '<div class="form-group">Some text</div> ';
         $actual = $this->offset->__invoke(new Text('name'), 'Some text');

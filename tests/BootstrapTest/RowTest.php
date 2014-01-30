@@ -59,7 +59,7 @@ class RowTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {        
-        $expected = '<div class="form-group"><input type="text" name="text-name" id="text-name" value=""></div> ';
+        $expected = '<div class="form-group"><input type="text" name="text-name" value=""></div> ';
         $actual = $this->rowHelper->render($this->elementText);
         $this->assertEquals($expected, $actual);
     }

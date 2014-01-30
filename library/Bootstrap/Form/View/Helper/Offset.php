@@ -4,6 +4,8 @@ namespace Bootstrap\Form\View\Helper;
 use Zend\Form\View\Helper\AbstractHelper;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\ElementInterface;
+use Zend\Form\Element\Radio;
+use Zend\Form\Element\Checkbox;
 
 /**
  *
@@ -34,16 +36,18 @@ class Offset extends AbstractHelper
      * @param string $content
      * @return string
      */
-    public function render($content = null, FormUtil $formUtil = null)
+    public function render(ElementInterface $element = null, $content = null, FormUtil $formUtil = null)
     {
         if (null !== $formUtil){
             $this->formUtil = $formUtil;
         }
-        if (empty($content)){
-    	    return;
-    	}
         if (FormUtil::FORM_TYPE_HORIZONTAL == $this->formUtil->getDefaultFormType()){
-            return $this->openTag() . $content . $this->closeTag();
+            if (null == $element){
+                $checkbox = false;
+            }else{
+                $checkbox = ($element instanceof Checkbox || $element instanceof Radio);
+            } 
+            return $this->openTag($checkbox) . $content . $this->closeTag();
     	}
     	return $content;
     }
@@ -53,9 +57,13 @@ class Offset extends AbstractHelper
      *
      * @return string
      */
-    public function openTag()
-    {        
-    	return '<div class="' . $this->formUtil->getOffsetCss() . '">';
+    public function openTag($width = false)
+    {
+        $class = $this->formUtil->getOffsetCss();
+        if ($width){
+            $class .= ' ' . $this->formUtil->getWidthCss();
+        }
+    	return '<div class="' . $class  . '">';
     }
     /**
      * Returns the form offset closing tag
@@ -75,9 +83,9 @@ class Offset extends AbstractHelper
      * @param null|FormUtil $formUtil
      * @return string
      */
-    public function __invoke($content = null,FormUtil $formUtil = null)
+    public function __invoke(ElementInterface $element = null, $content = null,FormUtil $formUtil = null)
     {
-    	return $this->render($content,$formUtil);
+    	return $this->render($element, $content,$formUtil);
     }
 }
 

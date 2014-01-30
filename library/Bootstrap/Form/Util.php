@@ -281,7 +281,7 @@ class Util
         return implode(' ',$result);
     }
     /**
-     * Return the css class when for each colsize specified
+     * Return the css class for each colsize specified
      * 
      * @return string
      */
@@ -300,6 +300,27 @@ class Util
         	$result[] = self::OFFSET_LG . $this->lgColSize;
         }
         return implode(' ',$result);
+    }
+    /**
+     * Return the width css class colsize specified
+     *
+     * @return string
+     */
+    public function getWidthCss(){
+    	$result = array();
+    	if($this->xsColSize){
+    		$result[] = self::DEVICE_XS . ( 12 - $this->xsColSize);
+    	}
+    	if($this->smColSize){
+    		$result[] = self::DEVICE_SM . ( 12 - $this->smColSize);
+    	}
+    	if($this->mdColSize){
+    		$result[] = self::DEVICE_MD . ( 12 - $this->mdColSize);
+    	}
+    	if($this->lgColSize){
+    		$result[] = self::DEVICE_LG . ( 12 - $this->lgColSize);
+    	}
+    	return implode(' ',$result);
     }
     /**
 	 * @return the $xsColSize
