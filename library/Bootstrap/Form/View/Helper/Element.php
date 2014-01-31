@@ -14,7 +14,7 @@ class Element extends HelperElement
 
     /**
      * Render an element
-     * 
+     *
      * @param ElementInterface $element            
      * @param null|string $formType            
      * @param array $displayOptions            
@@ -40,33 +40,65 @@ class Element extends HelperElement
         }
         
         switch ($element->getAttribute('type')) {
-            case 'checkbox' :
+            case 'color':
+            	$helper = $renderer->plugin('bs_color');
+            	return $helper($element);
+            case 'checkbox':
                 $helper = $renderer->plugin('bs_checkbox');
                 return $helper($element);
-            case 'email' :
+            case 'date':
+                $helper = $renderer->plugin('bs_date');
+                return $helper($element);
+            case 'datetime':
+                $helper = $renderer->plugin('bs_date_time');
+                return $helper($element);
+            case 'datetime-local':
+                $helper = $renderer->plugin('bs_date_time_local');
+                return $helper($element);
+            case 'email':
                 $helper = $renderer->plugin('bs_email');
                 return $helper($element);
-            case 'password' :
+            case 'month':
+                $helper = $renderer->plugin('bs_month');
+                return $helper($element);
+            case 'number':
+                $helper = $renderer->plugin('bs_number');
+                return $helper($element);
+            case 'password':
                 $helper = $renderer->plugin('bs_password');
                 return $helper($element);
-            case 'text' :
+            case 'search':
+                $helper = $renderer->plugin('bs_search');
+                return $helper($element);
+            case 'select':
+                $helper = $renderer->plugin('bs_select');
+                return $helper($element);
+            case 'tel':
+                $helper = $renderer->plugin('bs_tel');
+                return $helper($element);
+            case 'text':
                 $helper = $renderer->plugin('bs_text');
                 return $helper($element);
+            case 'textarea':
+                $helper = $renderer->plugin('bs_textarea');
+                return $helper($element);
+            case 'time':
+                $helper = $renderer->plugin('bs_time');
+                return $helper($element);
+            case 'url':
+                $helper = $renderer->plugin('bs_url');
+                return $helper($element);
+            case 'week':
+                $helper = $renderer->plugin('bs_week');
+                return $helper($element);            
         }
-        
-        
-        // FIXME to render unmodify Element
+
         parent::render($element, $formType, $displayOptions);
+        //So Csrf, Hidden are not override
         
         // FIXME Have I to overload Element\Captcha ?
         if ($element instanceof FormElement\Captcha) {
             $helper = $renderer->plugin('form_captcha');
-            return $helper($element);
-        }
-        
-        // FIXME Have I to overload Element\Csrf ?
-        if ($element instanceof FormElement\Csrf) {
-            $helper = $renderer->plugin('form_hidden');
             return $helper($element);
         }
         
@@ -90,37 +122,8 @@ class Element extends HelperElement
         
         $type = $element->getAttribute('type');
         
-        // FIXME Have I to overload FormElement\Color
-        if ('color' == $type) {
-            $helper = $renderer->plugin('form_color');
-            return $helper($element);
-        }
-        
-        // FIXME Have I to overload FormElement\Date
-        if ('date' == $type) {
-            $helper = $renderer->plugin('form_date');
-            return $helper($element);
-        }
-        
-        // FIXME Have I to overload FormElement\DateTime
-        if ('datetime' == $type) {
-            $helper = $renderer->plugin('form_date_time');
-            return $helper($element);
-        }
-        
-        // FIXME Have I to overload FormElement\DateTimeLocal
-        if ('datetime-local' == $type) {
-            $helper = $renderer->plugin('form_date_time_local');
-            return $helper($element);
-        }
-        
         if ('file' == $type) {
             $helper = $renderer->plugin('form_file');
-            return $helper($element);
-        }
-        
-        if ('hidden' == $type) {
-            $helper = $renderer->plugin('form_hidden');
             return $helper($element);
         }
         
@@ -129,18 +132,8 @@ class Element extends HelperElement
             return $helper($element);
         }
         
-        if ('month' == $type) {
-            $helper = $renderer->plugin('form_month');
-            return $helper($element);
-        }
-        
         if ('multi_checkbox' == $type) {
             $helper = $renderer->plugin('form_multi_checkbox');
-            return $helper($element);
-        }
-        
-        if ('number' == $type) {
-            $helper = $renderer->plugin('form_number');
             return $helper($element);
         }
         
@@ -159,11 +152,6 @@ class Element extends HelperElement
             return $helper($element);
         }
         
-        if ('search' == $type) {
-            $helper = $renderer->plugin('form_search');
-            return $helper($element);
-        }
-        
         if ('select' == $type) {
             $helper = $renderer->plugin('form_select');
             return $helper($element);
@@ -174,31 +162,6 @@ class Element extends HelperElement
             return $helper($element);
         }
         
-        if ('tel' == $type) {
-            $helper = $renderer->plugin('form_tel');
-            return $helper($element);
-        }
-        
-        if ('textarea' == $type) {
-            $helper = $renderer->plugin('form_textarea');
-            return $helper($element);
-        }
-        
-        if ('time' == $type) {
-            $helper = $renderer->plugin('form_time');
-            return $helper($element);
-        }
-        
-        if ('url' == $type) {
-            $helper = $renderer->plugin('form_url');
-            return $helper($element);
-        }
-        
-        if ('week' == $type) {
-            $helper = $renderer->plugin('form_week');
-            return $helper($element);
-        }
-        
         $helper = $renderer->plugin('form_input');
         return $helper($element);
     }
@@ -206,7 +169,7 @@ class Element extends HelperElement
     /**
      * Invoke helper as function
      * Proxies to {@link render()}.
-     * 
+     *
      * @param ElementInterface|null $element            
      * @param null|string $formType            
      * @param array $displayOptions            

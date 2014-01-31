@@ -7,9 +7,20 @@ use BootstrapTest\Util\ServiceManagerFactory;
 use Zend\View\Renderer\ConsoleRenderer;
 use BootstrapTest\Form\CreateProduct;
 use Zend\Form\Element\Checkbox;
-use Zend\Form\Element\File;
+use Zend\Form\Element\DateTime;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Password;
+use Zend\Form\Element\Date;
+use Zend\Form\Element\DateTimeLocal;
+use Zend\Form\Element\Month;
+use Zend\Form\Element\Number;
+use Zend\Form\Element\Select;
+use Bootstrap\Form\View\Helper\Element\Search;
+use Zend\Form\Element\Color;
+use Zend\Form\Element\Email;
+use Zend\Form\Element\Url;
+use Zend\Form\Element\Time;
+use Zend\Form\Element\Textarea;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -63,6 +74,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         
         $this->form = new Form();
+        $this->formComplex = new Form('form-complex');
+        $this->formDemonstration = new Form('form-demo');
         
         $serviceManager = ServiceManagerFactory::getServiceManager();
         $application = $serviceManager->get('Application');
@@ -82,34 +95,101 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formHelperHorizontal->setView($view);
         $this->formHelperInline->setView($view);
         
-        // Form Build
-        $this->formComplex = new Form('form-complex');
-        $this->formComplex->setAttribute('role', 'form');
-        $this->formComplex->add(
-                array(
-                        'name' => 'exampleInputEmail1',
-                        'type' => 'email',
-                        'options' => array(
-                                'label' => 'Email address'
-                        ),
-                        'attributes' => array(
-                                'placeholder' => 'Enter email'
-                        )
-                ));
+        $email = new Email('exampleInputEmail1');
+        $email->setLabel('Email address');
+        $email->setAttribute('placeholder', 'Enter Email');
+        
         $password = new Password('exampleInputPassword1');
         $password->setLabel('Password');
+        $password->setAttribute('placeholder', 'Enter password');
         $password->setOptions(
                 array(
                         'options' => array(
                                 'help' => 'Example block-level help text here.'
-                        ),
-                        'attributes' => array(
-                                'placeholder' => 'Enter password'
                         )
                 ));
-        $this->formComplex->add($password);
         $checkbox = new Checkbox('checkbox');
         $checkbox->setLabel('Check me out');
+        
+        $color = new Color('color-name');
+        $color->setLabel('Color type');
+        
+        $date = new Date('date-name');
+        $date->setLabel('Date type');
+        
+        $dateTime = new DateTime('datetime-name');
+        $dateTime->setLabel('Date Time type');
+        
+        $dateTimeLocal = new DateTimeLocal('datetimelocal-name');
+        $dateTimeLocal->setLabel('Date Time local type');
+        
+        $month = new Month('month-name');
+        $month->setLabel('Month type');
+        
+        $number = new Number('number-name');
+        $number->setLabel('Number type');
+        
+        $search = new Text('search-name', 
+                array(
+                        'type' => 'search'
+                ));
+        $search->setLabel('Search type');
+        
+        $select = new Select('select-name');
+        $select->setLabel('Select input');
+        $select->setValueOptions(array(
+                '1' => 'Option 1',
+                2 => 'Option 2'
+        ));
+        
+        $tel = new Text('tel-name', 
+                array(
+                        'type' => 'tel'
+                ));
+        $tel->setLabel('Tel type');
+        
+        $text = new Text('text-name');
+        $text->setLabel('Text type');
+        $text->setAttribute('placeholder', 'Example Text placeholder');
+        
+        $textarea = new Textarea('textarea-name');
+        $textarea->setLabel('Textarea type');
+        $textarea->setAttribute('placeholder', 'Example Textarea placeholder');
+        
+        $time = new Time('time-name');
+        $time->setLabel('Time type');
+        $time->setAttribute('placeholder', 'Example Time placeholder');
+        
+        $url = new Url('url-name');
+        $url->setLabel('Url type');
+        $url->setAttribute('placeholder', 'http://www.example.org');
+        
+        $week = new Text('week-name');
+        $week->setLabel('Week type');
+        // $week->setAttribute('placeholder', 'http://www.example.org');
+        
+        $this->formDemonstration->add($checkbox);
+        $this->formDemonstration->add($color);
+        $this->formDemonstration->add($date);
+        $this->formDemonstration->add($dateTime);
+        $this->formDemonstration->add($dateTimeLocal);
+        $this->formDemonstration->add($email);
+        $this->formDemonstration->add($month);
+        $this->formDemonstration->add($number);
+        $this->formDemonstration->add($password);
+        $this->formDemonstration->add($search);
+        $this->formDemonstration->add($select);
+        $this->formDemonstration->add($tel);
+        $this->formDemonstration->add($text);
+        $this->formDemonstration->add($textarea);
+        $this->formDemonstration->add($time);
+        $this->formDemonstration->add($url);
+        $this->formDemonstration->add($week);
+        
+        // form build
+        $this->formComplex->setAttribute('role', 'form');
+        $this->formComplex->add($email);
+        $this->formComplex->add($password);
         $this->formComplex->add($checkbox);
         $this->formComplex->add(
                 array(
@@ -119,14 +199,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                 'label' => 'Send'
                         )
                 ));
-        
-        $this->formDemonstration = new Form();
-        
-        $text = new Text('text-name');
-        $text->setLabel('Text type');
-        
-        $this->formDemonstration->add($text);
-        $this->formDemonstration->add($password);
     }
 
     /**
@@ -333,8 +405,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 $this->formDemonstration);
         // Merging
         $expected = file_get_contents('resources/layout.html', true);
-        $expected = sprintf($expected, $formDemonstration, $formBasic, $formHorizontal, $formInline 
-                );
+        $expected = sprintf($expected, $formDemonstration, $formBasic, 
+                $formHorizontal, $formInline);
         // Writing
         $byte = file_put_contents('resources/results/render.html', $expected, 
                 FILE_USE_INCLUDE_PATH | LOCK_EX);

@@ -60,9 +60,21 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('bselement')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('bsdate')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTime',get_class($helperPluginManager->get('bsdatetime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTimeLocal',get_class($helperPluginManager->get('bsdatetimelocal')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('bsmonth')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('bsnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('bssearch')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('bsselect')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('bstel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Text',get_class($helperPluginManager->get('bstext')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Time',get_class($helperPluginManager->get('bstime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Url',get_class($helperPluginManager->get('bsurl')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Week',get_class($helperPluginManager->get('bsweek')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         //Are Zend View Helper preserved ?
         $this->assertEquals('Zend\Form\View\Helper\FormCollection',get_class($helperPluginManager->get('formcollection')));
@@ -70,11 +82,25 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Form\View\Helper\FormLabel',get_class($helperPluginManager->get('formlabel')));
         $this->assertEquals('Zend\Form\View\Helper\FormRow',get_class($helperPluginManager->get('formrow')));
         $this->assertEquals('Zend\Form\View\Helper\FormElement',get_class($helperPluginManager->get('formelement')));
+        
         $this->assertEquals('Zend\Form\View\Helper\FormButton',get_class($helperPluginManager->get('formbutton')));
         $this->assertEquals('Zend\Form\View\Helper\FormCheckbox',get_class($helperPluginManager->get('formcheckbox')));
+        $this->assertEquals('Zend\Form\View\Helper\FormColor',get_class($helperPluginManager->get('formcolor')));
+        $this->assertEquals('Zend\Form\View\Helper\FormDate',get_class($helperPluginManager->get('formdate')));
+        $this->assertEquals('Zend\Form\View\Helper\FormDateTime',get_class($helperPluginManager->get('formdatetime')));
+        $this->assertEquals('Zend\Form\View\Helper\FormDateTimeLocal',get_class($helperPluginManager->get('formdatetimelocal')));
         $this->assertEquals('Zend\Form\View\Helper\FormEmail',get_class($helperPluginManager->get('formemail')));
+        $this->assertEquals('Zend\Form\View\Helper\FormMonth',get_class($helperPluginManager->get('formmonth')));
+        $this->assertEquals('Zend\Form\View\Helper\FormNumber',get_class($helperPluginManager->get('formnumber')));
         $this->assertEquals('Zend\Form\View\Helper\FormPassword',get_class($helperPluginManager->get('formpassword')));
+        $this->assertEquals('Zend\Form\View\Helper\FormSearch',get_class($helperPluginManager->get('formsearch')));
+        $this->assertEquals('Zend\Form\View\Helper\FormSelect',get_class($helperPluginManager->get('formselect')));
+        $this->assertEquals('Zend\Form\View\Helper\FormTel',get_class($helperPluginManager->get('formtel')));
         $this->assertEquals('Zend\Form\View\Helper\FormText',get_class($helperPluginManager->get('formtext')));
+        $this->assertEquals('Zend\Form\View\Helper\FormTextarea',get_class($helperPluginManager->get('formtextarea')));
+        $this->assertEquals('Zend\Form\View\Helper\FormTime',get_class($helperPluginManager->get('formtime')));
+        $this->assertEquals('Zend\Form\View\Helper\FormUrl',get_class($helperPluginManager->get('formurl')));
+        $this->assertEquals('Zend\Form\View\Helper\FormWeek',get_class($helperPluginManager->get('formweek')));
         //$this->assertEmpty(get_class($helperPluginManager->get('formgroup')));
         //$this->assertEquals('',get_class($helperPluginManager->get('formhelp')));
         
@@ -95,9 +121,24 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\HelpBlock',get_class($helperPluginManager->get('bshelp')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('bslabel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('bsdate')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTime',get_class($helperPluginManager->get('bsdatetime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTimeLocal',get_class($helperPluginManager->get('bsdatetimelocal')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('bsmonth')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('bsnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('bssearch')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('bsselect')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('bstel')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Text',get_class($helperPluginManager->get('bstext')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Textarea',get_class($helperPluginManager->get('bstextarea')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Time',get_class($helperPluginManager->get('bstime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Url',get_class($helperPluginManager->get('bsurl')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Week',get_class($helperPluginManager->get('bsweek')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         //Are Zend View Helper override ?
         $this->assertEquals('Bootstrap\Form\View\Helper\Collection',get_class($helperPluginManager->get('formcollection')));
@@ -107,9 +148,22 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('formelement')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('formbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('formcheckbox')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('formcolor')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('formdate')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTime',get_class($helperPluginManager->get('formdatetime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTimeLocal',get_class($helperPluginManager->get('formdatetimelocal')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('formemail')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('formmonth')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('formnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('formpassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('formsearch')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('formselect')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('formtel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Text',get_class($helperPluginManager->get('formtext')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Textarea',get_class($helperPluginManager->get('formtextarea')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Time',get_class($helperPluginManager->get('formtime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Url',get_class($helperPluginManager->get('formurl')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Week',get_class($helperPluginManager->get('formweek')));
         //We don't create new plugin who didn't exists before override, no formoffset as example
         $this->assertFalse($helperPluginManager->has('formgroup'));
         $this->assertFalse($helperPluginManager->has('formhelp'));
