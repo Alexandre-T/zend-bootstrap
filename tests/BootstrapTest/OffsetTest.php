@@ -52,12 +52,12 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->offset->render(null,'Some text'));
         $this->assertEquals($expected, $this->offset->render(null,'Some text'),$this->formUtil);
         
-        $expected = '<div class="col-sm-offset-4">Some text</div>';
+        $expected = '<div class="col-sm-8">Some text</div>';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_HORIZONTAL);
         $this->assertEquals($expected, $this->offset->render(null,'Some text'));
         $this->assertEquals($expected, $this->offset->render(null,'Some text',$this->formUtil));
         $element = new Checkbox('foo');
-        $expected = '<div class="col-sm-offset-4 col-sm-8">Some text</div>';
+        $expected = '<div class="col-sm-8 col-sm-offset-4">Some text</div>';
         $this->assertEquals($expected, $this->offset->render($element,'Some text',$this->formUtil));
         
         $expected = 'Some text';
@@ -72,8 +72,12 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
      */
     public function testOpenTag ()
     {
-        $this->assertEquals('<div class="col-sm-offset-4">', 
+        $this->assertEquals('<div class="col-sm-8">', 
                 $this->offset->openTag());
+        $this->assertEquals('<div class="col-sm-8 col-sm-offset-4">', 
+                $this->offset->openTag(true));
+        $this->assertEquals('<div class="col-sm-8">', 
+                $this->offset->openTag(false));
     }
 
     /**
@@ -102,12 +106,12 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $offset(null,'Some text'));
         $this->assertEquals($expected, $offset(null,'Some text'),$this->formUtil);
         
-        $expected = '<div class="col-sm-offset-4">Some text</div>';
+        $expected = '<div class="col-sm-8">Some text</div>';
         $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_HORIZONTAL);
         $this->assertEquals($expected, $offset(null,'Some text'));
         $this->assertEquals($expected, $offset(null,'Some text',$this->formUtil));
         
-        $expected = '<div class="col-sm-offset-4 col-sm-8">Some text</div>';
+        $expected = '<div class="col-sm-8 col-sm-offset-4">Some text</div>';
         $checkbox = new Checkbox();
         $this->assertEquals($expected, $offset($checkbox,'Some text'));
         $this->assertEquals($expected, $offset($checkbox,'Some text',$this->formUtil));

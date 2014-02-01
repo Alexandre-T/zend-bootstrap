@@ -15,7 +15,6 @@ use Zend\Form\Element\DateTimeLocal;
 use Zend\Form\Element\Month;
 use Zend\Form\Element\Number;
 use Zend\Form\Element\Select;
-use Bootstrap\Form\View\Helper\Element\Search;
 use Zend\Form\Element\Color;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\Url;
@@ -110,7 +109,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 ));
         $checkbox = new Checkbox('checkbox');
         $checkbox->setLabel('Check me out');
-        
+                
         $color = new Color('color-name');
         $color->setLabel('Color type');
         
@@ -129,11 +128,9 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $number = new Number('number-name');
         $number->setLabel('Number type');
         
-        $search = new Text('search-name', 
-                array(
-                        'type' => 'search'
-                ));
+        $search = new Text('search-name');
         $search->setLabel('Search type');
+        $search->setAttribute('type', 'search');
         
         $select = new Select('select-name');
         $select->setLabel('Select input');
@@ -142,11 +139,9 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 2 => 'Option 2'
         ));
         
-        $tel = new Text('tel-name', 
-                array(
-                        'type' => 'tel'
-                ));
+        $tel = new Text('tel-name');
         $tel->setLabel('Tel type');
+        $tel->setAttribute('type','tel');
         
         $text = new Text('text-name');
         $text->setLabel('Text type');
@@ -165,8 +160,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $url->setAttribute('placeholder', 'http://www.example.org');
         
         $week = new Text('week-name');
-        $week->setLabel('Week type');
-        // $week->setAttribute('placeholder', 'http://www.example.org');
+        $week->setLabel('Week type');        
         
         $this->formDemonstration->add($checkbox);
         $this->formDemonstration->add($color);

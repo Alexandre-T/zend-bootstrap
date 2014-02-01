@@ -6,6 +6,7 @@ use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\Radio;
 use Zend\Form\Element\Checkbox;
+use Zend\Form\Element\Button;
 
 /**
  *
@@ -43,11 +44,11 @@ class Offset extends AbstractHelper
         }
         if (FormUtil::FORM_TYPE_HORIZONTAL == $this->formUtil->getDefaultFormType()){
             if (null == $element){
-                $checkbox = false;
+                $offset = false;
             }else{
-                $checkbox = ($element instanceof Checkbox || $element instanceof Radio);
+                $offset = ($element instanceof Checkbox || $element instanceof Radio || $element instanceof Button);
             } 
-            return $this->openTag($checkbox) . $content . $this->closeTag();
+            return $this->openTag($offset) . $content . $this->closeTag();
     	}
     	return $content;
     }
@@ -57,11 +58,11 @@ class Offset extends AbstractHelper
      *
      * @return string
      */
-    public function openTag($width = false)
+    public function openTag($offset = false)
     {
-        $class = $this->formUtil->getOffsetCss();
-        if ($width){
-            $class .= ' ' . $this->formUtil->getWidthCss();
+        $class = $this->formUtil->getWidthCss();
+        if ($offset){
+            $class .= ' ' . $this->formUtil->getOffsetCss();
         }
     	return '<div class="' . $class  . '">';
     }
