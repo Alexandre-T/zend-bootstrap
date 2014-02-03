@@ -46,7 +46,7 @@ class Offset extends AbstractHelper
             if (null == $element){
                 $offset = false;
             }else{
-                $offset = ($element instanceof Checkbox || $element instanceof Radio || $element instanceof Button);
+                $offset = (!($element instanceof Radio) and ($element instanceof Checkbox || $element instanceof Button));
             } 
             return $this->openTag($offset) . $content . $this->closeTag();
     	}

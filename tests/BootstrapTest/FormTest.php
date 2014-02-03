@@ -20,6 +20,7 @@ use Zend\Form\Element\Email;
 use Zend\Form\Element\Url;
 use Zend\Form\Element\Time;
 use Zend\Form\Element\Textarea;
+use Zend\Form\Element\Radio;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -128,6 +129,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $number = new Number('number-name');
         $number->setLabel('Number type');
         
+        $radio = new Radio('radio-name');
+        $radio->setLabel('Radio type');
+        $radio->setValueOptions(array(
+                1 => 'Male',
+                2 => 'Female',
+                3 => 'Unavailable information',
+        )); 
+        
         $search = new Text('search-name');
         $search->setLabel('Search type');
         $search->setAttribute('type', 'search');
@@ -171,6 +180,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formDemonstration->add($month);
         $this->formDemonstration->add($number);
         $this->formDemonstration->add($password);
+        $this->formDemonstration->add($radio);
         $this->formDemonstration->add($search);
         $this->formDemonstration->add($select);
         $this->formDemonstration->add($tel);
@@ -392,11 +402,9 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         // Rendering
         $formBasic = $this->formHelperBasic->render($this->formComplex);
-        $formHorizontal = $this->formHelperHorizontal->render(
-                $this->formComplex);
+        $formHorizontal = $this->formHelperHorizontal->render($this->formComplex);
         $formInline = $this->formHelperInline->render($this->formComplex);
-        $formDemonstration = $this->formHelperHorizontal->render(
-                $this->formDemonstration);
+        $formDemonstration = $this->formHelperHorizontal->render($this->formDemonstration);
         // Merging
         $expected = file_get_contents('resources/layout.html', true);
         $expected = sprintf($expected, $formDemonstration, $formBasic, 

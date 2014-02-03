@@ -68,6 +68,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('bsmonth')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('bsnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Radio',get_class($helperPluginManager->get('bsradio')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('bssearch')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('bsselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('bstel')));
@@ -93,6 +94,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Form\View\Helper\FormMonth',get_class($helperPluginManager->get('formmonth')));
         $this->assertEquals('Zend\Form\View\Helper\FormNumber',get_class($helperPluginManager->get('formnumber')));
         $this->assertEquals('Zend\Form\View\Helper\FormPassword',get_class($helperPluginManager->get('formpassword')));
+        $this->assertEquals('Zend\Form\View\Helper\FormRadio',get_class($helperPluginManager->get('formradio')));
         $this->assertEquals('Zend\Form\View\Helper\FormSearch',get_class($helperPluginManager->get('formsearch')));
         $this->assertEquals('Zend\Form\View\Helper\FormSelect',get_class($helperPluginManager->get('formselect')));
         $this->assertEquals('Zend\Form\View\Helper\FormTel',get_class($helperPluginManager->get('formtel')));
@@ -131,6 +133,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('bsmonth')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('bsnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Radio',get_class($helperPluginManager->get('bsradio')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('bssearch')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('bsselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('bstel')));
@@ -156,6 +159,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('formmonth')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('formnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('formpassword')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Radio',get_class($helperPluginManager->get('formradio')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('formsearch')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('formselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('formtel')));

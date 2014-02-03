@@ -15,9 +15,11 @@ namespace Bootstrap\Form\View\Helper;
 use Bootstrap\Util;
 use Bootstrap\Form\Util as FormUtil;
 use Bootstrap\Form\View\Helper\Collection;
+use Bootstrap\Form\View\Helper\Element\Radio;
 
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceManager;
+
 
 
 /**
@@ -152,15 +154,19 @@ class Config implements ConfigInterface
 					$instance       = new Collection($formUtil);
 					return $instance;
 				},
-				'row'           => function($sm) use ($formUtil) {
-					$instance       = new Row($formUtil);
-					return $instance;
-				},
 				'offset'           => function($sm) use ($formUtil) {
 					$instance       = new Offset($formUtil);
 					return $instance;
 				},
-		    /*
+				'radio'           => function($sm) use ($formUtil) {
+					$instance       = new Radio($formUtil);
+					return $instance;
+				},
+				'row'           => function($sm) use ($formUtil) {
+					$instance       = new Row($formUtil);
+					return $instance;
+				},
+				/*
 				'formactions'                    => function($sm) use ($formUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormActions($formUtil);
 					return $instance;
@@ -199,10 +205,6 @@ class Config implements ConfigInterface
 							$formMultiCheckboxHelper, $bootstrapUtil);
 					return $instance;
 				},
-				'formpassword'                   => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormPassword($bootstrapUtil, $formUtil);
-					return $instance;
-				},
 				'formradio'                      => function($sm) use ($bootstrapUtil) {
 					$formRadioHelper            = $sm->get('formRadio');
 					$instance                   = new \Bootstrap\Form\View\Helper\FormRadio(
@@ -219,10 +221,6 @@ class Config implements ConfigInterface
 				},
 				'formsubmit'                     => function($sm) use ($bootstrapUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormSubmit($bootstrapUtil);
-					return $instance;
-				},
-				'formText'                       => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new Text($bootstrapUtil, $formUtil);
 					return $instance;
 				},
 				'formtextarea'                   => function($sm) use ($bootstrapUtil, $formUtil) {

@@ -124,6 +124,7 @@ class Row extends FormRow
         }
         
         $markup = '';
+
         //Helper order are in different order 
         switch ($this->formUtil->getDefaultFormType()){
         	case FormUtil::FORM_TYPE_BASIC :
@@ -160,24 +161,31 @@ class Row extends FormRow
         	    }
                 break;
         	case FormUtil::FORM_TYPE_HORIZONTAL :
-        	    if ($element instanceof Button){
-        	    	$markup  = $elementHelper->render($element);
-        	    	$markup  = $offsetHelper->render($element,$markup,$this->formUtil);
-        	    	$markup  = $groupHelper->render($markup);
-        	    }elseif ($element instanceof Checkbox || $element instanceof Radio){
-        	    	$markup  = $elementHelper->render($element);
-        	    	$markup .= $label;
-        	    	$markup  = $labelHelper->render($markup,$element,$this->formUtil);
-        	    	$markup  = $checkboxTagHelper->render($markup);
-        	    	$markup  = $offsetHelper->render($element, $markup,$this->formUtil);
-        	    	$markup  = $groupHelper->render($markup);
-        	    }else{
-        	        if (!empty($label)){
-        	        	$markup  = $labelHelper->render($label,$element,$this->formUtil);
-        	        }
-        	    	$markup .= $offsetHelper->render($element,$elementHelper->render($element),$this->formUtil);
-        	    	$markup  = $groupHelper->render($markup);
-        	    }
+                if ($element instanceof Button) {
+                    $markup = $elementHelper->render($element);
+                    $markup = $offsetHelper->render($element, $markup, $this->formUtil);
+                    $markup = $groupHelper->render($markup);
+                } elseif ($element instanceof Radio) {
+                    //Be carefull Radio is an instance of checkbox, so this tests must prepend the Checkbox test !
+                    $markup = $elementHelper->render($element,$this->formUtil);
+                    $markup = $checkboxTagHelper->render($markup);
+                    $markup = $offsetHelper->render($element, $markup, $this->formUtil);
+                    $markup = '<strong class="col-sm-4 control-label" for="radio-name">'.$label.'</strong>' . $markup;
+                    $markup = $groupHelper->render($markup);
+                } elseif ($element instanceof Checkbox) {                    
+                    $markup = $elementHelper->render($element);
+                    $markup .= $label;
+                    $markup = $labelHelper->render($markup, $element, $this->formUtil);
+                    $markup = $checkboxTagHelper->render($markup);
+                    $markup = $offsetHelper->render($element, $markup, $this->formUtil);
+                    $markup = $groupHelper->render($markup);
+                } else {
+                    if (! empty($label)) {
+                        $markup = $labelHelper->render($label, $element, $this->formUtil);
+                    }
+                    $markup .= $offsetHelper->render($element, $elementHelper->render($element), $this->formUtil);
+                    $markup = $groupHelper->render($markup);
+                }
         	    break;
         }
         return $markup;
@@ -454,8 +462,7 @@ class Row extends FormRow
     /*
      * (non-PHPdoc) @see \Zend\Form\View\Helper\FormRow::__invoke()
      */
-    public function __invoke (\Zend\Form\ElementInterface $element = null, 
-            $labelPosition = null, $renderErrors = null, $partial = null)
+    public function __invoke (\Zend\Form\ElementInterface $element = null, $labelPosition = null, $renderErrors = null, $partial = null)
     {
         if (! $element) {
             return $this;

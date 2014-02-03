@@ -41,8 +41,8 @@ class Element extends HelperElement
         
         switch ($element->getAttribute('type')) {
             case 'color':
-            	$helper = $renderer->plugin('bs_color');
-            	return $helper($element);
+                $helper = $renderer->plugin('bs_color');
+                return $helper($element);
             case 'checkbox':
                 $helper = $renderer->plugin('bs_checkbox');
                 return $helper($element);
@@ -67,6 +67,9 @@ class Element extends HelperElement
             case 'password':
                 $helper = $renderer->plugin('bs_password');
                 return $helper($element);
+            case 'radio':
+                $helper = $renderer->plugin('bs_radio');
+                return $helper($element);
             case 'search':
                 $helper = $renderer->plugin('bs_search');
                 return $helper($element);
@@ -90,11 +93,11 @@ class Element extends HelperElement
                 return $helper($element);
             case 'week':
                 $helper = $renderer->plugin('bs_week');
-                return $helper($element);            
+                return $helper($element);
         }
-
+        
         parent::render($element, $formType, $displayOptions);
-        //So Csrf, Hidden are not override
+        // So Csrf, Hidden are not override
         
         // FIXME Have I to overload Element\Captcha ?
         if ($element instanceof FormElement\Captcha) {
