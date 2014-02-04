@@ -67,16 +67,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('bsmonth')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('bsnumber')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Radio',get_class($helperPluginManager->get('bsradio')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('bssearch')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('bsselect')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Strong',get_class($helperPluginManager->get('bsstrong')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('bstel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Text',get_class($helperPluginManager->get('bstext')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Time',get_class($helperPluginManager->get('bstime')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Url',get_class($helperPluginManager->get('bsurl')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Week',get_class($helperPluginManager->get('bsweek')));
-        $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         //Are Zend View Helper preserved ?
         $this->assertEquals('Zend\Form\View\Helper\FormCollection',get_class($helperPluginManager->get('formcollection')));
         $this->assertEquals('Zend\Form\View\Helper\Form',get_class($helperPluginManager->get('form')));
@@ -136,6 +137,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Radio',get_class($helperPluginManager->get('bsradio')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('bssearch')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('bsselect')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Strong',get_class($helperPluginManager->get('bsstrong')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('bstel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Text',get_class($helperPluginManager->get('bstext')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Textarea',get_class($helperPluginManager->get('bstextarea')));
@@ -172,6 +174,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($helperPluginManager->has('formgroup'));
         $this->assertFalse($helperPluginManager->has('formhelp'));
         $this->assertFalse($helperPluginManager->has('formoffset'));
+        $this->assertFalse($helperPluginManager->has('formstrong'));
         
         // TODO Auto-generated ConfigTest->test__construct()
         $this->markTestIncomplete("testConfigureServiceManager test is not finished");

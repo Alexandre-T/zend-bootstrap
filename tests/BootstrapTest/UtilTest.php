@@ -129,6 +129,11 @@ class UtilTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddClassToArray ()
     {
+        $array = null;
+        $array = Util::addClassToArray($array, 'foo bar');
+        $this->assertArrayHasKey('class', $array);
+        $this->assertEquals('foo bar', $array['class']);
+        
         $array = array();
         $array = Util::addClassToArray($array, 'foo bar');
         $this->assertArrayHasKey('class', $array);

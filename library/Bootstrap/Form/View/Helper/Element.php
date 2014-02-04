@@ -3,7 +3,7 @@ namespace Bootstrap\Form\View\Helper;
 use Zend\Form\Element as FormElement;
 use Zend\Form\ElementInterface;
 use Zend\Form\View\Helper\FormElement as HelperElement;
-
+use Bootstrap\Form\Util as FormUtil;
 /**
  *
  * @author alexandre
@@ -11,7 +11,11 @@ use Zend\Form\View\Helper\FormElement as HelperElement;
  */
 class Element extends HelperElement
 {
-
+    /**
+     * @var FormUtil
+     */
+    protected $formUtil;
+    
     /**
      * Render an element
      *
@@ -20,8 +24,7 @@ class Element extends HelperElement
      * @param array $displayOptions            
      * @return string
      */
-    public function render (ElementInterface $element, $formType = null, 
-            array $displayOptions = array())
+    public function render (ElementInterface $element)
     {
         $renderer = $this->getView();
         if (! method_exists($renderer, 'plugin')) {
@@ -69,7 +72,7 @@ class Element extends HelperElement
                 return $helper($element);
             case 'radio':
                 $helper = $renderer->plugin('bs_radio');
-                return $helper($element);
+                return $helper->render($element,$this->getFormUtil());
             case 'search':
                 $helper = $renderer->plugin('bs_search');
                 return $helper($element);
@@ -96,7 +99,7 @@ class Element extends HelperElement
                 return $helper($element);
         }
         
-        parent::render($element, $formType, $displayOptions);
+        return parent::render($element);
         // So Csrf, Hidden are not override
         
         // FIXME Have I to overload Element\Captcha ?
@@ -137,11 +140,6 @@ class Element extends HelperElement
         
         if ('multi_checkbox' == $type) {
             $helper = $renderer->plugin('form_multi_checkbox');
-            return $helper($element);
-        }
-        
-        if ('radio' == $type) {
-            $helper = $renderer->plugin('form_radio');
             return $helper($element);
         }
         
@@ -186,6 +184,24 @@ class Element extends HelperElement
         }
         return $this->render($element, $formType, $displayOptions);
     }
+    
+    /****************** Getters and Setters ****************/
+    
+    
+	/**
+	 * @return the $formUtil
+	 */
+	public function getFormUtil() {
+		return $this->formUtil;
+	}
+
+	/**
+	 * @param \Bootstrap\Form\Util $formUtil
+	 */
+	public function setFormUtil(FormUtil $formUtil) {
+		$this->formUtil = $formUtil;
+	}
+
 }
 
 ?>

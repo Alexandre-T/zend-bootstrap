@@ -16,6 +16,11 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
      * @var Offset
      */
     private $offset;
+    /**
+     * 
+     * @var FormUtil
+     */
+    private $formUtil;
 
     /**
      * Prepares the environment before running a test.
@@ -121,21 +126,6 @@ class OffsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $offset(null,'Some text'));
         $this->assertEquals($expected, $offset(null,'Some text'),$this->formUtil);
         
-        /*$expected = '<div class="form-group">Some text</div> ';
-        $actual = $this->offset->__invoke(new Text('name'), 'Some text');
-        $this->assertEquals($expected, $actual);
-        
-        $expected = 'Some text';
-        $actual = $this->offset->__invoke(new Button('name'), 'Some text');
-        $this->assertEquals($expected, $actual);
-        
-        $expected = '<div class="form-group">Some text</div> ';
-        $actual = $offset(new Text('name'), 'Some text');
-        $this->assertEquals($expected, $actual);
-        
-        $expected = 'Some text';
-        $actual = $offset(new Button('name'), 'Some text');
-        $this->assertEquals($expected, $actual);*/
     }
 }
 

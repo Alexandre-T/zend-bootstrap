@@ -34,13 +34,12 @@ class Radio extends FormRadio
 	 * @see \Zend\Form\View\Helper\FormMultiCheckbox::renderOptions()
 	 */
 	protected function renderOptions(\Zend\Form\Element\MultiCheckbox $element, array $options, array $selectedOptions, array $attributes) {
-	    die('ok' . $this->formUtil->getDefaultFormType());
+	    
 		if (FormUtil::FORM_TYPE_HORIZONTAL == $this->formUtil->getDefaultFormType()){
 		    //Add class radio-inline to label
 		    $labelAttributes = $element->getLabelAttributes();
 		    $labelAttributes = Util::addClassToArray($labelAttributes,'radio-inline');
 		    $element->setLabelAttributes($labelAttributes);
-		    die($element->getName());
 		}
 	    
 		return parent::renderOptions($element, $options, $selectedOptions, $attributes);
@@ -51,7 +50,6 @@ class Radio extends FormRadio
 	 */
 	public function render(ElementInterface $element, FormUtil $formUtil = null) {
 		if (null != $formUtil){
-		    
 		    $this->formUtil = $formUtil;
 		}
 		return parent::render($element);

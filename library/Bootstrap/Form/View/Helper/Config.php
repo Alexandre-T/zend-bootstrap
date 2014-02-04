@@ -53,6 +53,7 @@ class Config implements ConfigInterface
 	        'bspassword'      => 'Bootstrap\Form\View\Helper\Element\Password',
 	        'bssearch'        => 'Bootstrap\Form\View\Helper\Element\Search',
 	        'bsselect'        => 'Bootstrap\Form\View\Helper\Element\Select',
+	        'bsstrong'        => 'Bootstrap\Form\View\Helper\Strong',
 	        'bstel'           => 'Bootstrap\Form\View\Helper\Element\Tel',
 	        'bstext'          => 'Bootstrap\Form\View\Helper\Element\Text',
 	        'bstextarea'      => 'Bootstrap\Form\View\Helper\Element\Textarea',

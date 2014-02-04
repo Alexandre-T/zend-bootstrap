@@ -1,8 +1,9 @@
 <?php
 namespace Bootstrap\Form\View\Helper;
+use Bootstrap\Form\View\Helper\CheckboxTag as HelperCheckboxTag;
 use Bootstrap\Form\View\Helper\Element as HelperElement;
 use Bootstrap\Form\View\Helper\Offset as HelperOffset;
-use Bootstrap\Form\View\Helper\CheckboxTag as HelperCheckboxTag;
+use Bootstrap\Form\View\Helper\Strong as HelperStrong;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\View\Helper\FormRow;
 use Bootstrap\Form\Exception\UnsupportedHelperTypeException;
@@ -10,8 +11,6 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Radio;
-use Zend\Form\Element\Submit;
-use Zend\Form\Element\Text;
 
 /**
  *
@@ -52,6 +51,11 @@ class Row extends FormRow
      * @var Offset
      */
     protected $offsetHelper;
+
+    /**
+     * @var Strong
+     */
+    protected $strongHelper;
 
     /**
      * @var FormControlsTwb
@@ -102,6 +106,7 @@ class Row extends FormRow
         $helpBlockHelper = $this->getHelpBlockHelper();
         $labelHelper = $this->getLabelHelper();
         $offsetHelper = $this->getOffsetHelper();
+        $strongHelper = $this->getStrongHelper();
         
         //Label computing
         $label = $element->getLabel();
@@ -123,9 +128,11 @@ class Row extends FormRow
             $element->setAttribute('class', $classAttributes);
         }
         
+        //Init
         $markup = '';
-
-        //Helper order are in different order 
+        $elementHelper->setFormUtil($this->formUtil);
+        
+        //Helper order are called in different order 
         switch ($this->formUtil->getDefaultFormType()){
         	case FormUtil::FORM_TYPE_BASIC :
         	    //FIXME add helperBlock !!!!
@@ -167,10 +174,11 @@ class Row extends FormRow
                     $markup = $groupHelper->render($markup);
                 } elseif ($element instanceof Radio) {
                     //Be carefull Radio is an instance of checkbox, so this tests must prepend the Checkbox test !
-                    $markup = $elementHelper->render($element,$this->formUtil);
-                    $markup = $checkboxTagHelper->render($markup);
+                    $markup = $elementHelper->render($element);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
-                    $markup = '<strong class="col-sm-4 control-label" for="radio-name">'.$label.'</strong>' . $markup;
+                    if (!empty($label)){
+                        $markup = $strongHelper->render($label, $this->formUtil) . $markup;
+                    }
                     $markup = $groupHelper->render($markup);
                 } elseif ($element instanceof Checkbox) {                    
                     $markup = $elementHelper->render($element);
@@ -435,6 +443,28 @@ class Row extends FormRow
     	}
     
     	return $this->offsetHelper;
+    }
+    
+    /**
+     * Retrieve the Strong helper
+     *
+     * @return HelperOffset
+     */
+    protected function getStrongHelper ()
+    {
+    	if ($this->strongHelper) {
+    		return $this->strongHelper;
+    	}
+    
+    	if (method_exists($this->view, 'plugin')) {
+    		$this->strongHelper = $this->view->plugin('bsstrong');
+    	}
+    
+    	if (! $this->strongHelper instanceof HelperStrong) {
+    		$this->strongHelper = new HelperStrong();
+    	}
+    
+    	return $this->strongHelper;
     }
     
     /**

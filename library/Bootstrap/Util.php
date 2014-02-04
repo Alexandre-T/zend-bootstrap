@@ -168,8 +168,13 @@ class Util {
 	 * @param string $class
 	 * @return array
 	 */
-	public static function addClassToArray(array $attributes = array(),$class){
+	public static function addClassToArray($attributes = array(),$class){
+	    if (!is_array($attributes)){
+	        $attributes = array();
+	    }
+	    
 	    $result = $attributes;
+	    
 	    if (array_key_exists('class', $attributes)) {
 	    	$result['class'] = Util::addWords($class, $attributes['class']);
 	    } else {
