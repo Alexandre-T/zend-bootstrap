@@ -51,6 +51,7 @@ class Config implements ConfigInterface
 			'bsmonth'         => 'Bootstrap\Form\View\Helper\Element\Month',
 	        'bsnumber'        => 'Bootstrap\Form\View\Helper\Element\Number',
 	        'bspassword'      => 'Bootstrap\Form\View\Helper\Element\Password',
+			'bsradiotag'      => 'Bootstrap\Form\View\Helper\RadioTag',
 	        'bssearch'        => 'Bootstrap\Form\View\Helper\Element\Search',
 	        'bsselect'        => 'Bootstrap\Form\View\Helper\Element\Select',
 	        'bsstrong'        => 'Bootstrap\Form\View\Helper\Strong',

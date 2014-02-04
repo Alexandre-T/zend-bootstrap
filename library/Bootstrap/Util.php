@@ -183,6 +183,26 @@ class Util {
 	    return $result;
 	}
 	
+	/**
+	 * remove Some class from an array of attributes
+	 *
+	 * @param array $attributes
+	 * @param string $class
+	 * @return array
+	 */
+	public static function removeClassToArray($attributes = array(),$class){
+		if (!is_array($attributes)){
+			$attributes = array();
+		}
+		 
+		$result = $attributes;
+		 
+		if (array_key_exists('class', $attributes)) {
+			$result['class'] = Util::removeWords($class, $attributes['class']);
+		}
+		return $result;
+	}
+	
 	private static function _arrayIUnique($array) {
 		return array_intersect_key(
 				$array,

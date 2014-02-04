@@ -113,7 +113,7 @@ class Label extends ViewHelperFormLabel implements HelperInterface
         $labelAttributes = $attributesOrElement->getLabelAttributes();
         // add class sr-only when Inline Form
         // @todo add to test
-        if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType() && ! ($attributesOrElement instanceof Checkbox || $attributesOrElement instanceof Radio)) {
+        if (FormUtil::FORM_TYPE_INLINE == $formUtil->getDefaultFormType() && ! ($attributesOrElement instanceof Checkbox)) {
             if (is_array($labelAttributes) && array_key_exists('class', $labelAttributes)) {
                 Util::addWords('sr-only', $labelAttributes['class']);
             } else {
@@ -131,7 +131,7 @@ class Label extends ViewHelperFormLabel implements HelperInterface
                 }
             }
         }
-        if (!($attributesOrElement instanceof Checkbox || $attributesOrElement instanceof Radio )){
+        if (!($attributesOrElement instanceof Checkbox)){
             $id = $attributesOrElement->getAttribute('id');
             if (empty($id)){
                 $id = $this->getId($attributesOrElement);

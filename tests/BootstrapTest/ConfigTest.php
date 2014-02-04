@@ -60,6 +60,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('bselement')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\CheckboxTag',get_class($helperPluginManager->get('bscheckboxtag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('bsdate')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTime',get_class($helperPluginManager->get('bsdatetime')));
@@ -70,6 +71,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Radio',get_class($helperPluginManager->get('bsradio')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\RadioTag',get_class($helperPluginManager->get('bsradiotag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('bssearch')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('bsselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Strong',get_class($helperPluginManager->get('bsstrong')));
@@ -126,6 +128,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\CheckboxTag',get_class($helperPluginManager->get('bscheckboxtag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('bsdate')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTime',get_class($helperPluginManager->get('bsdatetime')));
@@ -162,6 +165,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('formnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('formpassword')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Radio',get_class($helperPluginManager->get('formradio')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\RadioTag',get_class($helperPluginManager->get('bsradiotag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Search',get_class($helperPluginManager->get('formsearch')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Select',get_class($helperPluginManager->get('formselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Tel',get_class($helperPluginManager->get('formtel')));
@@ -175,6 +179,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($helperPluginManager->has('formhelp'));
         $this->assertFalse($helperPluginManager->has('formoffset'));
         $this->assertFalse($helperPluginManager->has('formstrong'));
+        $this->assertFalse($helperPluginManager->has('formcheckboxtag'));
+        $this->assertFalse($helperPluginManager->has('formradiotag'));
         
         // TODO Auto-generated ConfigTest->test__construct()
         $this->markTestIncomplete("testConfigureServiceManager test is not finished");

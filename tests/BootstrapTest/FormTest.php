@@ -193,6 +193,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         // form build
         $this->formComplex->setAttribute('role', 'form');
         $this->formComplex->add($email);
+        $this->formComplex->add($radio);
         $this->formComplex->add($password);
         $this->formComplex->add($checkbox);
         $this->formComplex->add(

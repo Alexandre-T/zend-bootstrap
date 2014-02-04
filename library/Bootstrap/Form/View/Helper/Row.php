@@ -3,6 +3,7 @@ namespace Bootstrap\Form\View\Helper;
 use Bootstrap\Form\View\Helper\CheckboxTag as HelperCheckboxTag;
 use Bootstrap\Form\View\Helper\Element as HelperElement;
 use Bootstrap\Form\View\Helper\Offset as HelperOffset;
+use Bootstrap\Form\View\Helper\RadioTag as HelperRadioTag;
 use Bootstrap\Form\View\Helper\Strong as HelperStrong;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\View\Helper\FormRow;
@@ -53,6 +54,11 @@ class Row extends FormRow
     protected $offsetHelper;
 
     /**
+     * @var CheckboxTag
+     */
+    protected $radioTagHelper;
+    
+    /**
      * @var Strong
      */
     protected $strongHelper;
@@ -99,6 +105,7 @@ class Row extends FormRow
         
         //Retrieving Helpers  
         $checkboxTagHelper = $this->getCheckboxTagHelper();
+        $radioTagHelper = $this->getRadioTagHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
         $elementHelper = $this->getElementHelper();
         $escapeHtmlHelper = $this->getEscapeHtmlHelper();
@@ -137,8 +144,15 @@ class Row extends FormRow
         	case FormUtil::FORM_TYPE_BASIC :
         	    //FIXME add helperBlock !!!!
         	    if ($element instanceof Button){
-        	        $markup  = $elementHelper->render($element);
-        	    }elseif ($element instanceof Checkbox || $element instanceof Radio){
+        	        $markup  = $elementHelper->render($element);        	        
+        	    }elseif ($element instanceof Radio){
+        	        $markup = $elementHelper->render($element);
+        	        if (!empty($label)){
+                        $markup = $labelHelper->render($label,$element,$this->formUtil) . $markup;
+        	        }
+        	        $markup  = $groupHelper->render($markup);
+        	        
+        	    }elseif ($element instanceof Checkbox){
         	        $markup  = $elementHelper->render($element);
         	        $markup .= $label;
         	        $markup  = $labelHelper->render($markup,$element,$this->formUtil);
@@ -154,7 +168,11 @@ class Row extends FormRow
         	case FormUtil::FORM_TYPE_INLINE :
         	    if ($element instanceof Button){
         	    	$markup  = $elementHelper->render($element);
-        	    }elseif ($element instanceof Checkbox || $element instanceof Radio){
+        	    } elseif ($element instanceof Radio) {
+        	        $markup  = $elementHelper->render($element);
+        	        $markup  = $radioTagHelper->render($markup);
+        	    	$markup  = $groupHelper->render($markup);
+        	    }elseif ($element instanceof Checkbox){
         	    	$markup  = $elementHelper->render($element);
         	    	$markup .= ' '.$label;
         	    	$markup  = $labelHelper->render($markup,$element,$this->formUtil);
@@ -443,6 +461,28 @@ class Row extends FormRow
     	}
     
     	return $this->offsetHelper;
+    }
+    
+    /**
+     * Retrieve the RadioTag helper
+     *
+     * @return FormElement
+     */
+    protected function getRadioTagHelper ()
+    {
+    	if ($this->radioTagHelper) {
+    		return $this->radioTagHelper;
+    	}
+    
+    	if (method_exists($this->view, 'plugin')) {
+    		$this->radioTagHelper = $this->view->plugin('bsradiotag');
+    	}
+    
+    	if (! $this->radioTagHelper instanceof HelperRadioTag) {
+    		$this->radioTagHelper = new HelperRadioTag();
+    	}
+    
+    	return $this->radioTagHelper;
     }
     
     /**

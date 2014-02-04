@@ -31,6 +31,7 @@ return array(
   'Bootstrap\Form\View\Helper\Element\DateTime'             => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/DateTime.php',
   'Bootstrap\Form\View\Helper\Element\Search'               => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Search.php',
   'Bootstrap\Form\View\Helper\Element\Tel'                  => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Tel.php',
+  'Bootstrap\Form\View\Helper\RadioTag'                     => __DIR__ . '/library/Bootstrap/Form/View/Helper/RadioTag.php',
   'Bootstrap\Form\View\Helper\Offset'                       => __DIR__ . '/library/Bootstrap/Form/View/Helper/Offset.php',
   'Bootstrap\Form\Exception\UnsupportedFormTypeException'   => __DIR__ . '/library/Bootstrap/Form/Exception/UnsupportedFormTypeException.php',
   'Bootstrap\Form\Exception\UnsupportedHelperTypeException' => __DIR__ . '/library/Bootstrap/Form/Exception/UnsupportedHelperTypeException.php',
