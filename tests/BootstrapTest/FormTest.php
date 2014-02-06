@@ -22,6 +22,7 @@ use Zend\Form\Element\Time;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Element\Radio;
 use Bootstrap\Form\View\Helper\HelpBlock;
+use Zend\Form\Element\MultiCheckbox;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -138,6 +139,16 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $month->setLabel('Month type');
         $month->setOptions($helpcore);
         
+        $multicheckbox = new MultiCheckbox('multi-checkbox-name');
+        $multicheckbox->setLabel('Multi Checkbox');
+        $multicheckbox->setValueOptions(array(
+                'cat' => 'Cat',
+                'dog' => 'Dog',
+                'horse' => 'Horse',
+                'fish' => 'Red Fish',
+        ));
+        $multicheckbox->setOptions($helpcore);
+        
         $number = new Number('number-name');
         $number->setLabel('Number type');
         $number->setOptions($helpcore);
@@ -201,6 +212,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formDemonstration->add($dateTimeLocal);
         $this->formDemonstration->add($email);
         $this->formDemonstration->add($month);
+        $this->formDemonstration->add($multicheckbox);
         $this->formDemonstration->add($number);
         $this->formDemonstration->add($password);
         $this->formDemonstration->add($radio);

@@ -4,9 +4,9 @@ namespace Bootstrap\Form\View\Helper;
 use Zend\Form\View\Helper\AbstractHelper;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\ElementInterface;
-use Zend\Form\Element\Radio;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Button;
+use Zend\Form\Element\MultiCheckbox;
 
 /**
  *
@@ -46,7 +46,7 @@ class Offset extends AbstractHelper
             if (null == $element){
                 $offset = false;
             }else{
-                $offset = (!($element instanceof Radio) and ($element instanceof Checkbox || $element instanceof Button));
+                $offset = (!($element instanceof MultiCheckbox) and ($element instanceof Checkbox || $element instanceof Button));
             } 
             return $this->openTag($offset) . $content . $this->closeTag();
     	}

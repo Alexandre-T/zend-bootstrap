@@ -16,6 +16,7 @@ use Bootstrap\Util;
 use Bootstrap\Form\Util as FormUtil;
 use Bootstrap\Form\View\Helper\Collection;
 use Bootstrap\Form\View\Helper\Element\Radio;
+use Bootstrap\Form\View\Helper\Element\MultiCheckbox;
 
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceManager;
@@ -70,7 +71,7 @@ class Config implements ConfigInterface
 //			'formgroup'         => 'Bootstrap\Form\View\Helper\Group',
 //			'formhelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
 			'formbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
-	        'formcheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
+			'formcheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
 	        'formcolor'         => 'Bootstrap\Form\View\Helper\Element\Color',
 	        'formdate'          => 'Bootstrap\Form\View\Helper\Element\Date',
 	        'formdatetime'      => 'Bootstrap\Form\View\Helper\Element\DateTime',
@@ -156,6 +157,10 @@ class Config implements ConfigInterface
 					$instance       = new Collection($formUtil);
 					return $instance;
 				},
+				'multicheckbox' => function($sm) use ($formUtil) {
+					$instance       = new MultiCheckbox($formUtil);
+					return $instance;
+				}, 
 				'offset'           => function($sm) use ($formUtil) {
 					$instance       = new Offset($formUtil);
 					return $instance;

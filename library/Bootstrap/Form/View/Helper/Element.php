@@ -64,6 +64,9 @@ class Element extends HelperElement
             case 'month':
                 $helper = $renderer->plugin('bs_month');
                 return $helper($element);
+            case 'multi_checkbox':
+                $helper = $renderer->plugin('bs_multi_checkbox');
+                return $helper->render($element,$this->getFormUtil());                
             case 'number':
                 $helper = $renderer->plugin('bs_number');
                 return $helper($element);

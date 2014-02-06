@@ -1,20 +1,18 @@
 <?php
 namespace Bootstrap\Form\View\Helper\Element;
-use Zend\Form\View\Helper\FormRadio;
+use Zend\Form\View\Helper\FormMultiCheckbox;
 use Bootstrap\Form\Util as FormUtil;
 use Bootstrap\Util;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\MultiCheckbox as ZE_MultiCheckbox;
-use Bootstrap\Form\View\Helper\RadioTag as HelperRadioTag;
-
-
+use Bootstrap\Form\View\Helper\CheckboxTag as HelperCheckboxTag;
 
 /**
  *
  * @author alexandre
  *        
  */
-class Radio extends FormRadio
+class MultiCheckbox extends FormMultiCheckbox
 {
     /**
      * 
@@ -25,7 +23,7 @@ class Radio extends FormRadio
     /**
      * 
      */
-    protected $radioTagHelper;
+    protected $tagHelper;
     /**
      * 
      * @param FormUtil $formUtil
@@ -56,14 +54,14 @@ class Radio extends FormRadio
 		if (FormUtil::FORM_TYPE_HORIZONTAL == $this->formUtil->getDefaultFormType()){
 		    //Add class radio-inline to label
 		    $labelAttributes = $element->getLabelAttributes();
-		    $labelAttributes = Util::addClassToArray($labelAttributes,'radio-inline');
+		    $labelAttributes = Util::addClassToArray($labelAttributes,'checkbox-inline');
 		    $element->setLabelAttributes($labelAttributes);
 		    return parent::renderOptions($element, $options, $selectedOptions, $attributes);
 		}elseif (FormUtil::FORM_TYPE_BASIC == $this->formUtil->getDefaultFormType()){
 		    //Init var
-		    $this->radioTagHelper = $this->getRadioTagHelper(); 
-		    $close = $this->radioTagHelper->closeTag();
-		    $open  = $this->radioTagHelper->openTag();
+		    $this->tagHelper = $this->getTagHelper(); 
+		    $close = $this->tagHelper->closeTag();
+		    $open  = $this->tagHelper->openTag();
 		    $buffer = $this->getSeparator();
 		    $this->setSeparator( $close.' '.$open);
 		    $parent = parent::renderOptions($element, $options, $selectedOptions, $attributes);
@@ -74,7 +72,7 @@ class Radio extends FormRadio
 		}elseif (FormUtil::FORM_TYPE_INLINE == $this->formUtil->getDefaultFormType()){
 		    //Remove class radio-inline to label
 		    $labelAttributes = $element->getLabelAttributes();
-		    $labelAttributes = Util::removeClassToArray($labelAttributes,'radio-inline');
+		    $labelAttributes = Util::removeClassToArray($labelAttributes,'checkbox-inline');
 		    $element->setLabelAttributes($labelAttributes);
 		    return parent::renderOptions($element, $options, $selectedOptions, $attributes);
 		}
@@ -87,21 +85,21 @@ class Radio extends FormRadio
      *
      * @return FormElement
      */
-    protected function getRadioTagHelper ()
+    protected function getTagHelper ()
     {
-    	if ($this->radioTagHelper) {
-    		return $this->radioTagHelper;
+    	if ($this->tagHelper) {
+    		return $this->tagHelper;
     	}
     
     	if (method_exists($this->view, 'plugin')) {
-    		$this->radioTagHelper = $this->view->plugin('bsradiotag');
+    		$this->tagHelper = $this->view->plugin('bscheckboxtag');
     	}
     
-    	if (! $this->radioTagHelper instanceof HelperRadioTag) {
-    		$this->radioTagHelper = new HelperRadioTag();
+    	if (! $this->tagHelper instanceof HelperCheckboxTag) {
+    		$this->tagHelper = new HelperCheckboxTag();
     	}
     
-    	return $this->radioTagHelper;
+    	return $this->tagHelper;
     }
 }
 

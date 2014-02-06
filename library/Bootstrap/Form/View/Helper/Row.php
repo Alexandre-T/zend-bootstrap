@@ -11,7 +11,7 @@ use Bootstrap\Form\Exception\UnsupportedHelperTypeException;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\Checkbox;
-use Zend\Form\Element\Radio;
+use Zend\Form\Element\MultiCheckbox;
 
 /**
  *
@@ -144,7 +144,7 @@ class Row extends FormRow
         	case FormUtil::FORM_TYPE_BASIC :
         	    if ($element instanceof Button){
         	        $markup  = $elementHelper->render($element);        	        
-        	    }elseif ($element instanceof Radio){
+        	    }elseif ($element instanceof MultiCheckbox){
         	        $markup = $elementHelper->render($element);
         	        if (!empty($label)){
                         $markup = $labelHelper->render($label,$element,$this->formUtil) . $markup;
@@ -171,7 +171,7 @@ class Row extends FormRow
         	case FormUtil::FORM_TYPE_INLINE :
         	    if ($element instanceof Button){
         	    	$markup  = $elementHelper->render($element);
-        	    } elseif ($element instanceof Radio) {
+        	    } elseif ($element instanceof MultiCheckbox) {
         	        $markup  = $elementHelper->render($element);
         	        $markup  = $radioTagHelper->render($markup);
         	    	$markup  = $groupHelper->render($markup);
@@ -193,8 +193,8 @@ class Row extends FormRow
                     $markup = $elementHelper->render($element);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
                     $markup = $groupHelper->render($markup);
-                } elseif ($element instanceof Radio) {
-                    //Be carefull Radio is an instance of checkbox, so this tests must prepend the Checkbox test !
+                } elseif ($element instanceof MultiCheckbox) {
+                    //Be carefull MultiCheckbox is an instance of checkbox, so this tests must prepend the Checkbox test !
                     $markup = $elementHelper->render($element);
                     $markup = $helpBlockHelper->render($element,$markup);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);

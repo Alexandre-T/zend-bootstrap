@@ -23,6 +23,7 @@ return array(
   'Bootstrap\Form\View\Helper\Element\Select'               => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Select.php',
   'Bootstrap\Form\View\Helper\Element\Button'               => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Button.php',
   'Bootstrap\Form\View\Helper\Element\Radio'                => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Radio.php',
+  'Bootstrap\Form\View\Helper\Element\MultiCheckbox'        => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/MultiCheckbox.php',
   'Bootstrap\Form\View\Helper\Element\Password'             => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Password.php',
   'Bootstrap\Form\View\Helper\Element\Date'                 => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/Date.php',
   'Bootstrap\Form\View\Helper\Element\DateTimeLocal'        => __DIR__ . '/library/Bootstrap/Form/View/Helper/Element/DateTimeLocal.php',
