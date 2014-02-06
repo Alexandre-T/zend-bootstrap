@@ -206,19 +206,6 @@ class Util
         return $formType;
     }
 
-    public function positionLabel ($formType)
-    {
-        if (is_null($formType)) {
-            $formType = $this->getDefaultFormType();
-        }
-        if (! $this->isFormTypeSupported($formType)) {
-            throw new InvalidParameterException(
-                    sprintf("Form type '%s' is not supported.", $formType));
-        }
-        // @FIXME
-        return $formType;
-    }
-
     /**
      *
      * @return the $override

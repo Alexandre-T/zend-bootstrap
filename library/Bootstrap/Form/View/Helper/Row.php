@@ -142,7 +142,6 @@ class Row extends FormRow
         //Helper order are called in different order 
         switch ($this->formUtil->getDefaultFormType()){
         	case FormUtil::FORM_TYPE_BASIC :
-        	    //FIXME add helperBlock !!!!
         	    if ($element instanceof Button){
         	        $markup  = $elementHelper->render($element);        	        
         	    }elseif ($element instanceof Radio){
@@ -150,18 +149,22 @@ class Row extends FormRow
         	        if (!empty($label)){
                         $markup = $labelHelper->render($label,$element,$this->formUtil) . $markup;
         	        }
+        	        $markup  = $helpBlockHelper->render($element,$markup);
         	        $markup  = $groupHelper->render($markup);
         	        
         	    }elseif ($element instanceof Checkbox){
         	        $markup  = $elementHelper->render($element);
         	        $markup .= $label;
         	        $markup  = $labelHelper->render($markup,$element,$this->formUtil);
-                    $markup  = $checkboxTagHelper->render($markup); 
+                    $markup  = $checkboxTagHelper->render($markup);                    
+                    $markup  = $helpBlockHelper->render($element,$markup);                    
+                    $markup  = $groupHelper->render($markup);
         	    }else{
         	        if (!empty($label)){
                         $markup  = $labelHelper->render($label,$element,$this->formUtil);
         	        }
                     $markup .= $elementHelper->render($element);
+                    $markup  = $helpBlockHelper->render($element,$markup);
                     $markup  = $groupHelper->render($markup);
         	    }
         	    break;
@@ -193,6 +196,7 @@ class Row extends FormRow
                 } elseif ($element instanceof Radio) {
                     //Be carefull Radio is an instance of checkbox, so this tests must prepend the Checkbox test !
                     $markup = $elementHelper->render($element);
+                    $markup = $helpBlockHelper->render($element,$markup);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
                     if (!empty($label)){
                         $markup = $strongHelper->render($label, $this->formUtil) . $markup;
@@ -203,14 +207,16 @@ class Row extends FormRow
                     $markup .= $label;
                     $markup = $labelHelper->render($markup, $element, $this->formUtil);
                     $markup = $checkboxTagHelper->render($markup);
+                    $markup = $helpBlockHelper->render($element,$markup);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
                     $markup = $groupHelper->render($markup);
                 } else {
                     if (! empty($label)) {
                         $markup = $labelHelper->render($label, $element, $this->formUtil);
                     }
-                    $markup .= $offsetHelper->render($element, $elementHelper->render($element), $this->formUtil);
-                    $markup = $groupHelper->render($markup);
+                    $tmp  = $helpBlockHelper->render($element,$elementHelper->render($element));
+                    $markup .= $offsetHelper->render($element, $tmp, $this->formUtil);
+                    $markup  = $groupHelper->render($markup);
                 }
         	    break;
         }

@@ -21,6 +21,7 @@ use Zend\Form\Element\Url;
 use Zend\Form\Element\Time;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Element\Radio;
+use Bootstrap\Form\View\Helper\HelpBlock;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -73,6 +74,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
+        $helpcore = array(HelpBlock::HELP_BLOCK => 'This is an Help block gen. by element option : '.HelpBlock::HELP_BLOCK);
+        
         $this->form = new Form();
         $this->formComplex = new Form('form-complex');
         $this->formDemonstration = new Form('form-demo');
@@ -98,6 +101,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $email = new Email('exampleInputEmail1');
         $email->setLabel('Email address');
         $email->setAttribute('placeholder', 'Enter Email');
+        $email->setOptions($helpcore);
         
         $password = new Password('exampleInputPassword1');
         $password->setLabel('Password');
@@ -108,26 +112,35 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                 'help' => 'Example block-level help text here.'
                         )
                 ));
+        $password->setOptions($helpcore);
+        
         $checkbox = new Checkbox('checkbox');
         $checkbox->setLabel('Check me out');
+        $checkbox->setOptions($helpcore);
                 
         $color = new Color('color-name');
         $color->setLabel('Color type');
+        $color->setOptions($helpcore);
         
         $date = new Date('date-name');
         $date->setLabel('Date type');
+        $date->setOptions($helpcore);
         
         $dateTime = new DateTime('datetime-name');
         $dateTime->setLabel('Date Time type');
+        $dateTime->setOptions($helpcore);
         
         $dateTimeLocal = new DateTimeLocal('datetimelocal-name');
         $dateTimeLocal->setLabel('Date Time local type');
+        $dateTimeLocal->setOptions($helpcore);
         
         $month = new Month('month-name');
         $month->setLabel('Month type');
+        $month->setOptions($helpcore);
         
         $number = new Number('number-name');
         $number->setLabel('Number type');
+        $number->setOptions($helpcore);
         
         $radio = new Radio('radio-name');
         $radio->setLabel('Radio type');
@@ -136,10 +149,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 2 => 'Female',
                 3 => 'Unavailable information',
         )); 
+        $radio->setOptions($helpcore);
         
         $search = new Text('search-name');
         $search->setLabel('Search type');
         $search->setAttribute('type', 'search');
+        $search->setOptions($helpcore);
         
         $select = new Select('select-name');
         $select->setLabel('Select input');
@@ -147,30 +162,38 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 '1' => 'Option 1',
                 2 => 'Option 2'
         ));
+        $select->setOptions($helpcore);
         
         $tel = new Text('tel-name');
         $tel->setLabel('Tel type');
         $tel->setAttribute('type','tel');
+        $tel->setOptions($helpcore);
         
         $text = new Text('text-name');
         $text->setLabel('Text type');
         $text->setAttribute('placeholder', 'Example Text placeholder');
+        $text->setOptions($helpcore);
         
         $textarea = new Textarea('textarea-name');
         $textarea->setLabel('Textarea type');
         $textarea->setAttribute('placeholder', 'Example Textarea placeholder');
+        $textarea->setOptions($helpcore);
         
         $time = new Time('time-name');
         $time->setLabel('Time type');
         $time->setAttribute('placeholder', 'Example Time placeholder');
+        $time->setOptions($helpcore);
         
         $url = new Url('url-name');
         $url->setLabel('Url type');
         $url->setAttribute('placeholder', 'http://www.example.org');
+        $url->setOptions($helpcore);
         
         $week = new Text('week-name');
         $week->setLabel('Week type');        
+        $week->setOptions($helpcore);
         
+        //Building form
         $this->formDemonstration->add($checkbox);
         $this->formDemonstration->add($color);
         $this->formDemonstration->add($date);

@@ -93,6 +93,7 @@ class Form extends ViewHelperForm implements HelperInterface {
 
         foreach ($form as $element) {
             if ($element instanceof FieldsetInterface) {
+                //@todo add a test : If Fieldset only contains button then use bs_btngroup plugin instead of bs_collection 
                 $formContent.= $this->getView()->bscollection($element);
             } else {
                 $formContent.= $this->getView()->bsrow($element,$this->formUtil);
