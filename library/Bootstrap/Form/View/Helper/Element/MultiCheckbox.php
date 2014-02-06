@@ -54,7 +54,7 @@ class MultiCheckbox extends FormMultiCheckbox
 		if (FormUtil::FORM_TYPE_HORIZONTAL == $this->formUtil->getDefaultFormType()){
 		    //Add class radio-inline to label
 		    $labelAttributes = $element->getLabelAttributes();
-		    $labelAttributes = Util::addClassToArray($labelAttributes,'checkbox-inline');
+		    $labelAttributes = Util::addClassToArray($labelAttributes,$this->getCssInline());
 		    $element->setLabelAttributes($labelAttributes);
 		    return parent::renderOptions($element, $options, $selectedOptions, $attributes);
 		}elseif (FormUtil::FORM_TYPE_BASIC == $this->formUtil->getDefaultFormType()){
@@ -72,12 +72,20 @@ class MultiCheckbox extends FormMultiCheckbox
 		}elseif (FormUtil::FORM_TYPE_INLINE == $this->formUtil->getDefaultFormType()){
 		    //Remove class radio-inline to label
 		    $labelAttributes = $element->getLabelAttributes();
-		    $labelAttributes = Util::removeClassToArray($labelAttributes,'checkbox-inline');
+		    $labelAttributes = Util::removeClassToArray($labelAttributes,$this->getCssInline());
 		    $element->setLabelAttributes($labelAttributes);
 		    return parent::renderOptions($element, $options, $selectedOptions, $attributes);
 		}
 		
 		
+	}
+	/**
+	 * Return checkbox-inline (or radio-inline if getInputType is overrided)
+	 * 
+	 * @return string
+	 */
+	protected function getCssInLine(){
+	    return $this->getInputType(). '-inline';
 	}
 	    
     /**
