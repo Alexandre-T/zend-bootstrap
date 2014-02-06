@@ -231,6 +231,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formComplex->add($radio);
         $this->formComplex->add($password);
         $this->formComplex->add($checkbox);
+        $this->formComplex->add($url);
+        $this->formComplex->add($multicheckbox);
         $this->formComplex->add(
                 array(
                         'name' => 'submit',
