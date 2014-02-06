@@ -23,6 +23,12 @@ use Zend\Form\Element\Textarea;
 use Zend\Form\Element\Radio;
 use Bootstrap\Form\View\Helper\HelpBlock;
 use Zend\Form\Element\MultiCheckbox;
+use Zend\Form\Element\File;
+use Zend\Form\Element\Image;
+use Zend\Form\Element\Reset;
+use Zend\Form\Element\Submit;
+use Zend\Form\View\Helper\FormReset;
+use Zend\Form\Element\Button;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -135,6 +141,15 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $dateTimeLocal->setLabel('Date Time local type');
         $dateTimeLocal->setOptions($helpcore);
         
+        $image = new Image('image-name');
+        $image->setLabel('Image Type for upload');
+        $image->setAttribute('src', '../images/ZF2-Logo.png'); // Src attribute is required
+        $image->setOptions($helpcore);
+        
+        $file = new File('file-name');
+        $file->setLabel('File Type for upload');
+        $file->setOptions($helpcore);
+        
         $month = new Month('month-name');
         $month->setLabel('Month type');
         $month->setOptions($helpcore);
@@ -162,6 +177,11 @@ class FormTest extends \PHPUnit_Framework_TestCase
         )); 
         $radio->setOptions($helpcore);
         
+        $reset = new Text('reset-name');
+        $reset->setAttribute('type', 'reset');
+        $reset->setLabel('Reset');
+        $reset->setOptions($helpcore);
+        
         $search = new Text('search-name');
         $search->setLabel('Search type');
         $search->setAttribute('type', 'search');
@@ -174,6 +194,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 2 => 'Option 2'
         ));
         $select->setOptions($helpcore);
+        
+        $send = new Button('send-button');
+        $send->setLabel('Send');
+
+        $submit = new Submit('s1');
+        $submit->setLabel('Submit');
+        $submit->setOptions($helpcore);
         
         $tel = new Text('tel-name');
         $tel->setLabel('Tel type');
@@ -211,6 +238,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formDemonstration->add($dateTime);
         $this->formDemonstration->add($dateTimeLocal);
         $this->formDemonstration->add($email);
+        $this->formDemonstration->add($image);
+        $this->formDemonstration->add($file);
         $this->formDemonstration->add($month);
         $this->formDemonstration->add($multicheckbox);
         $this->formDemonstration->add($number);
@@ -224,6 +253,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formDemonstration->add($time);
         $this->formDemonstration->add($url);
         $this->formDemonstration->add($week);
+        
+        $this->formDemonstration->add($reset);
+        $this->formDemonstration->add($send);
+        $this->formDemonstration->add($submit);
         
         // form build
         $this->formComplex->setAttribute('role', 'form');

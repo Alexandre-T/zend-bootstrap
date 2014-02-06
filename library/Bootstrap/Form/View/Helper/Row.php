@@ -12,6 +12,7 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\MultiCheckbox;
+use Bootstrap\Util;
 
 /**
  *
@@ -142,7 +143,7 @@ class Row extends FormRow
         //Helper order are called in different order 
         switch ($this->formUtil->getDefaultFormType()){
         	case FormUtil::FORM_TYPE_BASIC :
-        	    if ($element instanceof Button){
+        	    if (Util::isButton($element)){
         	        $markup  = $elementHelper->render($element);        	        
         	    }elseif ($element instanceof MultiCheckbox){
         	        $markup = $elementHelper->render($element);
@@ -169,7 +170,7 @@ class Row extends FormRow
         	    }
         	    break;
         	case FormUtil::FORM_TYPE_INLINE :
-        	    if ($element instanceof Button){
+        	    if (Util::isButton($element)){
         	    	$markup  = $elementHelper->render($element);
         	    } elseif ($element instanceof MultiCheckbox) {
         	        $markup  = $elementHelper->render($element);
@@ -189,7 +190,7 @@ class Row extends FormRow
         	    }
                 break;
         	case FormUtil::FORM_TYPE_HORIZONTAL :
-                if ($element instanceof Button) {
+                if (Util::isButton($element)) {
                     $markup = $elementHelper->render($element);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
                     $markup = $groupHelper->render($markup);
@@ -564,6 +565,7 @@ class Row extends FormRow
         
         return $this->render($element, $this->formUtil);
     }
+    
 }
 
 ?>

@@ -7,6 +7,7 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\MultiCheckbox;
+use Bootstrap\Util;
 
 /**
  *
@@ -46,7 +47,7 @@ class Offset extends AbstractHelper
             if (null == $element){
                 $offset = false;
             }else{
-                $offset = (!($element instanceof MultiCheckbox) and ($element instanceof Checkbox || $element instanceof Button));
+                $offset = (!($element instanceof MultiCheckbox) and ($element instanceof Checkbox || Util::isButton($element)));
             } 
             return $this->openTag($offset) . $content . $this->closeTag();
     	}

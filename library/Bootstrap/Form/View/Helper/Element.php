@@ -61,6 +61,12 @@ class Element extends HelperElement
             case 'email':
                 $helper = $renderer->plugin('bs_email');
                 return $helper($element);
+            case 'file':
+                $helper = $renderer->plugin('bs_file');
+                return $helper($element);
+            case 'image':
+                $helper = $renderer->plugin('bs_image');
+                return $helper($element);
             case 'month':
                 $helper = $renderer->plugin('bs_month');
                 return $helper($element);
@@ -76,12 +82,21 @@ class Element extends HelperElement
             case 'radio':
                 $helper = $renderer->plugin('bs_radio');
                 return $helper->render($element,$this->getFormUtil());
+            case 'range':
+                $helper = $renderer->plugin('bs_range');
+                return $helper($element);
+            case 'reset':
+                $helper = $renderer->plugin('bs_reset');
+                return $helper($element);                
             case 'search':
                 $helper = $renderer->plugin('bs_search');
                 return $helper($element);
             case 'select':
                 $helper = $renderer->plugin('bs_select');
                 return $helper($element);
+            case 'submit':
+                $helper = $renderer->plugin('bs_submit');
+                return $helper($element);                
             case 'tel':
                 $helper = $renderer->plugin('bs_tel');
                 return $helper($element);
@@ -102,8 +117,10 @@ class Element extends HelperElement
                 return $helper($element);
         }
         
-        return parent::render($element);
+        
         // So Csrf, Hidden are not override
+        return parent::render($element);
+        
         
         // FIXME Have I to overload Element\Captcha ?
         if ($element instanceof FormElement\Captcha) {
@@ -129,43 +146,7 @@ class Element extends HelperElement
             return $helper($element);
         }
         
-        $type = $element->getAttribute('type');
-        
-        if ('file' == $type) {
-            $helper = $renderer->plugin('form_file');
-            return $helper($element);
-        }
-        
-        if ('image' == $type) {
-            $helper = $renderer->plugin('form_image');
-            return $helper($element);
-        }
-        
-        if ('multi_checkbox' == $type) {
-            $helper = $renderer->plugin('form_multi_checkbox');
-            return $helper($element);
-        }
-        
-        if ('range' == $type) {
-            $helper = $renderer->plugin('form_range');
-            return $helper($element);
-        }
-        
-        if ('reset' == $type) {
-            $helper = $renderer->plugin('form_reset');
-            return $helper($element);
-        }
-        
-        if ('select' == $type) {
-            $helper = $renderer->plugin('form_select');
-            return $helper($element);
-        }
-        
-        if ('submit' == $type) {
-            $helper = $renderer->plugin('form_submit');
-            return $helper($element);
-        }
-        
+        // @todo else case !
         $helper = $renderer->plugin('form_input');
         return $helper($element);
     }

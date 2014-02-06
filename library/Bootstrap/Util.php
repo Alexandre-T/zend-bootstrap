@@ -4,6 +4,8 @@ namespace Bootstrap;
 
 use Bootstrap\Exception\InvalidParameterException;
 use Bootstrap\Exception\InvalidParameterTypeException;
+use Zend\Form\ElementInterface;
+use Zend\Form\Element\Button;
 /**
  * Util
  * @package zend-bootstrap
@@ -201,6 +203,18 @@ class Util {
 			$result['class'] = Util::removeWords($class, $attributes['class']);
 		}
 		return $result;
+	}
+	/**
+	 * Is element a button ?
+	 * 
+	 * @param ElementInterface $element
+	 * @return boolean
+	 */
+	public static function isButton(ElementInterface $element){
+		$validType = array('button','reset','submit');
+		return $element instanceof Button
+		|| $element->hasAttribute('type')
+		&& in_array($element->getAttribute('type'), $validType);
 	}
 	
 	private static function _arrayIUnique($array) {

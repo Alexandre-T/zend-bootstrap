@@ -2,6 +2,9 @@
 namespace BootstrapTest;
 use Bootstrap\Util;
 use \Zend\View\Helper\EscapeHtmlAttr;
+use Zend\Form\Element\Button;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -157,6 +160,20 @@ class UtilTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo three bar', $array['class']);
         $this->assertArrayHasKey('foo', $array);
         $this->assertEquals('bar', $array['foo']);
+    }
+    
+    public function testIsButton(){
+        $button = new Button();
+        $reset = new Text('bar');
+        $reset->setAttribute('type','reset');
+        $submit = new Submit('foo2');
+        
+        $text = new Text('foo');
+        
+        $this->assertTrue(Util::isButton($button));
+        $this->assertTrue(Util::isButton($reset));
+        $this->assertTrue(Util::isButton($submit));
+        $this->assertFalse(Util::isButton($text));
     }
 }
 
