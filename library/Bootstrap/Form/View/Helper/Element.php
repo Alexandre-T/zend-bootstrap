@@ -47,6 +47,24 @@ class Element extends HelperElement
         	return $helper($element);
         }
         
+        //FIXME change form by bs
+        if ($element instanceof FormElement\DateTimeSelect) {
+        	$helper = $renderer->plugin('form_date_time_select');
+        	return $helper($element);
+        }
+        
+        //FIXME change form by bs
+        if ($element instanceof FormElement\DateSelect) {
+        	$helper = $renderer->plugin('form_date_select');
+        	return $helper($element);
+        }
+        
+        //FIXME change form by bs
+        if ($element instanceof FormElement\MonthSelect) {
+        	$helper = $renderer->plugin('form_month_select');
+        	return $helper($element);
+        }
+        
         switch ($element->getAttribute('type')) {
             case 'color':
                 $helper = $renderer->plugin('bs_color');
@@ -125,25 +143,6 @@ class Element extends HelperElement
         
         // So Csrf, Hidden are not override
         return parent::render($element);
-        
-        
-        // FIXME Have I to overload FormElement\DateTimeSelect ?
-        if ($element instanceof FormElement\DateTimeSelect) {
-            $helper = $renderer->plugin('form_date_time_select');
-            return $helper($element);
-        }
-        
-        // FIXME Have I to overload FormElement\DateSelect
-        if ($element instanceof FormElement\DateSelect) {
-            $helper = $renderer->plugin('form_date_select');
-            return $helper($element);
-        }
-        
-        // FIXME Have I to overload FormElement\MonthSelect
-        if ($element instanceof FormElement\MonthSelect) {
-            $helper = $renderer->plugin('form_month_select');
-            return $helper($element);
-        }
         
         // @todo else case !
         $helper = $renderer->plugin('form_input');

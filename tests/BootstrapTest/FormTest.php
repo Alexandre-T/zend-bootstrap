@@ -29,6 +29,9 @@ use Zend\Form\Element\Submit;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\Captcha;
 use Zend\Captcha\Image as CaptchaImage;
+use Zend\Form\Element\DateTimeSelect;
+use Zend\Form\Element\DateSelect;
+use Zend\Form\Element\MonthSelect;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -156,6 +159,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $dateTimeLocal->setLabel('Date Time local type');
         $dateTimeLocal->setOptions($helpcore);
         
+        $dateSelect = new DateSelect('dateselect-name');
+        $dateSelect->setLabel('Zend Date Select');
+        $dateSelect->setOptions($helpcore);
+        
+        $dateTimeSelect = new DateTimeSelect('datetimeselect-name');
+        $dateTimeSelect->setLabel('Zend Date Time Select');
+        $dateTimeSelect->setOptions($helpcore);
+        
         $image = new Image('image-name');
         $image->setLabel('Image Type for upload');
         $image->setAttribute('src', '../images/ZF2-Logo.png'); // Src attribute is required
@@ -168,6 +179,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $month = new Month('month-name');
         $month->setLabel('Month type');
         $month->setOptions($helpcore);
+        
+        $monthSelect = new MonthSelect('month-select');
+        $monthSelect->setLabel('monthselect-name');
+        $monthSelect->setOptions($helpcore);
         
         $multicheckbox = new MultiCheckbox('multi-checkbox-name');
         $multicheckbox->setLabel('Multi Checkbox');
@@ -253,10 +268,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formDemonstration->add($date);
         $this->formDemonstration->add($dateTime);
         $this->formDemonstration->add($dateTimeLocal);
+        $this->formDemonstration->add($dateSelect);
+        $this->formDemonstration->add($dateTimeSelect);
         $this->formDemonstration->add($email);
         $this->formDemonstration->add($image);
         $this->formDemonstration->add($file);
         $this->formDemonstration->add($month);
+        $this->formDemonstration->add($monthSelect);
         $this->formDemonstration->add($multicheckbox);
         $this->formDemonstration->add($number);
         $this->formDemonstration->add($password);
