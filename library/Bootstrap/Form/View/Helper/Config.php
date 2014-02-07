@@ -39,8 +39,10 @@ class Config implements ConfigInterface
 	 */
 	protected $invokables = array(
 			'bsbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
+	        'bscaptcha'       => 'Bootstrap\Form\View\Helper\Element\Captcha',
 	        'bscheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
 			'bscheckboxtag'   => 'Bootstrap\Form\View\Helper\CheckboxTag',
+	        'bscaptcha'       => 'Bootstrap\Form\View\Helper\Element\Captcha',
 	        'bscolor'         => 'Bootstrap\Form\View\Helper\Element\Color',
 	        'bsdate'          => 'Bootstrap\Form\View\Helper\Element\Date',
 	        'bsdatetime'      => 'Bootstrap\Form\View\Helper\Element\DateTime',
@@ -74,9 +76,10 @@ class Config implements ConfigInterface
 	);
 	protected $overrideInvokables = array(
 //			'formgroup'         => 'Bootstrap\Form\View\Helper\Group',
-//			'formhelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',
+//			'formhelp'          => 'Bootstrap\Form\View\Helper\HelpBlock',            
 			'formbutton'        => 'Bootstrap\Form\View\Helper\Element\Button',
-			'formcheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
+	        'formcaptcha'       => 'Bootstrap\Form\View\Helper\Element\Captcha',
+	        'formcheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
 	        'formcolor'         => 'Bootstrap\Form\View\Helper\Element\Color',
 	        'formdate'          => 'Bootstrap\Form\View\Helper\Element\Date',
 	        'formdatetime'      => 'Bootstrap\Form\View\Helper\Element\DateTime',

@@ -5,7 +5,6 @@ use Zend\Form\View\Helper\AbstractHelper;
 use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\Checkbox;
-use Zend\Form\Element\Button;
 use Zend\Form\Element\MultiCheckbox;
 use Bootstrap\Util;
 

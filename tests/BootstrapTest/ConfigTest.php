@@ -59,6 +59,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('bselement')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Captcha',get_class($helperPluginManager->get('bscaptcha')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\CheckboxTag',get_class($helperPluginManager->get('bscheckboxtag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
@@ -93,6 +94,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Form\View\Helper\FormElement',get_class($helperPluginManager->get('formelement')));
         
         $this->assertEquals('Zend\Form\View\Helper\FormButton',get_class($helperPluginManager->get('formbutton')));
+        $this->assertEquals('Zend\Form\View\Helper\FormCaptcha',get_class($helperPluginManager->get('formcaptcha')));
         $this->assertEquals('Zend\Form\View\Helper\FormCheckbox',get_class($helperPluginManager->get('formcheckbox')));
         $this->assertEquals('Zend\Form\View\Helper\FormColor',get_class($helperPluginManager->get('formcolor')));
         $this->assertEquals('Zend\Form\View\Helper\FormDate',get_class($helperPluginManager->get('formdate')));
@@ -137,6 +139,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('bslabel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Captcha',get_class($helperPluginManager->get('bscaptcha')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\CheckboxTag',get_class($helperPluginManager->get('bscheckboxtag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
@@ -170,6 +173,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('formrow')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('formelement')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('formbutton')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\Captcha',get_class($helperPluginManager->get('formcaptcha')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('formcheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('formcolor')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('formdate')));

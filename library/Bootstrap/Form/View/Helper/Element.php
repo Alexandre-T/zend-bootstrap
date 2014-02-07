@@ -36,10 +36,15 @@ class Element extends HelperElement
             $helper = $renderer->plugin('bs_button');
             return $helper($element, $element->getLabel());
         }
-        
+
         if ($element instanceof FormElement\Collection) {
             $helper = $renderer->plugin('bs_collection');
             return $helper($element);
+        }
+
+        if ($element instanceof FormElement\Captcha) {
+        	$helper = $renderer->plugin('bs_captcha');
+        	return $helper($element);
         }
         
         switch ($element->getAttribute('type')) {
@@ -121,12 +126,6 @@ class Element extends HelperElement
         // So Csrf, Hidden are not override
         return parent::render($element);
         
-        
-        // FIXME Have I to overload Element\Captcha ?
-        if ($element instanceof FormElement\Captcha) {
-            $helper = $renderer->plugin('form_captcha');
-            return $helper($element);
-        }
         
         // FIXME Have I to overload FormElement\DateTimeSelect ?
         if ($element instanceof FormElement\DateTimeSelect) {

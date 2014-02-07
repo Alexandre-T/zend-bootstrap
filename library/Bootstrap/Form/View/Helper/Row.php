@@ -9,7 +9,6 @@ use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\View\Helper\FormRow;
 use Bootstrap\Form\Exception\UnsupportedHelperTypeException;
 use Zend\Form\ElementInterface;
-use Zend\Form\Element\Button;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\MultiCheckbox;
 use Bootstrap\Util;

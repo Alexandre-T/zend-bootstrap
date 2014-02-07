@@ -25,10 +25,10 @@ use Bootstrap\Form\View\Helper\HelpBlock;
 use Zend\Form\Element\MultiCheckbox;
 use Zend\Form\Element\File;
 use Zend\Form\Element\Image;
-use Zend\Form\Element\Reset;
 use Zend\Form\Element\Submit;
-use Zend\Form\View\Helper\FormReset;
 use Zend\Form\Element\Button;
+use Zend\Form\Element\Captcha;
+use Zend\Captcha\Image as CaptchaImage;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -120,6 +120,21 @@ class FormTest extends \PHPUnit_Framework_TestCase
                         )
                 ));
         $password->setOptions($helpcore);
+        
+        $captcha = new CaptchaImage(array(
+        		'font' => __DIR__ . '/resources/fonts/LiberationMono-Regular.ttf',
+        		'width' => 250,
+        		'height' => 100,
+        		'dotNoiseLevel' => 40,
+        		'lineNoiseLevel' => 3,                
+        ));
+        $captcha->setImgDir(__DIR__ . '/resources/images/captcha');
+        $captcha->setImgUrl('file://' . __DIR__ . '/resources/images/captcha');
+        
+        $captchaElement = new Captcha('captcha');
+        $captchaElement->setLabel('Captcha');
+        $captchaElement->setCaptcha($captcha);
+        $captchaElement->setOptions($helpcore);
         
         $checkbox = new Checkbox('checkbox');
         $checkbox->setLabel('Check me out');
@@ -232,6 +247,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $week->setOptions($helpcore);
         
         //Building form
+        $this->formDemonstration->add($captchaElement);
         $this->formDemonstration->add($checkbox);
         $this->formDemonstration->add($color);
         $this->formDemonstration->add($date);
