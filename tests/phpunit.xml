@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit bootstrap="Bootstrap.php" colors="true" stopOnError="false"
-	stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false"
-	syntaxCheck="true" verbose="true">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../src/phpunit.xsd"
+	xsi:schemaLocation="../src/phpunit.xsd"
+	bootstrap="Bootstrap.php"
+	colors="true" stopOnError="false" stopOnFailure="false"
+	stopOnIncomplete="false" stopOnSkipped="false" syntaxCheck="true"
+	verbose="true">
 	<php>
 		<ini name="date.timezone" value="Europe/Paris" />
-		<env name="ZF2_PATH" value="/home/alexandre/Zend/workspaces/DefaultWorkspace/gmao/vendor/zendframework/zendframework/library/"/>
+		<env name="ZF2_PATH"
+			value="/home/alexandre/Zend/workspaces/DefaultWorkspace/gmao/vendor/zendframework/zendframework/library/" />
 	</php>
 	<testsuites>
 		<testsuite>
