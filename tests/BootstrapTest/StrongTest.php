@@ -97,10 +97,27 @@ class StrongTest extends \PHPUnit_Framework_TestCase
      */
     public function test__invoke ()
     {
-        // TODO Auto-generated StrongTest->test__invoke()
-        $this->markTestIncomplete("__invoke test not implemented");
+        $strongHelper = $this->strongHelper;
+        $this->assertNull($strongHelper());
+        $this->assertNull($strongHelper(null, null,$this->formUtil));
         
-        $this->strongHelper->__invoke(/* parameters */);
+        $expected = 'Some text';
+        $this->assertEquals($expected, $strongHelper('Some text'));
+        $this->assertEquals($expected, $strongHelper('Some text'),$this->formUtil);
+        $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_INLINE);
+        $this->assertEquals($expected, $strongHelper('Some text'));
+        $this->assertEquals($expected, $strongHelper('Some text'),$this->formUtil);
+        
+        $expected = '<strong class="col-sm-4 control-label">Some text</strong>';
+        $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_HORIZONTAL);
+        $this->assertEquals($expected, $strongHelper('Some text'));
+        $this->assertEquals($expected, $strongHelper('Some text',$this->formUtil));
+        
+        $expected = 'Some text';
+        $this->formUtil->setDefaultFormType(FormUtil::FORM_TYPE_BASIC);
+        $this->assertEquals($expected, $strongHelper('Some text'));
+        $this->assertEquals($expected, $strongHelper('Some text'),$this->formUtil);
+        
     }
 }
 

@@ -73,9 +73,9 @@ class Strong extends AbstractHelper
      * @param null|FormUtil $formUtil
      * @return string
      */
-    public function __invoke(ElementInterface $element = null, $content = null,FormUtil $formUtil = null)
+    public function __invoke($content = null,FormUtil $formUtil = null)
     {
-    	return $this->render($element, $content,$formUtil);
+    	return $this->render($content,$formUtil);
     }
 }
 

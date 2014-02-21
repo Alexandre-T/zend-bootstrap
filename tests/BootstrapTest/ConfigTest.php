@@ -69,6 +69,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\File',get_class($helperPluginManager->get('bsfile')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('bsmonth')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\MonthSelect',get_class($helperPluginManager->get('bsmonthselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\MultiCheckbox',get_class($helperPluginManager->get('bsmulticheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('bsnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Offset',get_class($helperPluginManager->get('bsoffset')));
@@ -103,6 +104,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Form\View\Helper\FormEmail',get_class($helperPluginManager->get('formemail')));
         $this->assertEquals('Zend\Form\View\Helper\FormFile',get_class($helperPluginManager->get('formfile')));
         $this->assertEquals('Zend\Form\View\Helper\FormMonth',get_class($helperPluginManager->get('formmonth')));
+        $this->assertEquals('Zend\Form\View\Helper\FormMonthSelect',get_class($helperPluginManager->get('formmonthselect')));
         $this->assertEquals('Zend\Form\View\Helper\FormMultiCheckbox',get_class($helperPluginManager->get('formmulticheckbox')));
         $this->assertEquals('Zend\Form\View\Helper\FormNumber',get_class($helperPluginManager->get('formnumber')));
         $this->assertEquals('Zend\Form\View\Helper\FormPassword',get_class($helperPluginManager->get('formpassword')));
@@ -149,6 +151,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\File',get_class($helperPluginManager->get('bsfile')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('bsmonth')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\MonthSelect',get_class($helperPluginManager->get('bsmonthselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\MultiCheckbox',get_class($helperPluginManager->get('bsmulticheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('bsnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('bspassword')));
@@ -182,6 +185,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('formemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\File',get_class($helperPluginManager->get('formfile')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Month',get_class($helperPluginManager->get('formmonth')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\MonthSelect',get_class($helperPluginManager->get('formmonthselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\MultiCheckbox',get_class($helperPluginManager->get('formmulticheckbox')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Number',get_class($helperPluginManager->get('formnumber')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Password',get_class($helperPluginManager->get('formpassword')));

@@ -61,7 +61,7 @@ class Element extends HelperElement
         
         //FIXME change form by bs
         if ($element instanceof FormElement\MonthSelect) {
-        	$helper = $renderer->plugin('form_month_select');
+        	$helper = $renderer->plugin('bs_month_select');
         	return $helper($element);
         }
         
