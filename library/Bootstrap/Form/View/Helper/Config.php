@@ -45,8 +45,10 @@ class Config implements ConfigInterface
 	        'bscaptcha'       => 'Bootstrap\Form\View\Helper\Element\Captcha',
 	        'bscolor'         => 'Bootstrap\Form\View\Helper\Element\Color',
 	        'bsdate'          => 'Bootstrap\Form\View\Helper\Element\Date',
+	        'bsdateselect'    => 'Bootstrap\Form\View\Helper\Element\DateSelect',
 	        'bsdatetime'      => 'Bootstrap\Form\View\Helper\Element\DateTime',
 	        'bsdatetimelocal' => 'Bootstrap\Form\View\Helper\Element\DateTimeLocal',
+	        'bsdatetimeselect'=> 'Bootstrap\Form\View\Helper\Element\DateTimeSelect',
 	        'bselement'       => 'Bootstrap\Form\View\Helper\Element',
 	        'bsemail'         => 'Bootstrap\Form\View\Helper\Element\Email',
 	        'bsfile'          => 'Bootstrap\Form\View\Helper\Element\File',
@@ -71,6 +73,7 @@ class Config implements ConfigInterface
 	        'bstime'          => 'Bootstrap\Form\View\Helper\Element\Time',
 	        'bsurl'           => 'Bootstrap\Form\View\Helper\Element\Url',
 	        'bsweek'          => 'Bootstrap\Form\View\Helper\Element\Week',
+	        'bsbuttongroup'   => 'Bootstrap\Form\View\Helper\Fieldset\ButtonGroup',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
 //			'formhidden'                         => 'Bootstrap\Form\View\Helper\FormHidden',
@@ -84,8 +87,10 @@ class Config implements ConfigInterface
 	        'formcheckbox'      => 'Bootstrap\Form\View\Helper\Element\Checkbox',
 	        'formcolor'         => 'Bootstrap\Form\View\Helper\Element\Color',
 	        'formdate'          => 'Bootstrap\Form\View\Helper\Element\Date',
+	        'formdateselect'    => 'Bootstrap\Form\View\Helper\Element\DateSelect',
 	        'formdatetime'      => 'Bootstrap\Form\View\Helper\Element\DateTime',
 	        'formdatetimelocal' => 'Bootstrap\Form\View\Helper\Element\DateTimeLocal',
+	        'formdatetimeselect'=> 'Bootstrap\Form\View\Helper\Element\DateTimeSelect',
 	        'formelement'       => 'Bootstrap\Form\View\Helper\Element',
 	        'formemail'         => 'Bootstrap\Form\View\Helper\Element\Email',
 	        'formfile'          => 'Bootstrap\Form\View\Helper\Element\File',
@@ -189,66 +194,18 @@ class Config implements ConfigInterface
 					return $instance;
 				},
 				/*
-				'formactions'                    => function($sm) use ($formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormActions($formUtil);
-					return $instance;
-				},
-				'formbutton'                     => function($sm) use ($bootstrapUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormButton($bootstrapUtil);
-					return $instance;
-				},
-				'formcheckbox'                   => function($sm) use ($formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormCheckbox($formUtil);
-					return $instance;
-				},
 				'formelementerrors'              => function($sm) use ($bootstrapUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\FormElementErrors($bootstrapUtil);
 					return $instance;
 				},
 				'fieldset'                   => function($sm) use ($bootstrapUtil, $formUtil) {
 					return new Fieldset($bootstrapUtil, $formUtil);
-				},
-				'formfile'                       => function($sm) use ($formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormFile($formUtil);
-					return $instance;
-				},
-				'forminput'                      => function($sm) use ($formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormInput($formUtil);
-					return $instance;
 				},*/
 				'label'                      => function($sm) use ($formUtil) {
 					//$formLabelHelper    = $sm->get('formLabel');
 					$instance           = new Label($formUtil);
 					return $instance;
-				},/*
-				'formmulticheckbox'              => function($sm) use ($bootstrapUtil) {
-					$formMultiCheckboxHelper    = $sm->get('formMultiCheckbox');
-					$instance                   = new \Bootstrap\Form\View\Helper\FormMultiCheckbox(
-							$formMultiCheckboxHelper, $bootstrapUtil);
-					return $instance;
 				},
-				'formradio'                      => function($sm) use ($bootstrapUtil) {
-					$formRadioHelper            = $sm->get('formRadio');
-					$instance                   = new \Bootstrap\Form\View\Helper\FormRadio(
-							$formRadioHelper, $bootstrapUtil);
-					return $instance;
-				},
-				'formreset'                      => function($sm) use ($bootstrapUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormReset($bootstrapUtil);
-					return $instance;
-				},
-				'formselect'                     => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormSelect($bootstrapUtil, $formUtil);
-					return $instance;
-				},
-				'formsubmit'                     => function($sm) use ($bootstrapUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormSubmit($bootstrapUtil);
-					return $instance;
-				},
-				'formtextarea'                   => function($sm) use ($bootstrapUtil, $formUtil) {
-					$instance       = new \Bootstrap\Form\View\Helper\FormTextarea($bootstrapUtil, $formUtil);
-					return $instance;
-				},*/
 				'form'                           => function($sm) use ($formUtil) {
 					$instance       = new \Bootstrap\Form\View\Helper\Form($formUtil);
 					return $instance;

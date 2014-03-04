@@ -32,6 +32,7 @@ use Zend\Captcha\Image as CaptchaImage;
 use Zend\Form\Element\DateTimeSelect;
 use Zend\Form\Element\DateSelect;
 use Zend\Form\Element\MonthSelect;
+use Zend\Form\Fieldset;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -286,11 +287,17 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formDemonstration->add($textarea);
         $this->formDemonstration->add($time);
         $this->formDemonstration->add($url);
-        $this->formDemonstration->add($week);
-        
+        $this->formDemonstration->add($week);        
         $this->formDemonstration->add($reset);
         $this->formDemonstration->add($send);
         $this->formDemonstration->add($submit);
+        
+        $fieldset = new Fieldset('fieldset-name');
+        $fieldset->add($reset);
+        $fieldset->add($send);
+        $fieldset->add($submit);
+        
+        $this->formDemonstration->add($fieldset);
         
         // form build
         $this->formComplex->setAttribute('role', 'form');

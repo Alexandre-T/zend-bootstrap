@@ -65,7 +65,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\CheckboxTag',get_class($helperPluginManager->get('bscheckboxtag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('bsdate')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateSelect',get_class($helperPluginManager->get('bsdateselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTime',get_class($helperPluginManager->get('bsdatetime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTimeSelect',get_class($helperPluginManager->get('bsdatetimeselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTimeLocal',get_class($helperPluginManager->get('bsdatetimelocal')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\File',get_class($helperPluginManager->get('bsfile')));
@@ -100,7 +102,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zend\Form\View\Helper\FormCheckbox',get_class($helperPluginManager->get('formcheckbox')));
         $this->assertEquals('Zend\Form\View\Helper\FormColor',get_class($helperPluginManager->get('formcolor')));
         $this->assertEquals('Zend\Form\View\Helper\FormDate',get_class($helperPluginManager->get('formdate')));
+        $this->assertEquals('Zend\Form\View\Helper\FormDateSelect',get_class($helperPluginManager->get('formdateselect')));
         $this->assertEquals('Zend\Form\View\Helper\FormDateTime',get_class($helperPluginManager->get('formdatetime')));
+        $this->assertEquals('Zend\Form\View\Helper\FormDateTimeSelect',get_class($helperPluginManager->get('formdatetimeselect')));
         $this->assertEquals('Zend\Form\View\Helper\FormDateTimeLocal',get_class($helperPluginManager->get('formdatetimelocal')));
         $this->assertEquals('Zend\Form\View\Helper\FormEmail',get_class($helperPluginManager->get('formemail')));
         $this->assertEquals('Zend\Form\View\Helper\FormFile',get_class($helperPluginManager->get('formfile')));
@@ -148,7 +152,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\CheckboxTag',get_class($helperPluginManager->get('bscheckboxtag')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Color',get_class($helperPluginManager->get('bscolor')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Date',get_class($helperPluginManager->get('bsdate')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateSelect',get_class($helperPluginManager->get('bsdateselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTime',get_class($helperPluginManager->get('bsdatetime')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTimeSelect',get_class($helperPluginManager->get('bsdatetimeselect')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\DateTimeLocal',get_class($helperPluginManager->get('bsdatetimelocal')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Email',get_class($helperPluginManager->get('bsemail')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\File',get_class($helperPluginManager->get('bsfile')));

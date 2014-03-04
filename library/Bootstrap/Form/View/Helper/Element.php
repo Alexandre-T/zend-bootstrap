@@ -48,15 +48,13 @@ class Element extends HelperElement
         	return $helper($element);
         }
         
-        //FIXME change form by bs
         if ($element instanceof FormElement\DateTimeSelect) {
-        	$helper = $renderer->plugin('form_date_time_select');
+        	$helper = $renderer->plugin('bs_date_time_select');
         	return $helper($element);
         }
         
-        //FIXME change form by bs
         if ($element instanceof FormElement\DateSelect) {
-        	$helper = $renderer->plugin('form_date_select');
+        	$helper = $renderer->plugin('bs_date_select');
         	return $helper($element);
         }
                 
@@ -144,9 +142,6 @@ class Element extends HelperElement
         // So Csrf, Hidden are not override
         return parent::render($element);
         
-        // @todo else case !
-        $helper = $renderer->plugin('form_input');
-        return $helper($element);
     }
 
     /**

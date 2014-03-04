@@ -10,6 +10,7 @@ use Zend\Form\FormInterface;
 use Zend\View\Helper\HelperInterface;
 use Zend\Form\View\Helper\Form as ViewHelperForm;
 use Zend\Form\FieldsetInterface;
+use Zend\Form\Element\Button;
 /**
  * Form
  * @package zend-bootstrap
@@ -93,8 +94,12 @@ class Form extends ViewHelperForm implements HelperInterface {
 
         foreach ($form as $element) {
             if ($element instanceof FieldsetInterface) {
-                //@todo add a test : If Fieldset only contains button then use bs_btngroup plugin instead of bs_collection 
-                $formContent.= $this->getView()->bscollection($element);
+                //@todo add a test : If Fieldset only contains button then use bs_btngroup plugin instead of bs_collection
+                if ($this->_isOnlyButton($element)){
+                    $formContent .= $this->getView()->bsbuttongroup($element); 
+                } else {
+                    $formContent.= $this->getView()->bscollection($element);
+                }
             } else {
                 $formContent.= $this->getView()->bsrow($element,$this->formUtil);
             }
@@ -133,6 +138,21 @@ class Form extends ViewHelperForm implements HelperInterface {
 			$form->setAttribute('class', $class);
 		}
 		return parent::openTag($form);
+	}
+	/**
+	 * 
+	 * @param FieldsetInterface $element
+	 * @return boolean
+	 */
+	protected function _isOnlyButton(FieldsetInterface $element){
+	    $onlyButton = true;
+        foreach ($element->getElements() as $subelement){
+            if (! (Util::isButton($subelement))){
+                $onlyButton = false;
+                break;
+            }
+        }
+        return $onlyButton;
 	}
 	
 }
