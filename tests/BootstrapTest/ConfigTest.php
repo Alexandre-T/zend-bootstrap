@@ -55,6 +55,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\Form',get_class($helperPluginManager->get('bsform')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Group',get_class($helperPluginManager->get('bsgroup')));
         $this->assertEquals('Bootstrap\Form\View\Helper\HelpBlock',get_class($helperPluginManager->get('bshelp')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\InlineSeparator',get_class($helperPluginManager->get('bsinlineseparator')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('bslabel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element',get_class($helperPluginManager->get('bselement')));
@@ -140,6 +141,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Bootstrap\Form\View\Helper\HelpBlock',get_class($helperPluginManager->get('bshelp')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Label',get_class($helperPluginManager->get('bslabel')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Row',get_class($helperPluginManager->get('bsrow')));
+        $this->assertEquals('Bootstrap\Form\View\Helper\InlineSeparator',get_class($helperPluginManager->get('bsinlineseparator')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Button',get_class($helperPluginManager->get('bsbutton')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Captcha',get_class($helperPluginManager->get('bscaptcha')));
         $this->assertEquals('Bootstrap\Form\View\Helper\Element\Checkbox',get_class($helperPluginManager->get('bscheckbox')));

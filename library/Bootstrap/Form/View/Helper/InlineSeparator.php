@@ -9,7 +9,7 @@ use Zend\Form\ElementInterface;
  * @author alexandre
  *        
  */
-class Group extends AbstractHelper
+class InlineSeparator extends AbstractHelper
 {
 
     const ROW_CLASS    = 'row';
@@ -21,11 +21,12 @@ class Group extends AbstractHelper
      * @param string $content            
      * @return string
      */
-    public function render($content, $pattern = null)
-    {
+    public function render($content, $prepend = null, $append = null)
+    {        
         if (!is_array($content)){
-            $content = split($pattern, $content);
-        }
+            $pattern = $append.$prepend;
+            $content = explode($pattern, $content);
+        }        
         $count = count($content);
         switch ($count) {
         	case 2 :
@@ -37,15 +38,31 @@ class Group extends AbstractHelper
            	case 4 :
            	  	$size = 3;
            	   	break;
+           	case 6 :
+           	   	$size = 2;
+           	   	break;
+           	case 12 :
+           		$size = 1;
+           		break;
         	default:
         		//throw new ...;
         	break;
         }
         $result = $this->openTag($size);
         foreach ($content as $cell){
-            $result .= $cell . $this->splitTag($size);
+            //not the first line
+            if ($cell !== reset($content)){
+            	$result .= $prepend;
+            }
+            $result .= $cell;
+            //not the last line
+            if ($cell !== end($content)){
+                $result .= $append;
+            }
+            $result .= $this->splitTag($size);
         }
         $result .= $this->closeTag();
+        return $result;
     }
 
     /**

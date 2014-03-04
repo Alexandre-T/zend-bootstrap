@@ -2,6 +2,7 @@
 namespace Bootstrap\Form\View\Helper;
 use Bootstrap\Form\View\Helper\CheckboxTag as HelperCheckboxTag;
 use Bootstrap\Form\View\Helper\Element as HelperElement;
+use Bootstrap\Form\View\Helper\InlineSeparator as HelperInlineSeparator;
 use Bootstrap\Form\View\Helper\Offset as HelperOffset;
 use Bootstrap\Form\View\Helper\RadioTag as HelperRadioTag;
 use Bootstrap\Form\View\Helper\Strong as HelperStrong;
@@ -150,7 +151,15 @@ class Row extends FormRow
         switch ($this->formUtil->getDefaultFormType()){
         	case FormUtil::FORM_TYPE_BASIC :
         	    if ($element instanceof MonthSelect){
-        	        $markup  = 'basic'. $elementHelper->render($element).'basic';
+        	        if (! empty($label)) {
+                        $markup = $labelHelper->render($label, $element, $this->formUtil);
+                    }
+                    $tmp     = $elementHelper->render($element);
+                    $tmp     = $inlineSeparatorHelper->render($tmp,' <select','</select>');
+                    $tmp     = $helpBlockHelper->render($element,$tmp);
+                    $markup .= $offsetHelper->render($element, $tmp, $this->formUtil);
+                    unset($tmp);
+                    $markup  = $groupHelper->render($markup);
         	    }elseif (Util::isButton($element)){
         	        $markup  = $elementHelper->render($element);        	        
         	    }elseif ($element instanceof MultiCheckbox){
@@ -178,9 +187,7 @@ class Row extends FormRow
         	    }
         	    break;
         	case FormUtil::FORM_TYPE_INLINE :
-                if ($element instanceof MonthSelect){
-        	        $markup  = 'inline'. $elementHelper->render($element).'inline';
-        	    }elseif (Util::isButton($element)){
+                if (Util::isButton($element)){
         	    	$markup  = $elementHelper->render($element);
         	    } elseif ($element instanceof MultiCheckbox) {
         	        $markup  = $elementHelper->render($element);
@@ -204,11 +211,11 @@ class Row extends FormRow
         	        if (! empty($label)) {
                         $markup = $labelHelper->render($label, $element, $this->formUtil);
                     }
-                    $tmp     = '<div class="row"><div class="col-sm-6">';
-                    $tmp    .= str_replace('</select> <select', '</select></div><div class="col-sm-6"><select', $elementHelper->render($element));
-                    $tmp    .= '</div></div>';
+                    $tmp     = $elementHelper->render($element);
+                    $tmp     = $inlineSeparatorHelper->render($tmp,' <select','</select>');
                     $tmp     = $helpBlockHelper->render($element,$tmp);
                     $markup .= $offsetHelper->render($element, $tmp, $this->formUtil);
+                    unset($tmp);
                     $markup  = $groupHelper->render($markup);
         	    }elseif (Util::isButton($element)) {
                     $markup = $elementHelper->render($element);
@@ -255,7 +262,7 @@ class Row extends FormRow
         /*
         
         
-        
+        //FIXME rendering errors !
         
         
         
