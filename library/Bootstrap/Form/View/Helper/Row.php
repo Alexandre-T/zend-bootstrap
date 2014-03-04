@@ -12,6 +12,7 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\MultiCheckbox;
 use Bootstrap\Util;
+use Zend\Form\Element\MonthSelect;
 
 /**
  *
@@ -47,6 +48,11 @@ class Row extends FormRow
      * @var Group 
      */
     protected $groupHelper;
+    
+    /**
+     * @var HelperInlineSeparator
+     */
+    protected $inlineSeparatorHelper;
     
     /**
      * @var Offset
@@ -111,6 +117,7 @@ class Row extends FormRow
         $escapeHtmlHelper = $this->getEscapeHtmlHelper();
         $groupHelper = $this->getGroupHelper();
         $helpBlockHelper = $this->getHelpBlockHelper();
+        $inlineSeparatorHelper = $this->getInlineSeparatorHelper();
         $labelHelper = $this->getLabelHelper();
         $offsetHelper = $this->getOffsetHelper();
         $strongHelper = $this->getStrongHelper();
@@ -142,7 +149,9 @@ class Row extends FormRow
         //Helper order are called in different order 
         switch ($this->formUtil->getDefaultFormType()){
         	case FormUtil::FORM_TYPE_BASIC :
-        	    if (Util::isButton($element)){
+        	    if ($element instanceof MonthSelect){
+        	        $markup  = 'basic'. $elementHelper->render($element).'basic';
+        	    }elseif (Util::isButton($element)){
         	        $markup  = $elementHelper->render($element);        	        
         	    }elseif ($element instanceof MultiCheckbox){
         	        $markup = $elementHelper->render($element);
@@ -169,7 +178,9 @@ class Row extends FormRow
         	    }
         	    break;
         	case FormUtil::FORM_TYPE_INLINE :
-        	    if (Util::isButton($element)){
+                if ($element instanceof MonthSelect){
+        	        $markup  = 'inline'. $elementHelper->render($element).'inline';
+        	    }elseif (Util::isButton($element)){
         	    	$markup  = $elementHelper->render($element);
         	    } elseif ($element instanceof MultiCheckbox) {
         	        $markup  = $elementHelper->render($element);
@@ -189,7 +200,17 @@ class Row extends FormRow
         	    }
                 break;
         	case FormUtil::FORM_TYPE_HORIZONTAL :
-                if (Util::isButton($element)) {
+                if ($element instanceof MonthSelect){
+        	        if (! empty($label)) {
+                        $markup = $labelHelper->render($label, $element, $this->formUtil);
+                    }
+                    $tmp     = '<div class="row"><div class="col-sm-6">';
+                    $tmp    .= str_replace('</select> <select', '</select></div><div class="col-sm-6"><select', $elementHelper->render($element));
+                    $tmp    .= '</div></div>';
+                    $tmp     = $helpBlockHelper->render($element,$tmp);
+                    $markup .= $offsetHelper->render($element, $tmp, $this->formUtil);
+                    $markup  = $groupHelper->render($markup);
+        	    }elseif (Util::isButton($element)) {
                     $markup = $elementHelper->render($element);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
                     $markup = $groupHelper->render($markup);
@@ -352,9 +373,9 @@ class Row extends FormRow
     }
 
     /**
-     * Retrieve the FormLabel helper
+     * Retrieve the Label helper
      *
-     * @return FormLabel
+     * @return Label
      */
     protected function getLabelHelper ()
     {
@@ -404,7 +425,7 @@ class Row extends FormRow
     /**
      * Retrieve the Help Block helper
      *
-     * @return Group
+     * @return HelpBlock
      * @throws \Bootstrap\Form\Exception\UnsupportedHelperTypeException
      */
     protected function getHelpBlockHelper ()
@@ -428,7 +449,7 @@ class Row extends FormRow
     /**
      * Retrieve the CheckboxTag helper
      *
-     * @return FormElement
+     * @return HelperCheckboxTag
      */
     protected function getCheckboxTagHelper ()
     {
@@ -472,7 +493,7 @@ class Row extends FormRow
     /**
      * Retrieve the RadioTag helper
      *
-     * @return FormElement
+     * @return HelperRadioTag
      */
     protected function getRadioTagHelper ()
     {
@@ -494,7 +515,7 @@ class Row extends FormRow
     /**
      * Retrieve the Strong helper
      *
-     * @return HelperOffset
+     * @return HelperStrong
      */
     protected function getStrongHelper ()
     {
@@ -514,9 +535,9 @@ class Row extends FormRow
     }
     
     /**
-     * Retrieve the FormElement helper
+     * Retrieve the HelperElement helper
      *
-     * @return FormElement
+     * @return HelperElement
      */
     protected function getElementHelper ()
     {
@@ -535,6 +556,27 @@ class Row extends FormRow
         return $this->elementHelper;
     }
 
+    /**
+     * Retrieve the FormElement helper
+     *
+     * @return HelperInlineSeparator
+     */
+    protected function getInlineSeparatorHelper ()
+    {
+        if ($this->inlineSeparatorHelper) {
+            return $this->inlineSeparatorHelper;
+        }
+        
+        if (method_exists($this->view, 'plugin')) {
+            $this->inlineSeparatorHelper = $this->view->plugin('bsinlineseparator');
+        }
+        
+        if (! $this->inlineSeparatorHelper instanceof HelperInlineSeparator) {
+            $this->inlineSeparatorHelper = new HelperInlineSeparator();
+        }
+        
+        return $this->inlineSeparatorHelper;
+    }
     /*
      * (non-PHPdoc) @see \Zend\Form\View\Helper\FormRow::__invoke()
      */

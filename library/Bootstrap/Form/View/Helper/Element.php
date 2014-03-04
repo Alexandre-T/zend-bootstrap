@@ -4,6 +4,7 @@ use Zend\Form\Element as FormElement;
 use Zend\Form\ElementInterface;
 use Zend\Form\View\Helper\FormElement as HelperElement;
 use Bootstrap\Form\Util as FormUtil;
+use Zend\Form\Element\MonthSelect;
 /**
  *
  * @author alexandre
@@ -58,9 +59,8 @@ class Element extends HelperElement
         	$helper = $renderer->plugin('form_date_select');
         	return $helper($element);
         }
-        
-        //FIXME change form by bs
-        if ($element instanceof FormElement\MonthSelect) {
+                
+        if ($element instanceof MonthSelect) {
         	$helper = $renderer->plugin('bs_month_select');
         	return $helper($element);
         }

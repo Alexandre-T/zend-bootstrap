@@ -10,17 +10,6 @@ use Zend\Form\ElementInterface;
  */
 class MonthSelect extends FormMonthSelect
 {
-	/* (non-PHPdoc)
-	 * @see \Zend\Form\View\Helper\FormMonthSelect::render()
-	 */
-	public function render(ElementInterface $element) {
-		// TODO Optimize
-		$resultat = '<div class="row"><div class="col-sm-6">';
-		$resultat .= str_replace('</select> <select', '</select></div><div class="col-sm-6"><select', parent::render($element));
-		$resultat .= '</div></div>';
-		return $resultat;
-		
-	}
 	
 	/**
 	 * Retrieve the FormSelect helper
