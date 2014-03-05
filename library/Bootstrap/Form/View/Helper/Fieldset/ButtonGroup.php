@@ -1,7 +1,12 @@
 <?php
 namespace Bootstrap\Form\View\Helper\Fieldset;
+
 use Bootstrap\Util;
+use Bootstrap\Form\Exception\UnsupportedHelperTypeException;
 use Bootstrap\Form\Exception\UnsupportedButtonTypeException;
+use Bootstrap\Form\View\Helper\Group;
+use Bootstrap\Form\View\Helper\Offset as HelperOffset;
+use Bootstrap\Form\Util as FormUtil;
 use Zend\Form\Element as FormElement;
 use Zend\Form\FieldsetInterface;
 use Zend\Form\View\Helper\AbstractHelper;
@@ -13,8 +18,38 @@ use Zend\Form\View\Helper\AbstractHelper;
  */
 class ButtonGroup extends AbstractHelper
 {
+    /**
+     * 
+     * @var FormUtil
+     */
+    protected $formUtil;
 
-    public function render (FieldsetInterface $fieldset)
+    /**
+     * @var Group
+     */
+    protected $groupHelper;
+
+    /**
+     * @var Offset
+     */
+    protected $offsetHelper;
+    
+    public function __construct(FormUtil $formUtil = null){
+        if (isset ($formUtil)){
+            $this->formUtil = $formUtil;
+        }else{
+            $this->formUtil = new FormUtil();
+        }
+    }
+    /**
+     * Rendering Fieldset as BtnGroup
+     * 
+     * @param FieldsetInterface $fieldset
+     * @param FormUtil $formUtil
+     * @throws UnsupportedButtonTypeException
+     * @return string
+     */
+    public function render (FieldsetInterface $fieldset, FormUtil $formUtil = null)
     {
         
         // Is view pluggable ?
@@ -51,7 +86,25 @@ class ButtonGroup extends AbstractHelper
             }
         }
         $result.='</div>';
-        return $result;
+
+        //Parameter formUtil
+        if (isset($formUtil)){
+        	$this->formUtil = $formUtil;
+        }
+        
+        switch ($this->formUtil->getDefaultFormType()){
+        	case FormUtil::FORM_TYPE_INLINE :
+        	    return $result;
+        	case FormUtil::FORM_TYPE_HORIZONTAL :
+        	    $offsetHelper = $this->getOffsetHelper();
+        	    $result = $offsetHelper->render($button, $result, $this->formUtil);        	    
+        	    $groupHelper = $this->getGroupHelper();
+        	    return $groupHelper->render($result);  
+        	case FormUtil::FORM_TYPE_BASIC :
+        	    $groupHelper = $this->getGroupHelper();
+        	    return $groupHelper->render($result);
+        }
+        
     }
 
     /**
@@ -59,10 +112,69 @@ class ButtonGroup extends AbstractHelper
      *
      * @param FieldsetInterface $fieldset            
      */
-    public function __invoke (FieldsetInterface $fieldset)
+    public function __invoke (FieldsetInterface $fieldset, FormUtil $formUtil = null)
     {
-        return self::render($fieldset);
+        return self::render($fieldset,$formUtil);
     }
+    
+    /**
+     * Retrieve the Form Group helper
+     *
+     * @return Group
+     * @throws \Bootstrap\Form\Exception\UnsupportedHelperTypeException
+     */
+    protected function getGroupHelper ()
+    {
+    	if (! $this->groupHelper) {
+    		if (method_exists($this->view, 'plugin')) {
+    			$this->groupHelper = $this->view->plugin('bs_group');
+    		}
+    		if (! $this->groupHelper instanceof Group) {
+    			throw new UnsupportedHelperTypeException(
+    					'Form group helper Bootstrap\Form\View\Helper\Group unavailable or unsupported type.');
+    		}
+    	}
+    	return $this->groupHelper;
+    }
+    
+    /**
+     * Retrieve the Offset helper
+     *
+     * @return HelperOffset
+     */
+    protected function getOffsetHelper ()
+    {
+    	if ($this->offsetHelper) {
+    		return $this->offsetHelper;
+    	}
+    
+    	if (method_exists($this->view, 'plugin')) {
+    		$this->offsetHelper = $this->view->plugin('bsoffset');
+    	}
+    
+    	if (! $this->offsetHelper instanceof HelperOffset) {
+    		$this->offsetHelper = new HelperOffset();
+    	}
+    
+    	return $this->offsetHelper;
+    }
+
+    /****************** Getters and Setters ****************/
+    
+    /**
+     * @return the $formUtil
+     */
+    public function getFormUtil() {
+    	return $this->formUtil;
+    }
+    
+    /**
+     * @param \Bootstrap\Form\Util $formUtil
+     */
+    public function setFormUtil(FormUtil $formUtil) {
+    	$this->formUtil = $formUtil;
+    }
+    
 }
 
 ?>

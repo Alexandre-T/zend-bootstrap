@@ -20,6 +20,7 @@ use Bootstrap\Form\View\Helper\Element\MultiCheckbox;
 
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceManager;
+use Bootstrap\Form\View\Helper\Fieldset\ButtonGroup;
 
 
 
@@ -73,7 +74,7 @@ class Config implements ConfigInterface
 	        'bstime'          => 'Bootstrap\Form\View\Helper\Element\Time',
 	        'bsurl'           => 'Bootstrap\Form\View\Helper\Element\Url',
 	        'bsweek'          => 'Bootstrap\Form\View\Helper\Element\Week',
-	        'bsbuttongroup'   => 'Bootstrap\Form\View\Helper\Fieldset\ButtonGroup',
+//	        'bsbuttongroup'   => 'Bootstrap\Form\View\Helper\Fieldset\ButtonGroup',
 //			'formdescription'                    => 'Bootstrap\Form\View\Helper\FormDescription',
 //			'formelement'                        => 'Bootstrap\Form\View\Helper\FormElement',
 //			'formhidden'                         => 'Bootstrap\Form\View\Helper\FormHidden',
@@ -191,6 +192,10 @@ class Config implements ConfigInterface
 				},
 				'row'           => function($sm) use ($formUtil) {
 					$instance       = new Row($formUtil);
+					return $instance;
+				},
+				'buttongroup'  => function($sm) use ($formUtil) {
+					$instance       = new ButtonGroup($formUtil);
 					return $instance;
 				},
 				/*
