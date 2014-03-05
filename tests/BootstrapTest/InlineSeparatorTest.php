@@ -11,7 +11,7 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      *
      * @var InlineSeparator
      */
-    private $InlineSeparator;
+    private $inlineSeparator;
 
     /**
      * Prepares the environment before running a test.
@@ -20,9 +20,7 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
-        // TODO Auto-generated InlineSeparatorTest::setUp()
-        
-        $this->InlineSeparator = new InlineSeparator(/* parameters */);
+        $this->inlineSeparator = new InlineSeparator();
     }
 
     /**
@@ -30,18 +28,9 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown ()
     {
-        // TODO Auto-generated InlineSeparatorTest::tearDown()
-        $this->InlineSeparator = null;
-        
-        parent::tearDown();
-    }
+        $this->inlineSeparator = null;
 
-    /**
-     * Constructs the test case.
-     */
-    public function __construct ()
-    {
-        // TODO Auto-generated constructor
+        parent::tearDown();
     }
 
     /**
@@ -49,10 +38,21 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender ()
     {
-        // TODO Auto-generated InlineSeparatorTest->testRender()
-        $this->markTestIncomplete("render test not implemented");
+        $content  = '5  4';
+        $actual   = $this->inlineSeparator->render($content, ' ', ' ');
+        $expected = '<div class="row"><div class="col-sm-6">5 </div><div class="col-sm-6"> 4</div></div> ';
+        $this->assertEquals($expected, $actual);
         
-        $this->InlineSeparator->render(/* parameters */);
+        $content  = '5  4  3';
+        $actual   = $this->inlineSeparator->render($content, ' ', ' ');
+        $expected = '<div class="row"><div class="col-sm-4">5 </div><div class="col-sm-4"> 4 </div><div class="col-sm-4"> 3</div></div> ';
+        $this->assertEquals($expected, $actual);
+        
+        $content  = '5  4  3  2';
+        $actual   = $this->inlineSeparator->render($content, ' ', ' ');
+        $expected = '<div class="row"><div class="col-sm-3">5 </div><div class="col-sm-3"> 4 </div><div class="col-sm-3"> 3 </div><div class="col-sm-3"> 2</div></div> ';
+        $this->assertEquals($expected, $actual);
+        
     }
 
     /**
@@ -60,10 +60,12 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testOpenTag ()
     {
-        // TODO Auto-generated InlineSeparatorTest->testOpenTag()
-        $this->markTestIncomplete("openTag test not implemented");
+        $expected = '<div class="row"><div class="col-sm-4">';
+        $this->assertEquals($expected, $this->inlineSeparator->openTag(4));
         
-        $this->InlineSeparator->openTag(/* parameters */);
+        $expected = '<div class="row"><div class="col-sm-6">';
+        $this->assertEquals($expected, $this->inlineSeparator->openTag(6));
+        
     }
 
     /**
@@ -71,10 +73,13 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSplitTag ()
     {
-        // TODO Auto-generated InlineSeparatorTest->testSplitTag()
-        $this->markTestIncomplete("splitTag test not implemented");
+        $actual   = $this->inlineSeparator->splitTag(4);
+        $expected = '</div><div class="col-sm-4">';
+        $this->assertEquals($expected, $actual);
         
-        $this->InlineSeparator->splitTag(/* parameters */);
+        $actual   = $this->inlineSeparator->splitTag(2);
+        $expected = '</div><div class="col-sm-2">';
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -82,10 +87,7 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testCloseTag ()
     {
-        // TODO Auto-generated InlineSeparatorTest->testCloseTag()
-        $this->markTestIncomplete("closeTag test not implemented");
-        
-        $this->InlineSeparator->closeTag(/* parameters */);
+        $this->assertEquals('</div></div> ',$this->inlineSeparator->closeTag());
     }
 
     /**
@@ -93,10 +95,10 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function test__invoke ()
     {
-        // TODO Auto-generated InlineSeparatorTest->test__invoke()
-        $this->markTestIncomplete("__invoke test not implemented");
+        $inline = $this->inlineSeparator;
+        $this->assertTrue(is_callable($inline));
         
-        $this->InlineSeparator->__invoke(/* parameters */);
+        $this->markTestIncomplete("invokable test not finished");
     }
 }
 

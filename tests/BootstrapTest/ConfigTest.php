@@ -218,8 +218,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($helperPluginManager->has('formcheckboxtag'));
         $this->assertFalse($helperPluginManager->has('formradiotag'));
         
-        // TODO Auto-generated ConfigTest->test__construct()
-        $this->markTestIncomplete("testConfigureServiceManager test is not finished");
     }
 }
 

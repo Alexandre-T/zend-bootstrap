@@ -3,6 +3,7 @@ namespace Bootstrap\Form\View\Helper;
 
 use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Form\ElementInterface;
+use Bootstrap\Form\Exception\UnsupportedContentTypeException;
 
 /**
  *
@@ -17,8 +18,11 @@ class InlineSeparator extends AbstractHelper
 
     /**
      * Renders the form group div tag
-     *
-     * @param string $content            
+     * 
+     * @param string|array $content
+     * @param string $prepend
+     * @param string $append
+     * @throws UnsupportedContentTypeException
      * @return string
      */
     public function render($content, $prepend = null, $append = null)
@@ -45,8 +49,8 @@ class InlineSeparator extends AbstractHelper
            		$size = 1;
            		break;
         	default:
-        		//throw new ...;
-        	break;
+        		throw new UnsupportedContentTypeException('$content must be an array, or shoulb be splitted with append and prepend parameters');
+        	   break;
         }
         $result = $this->openTag($size);
         foreach ($content as $cell){
@@ -58,8 +62,8 @@ class InlineSeparator extends AbstractHelper
             //not the last line
             if ($cell !== end($content)){
                 $result .= $append;
+                $result .= $this->splitTag($size);
             }
-            $result .= $this->splitTag($size);
         }
         $result .= $this->closeTag();
         return $result;

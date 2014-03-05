@@ -43,14 +43,6 @@ class StrongTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Constructs the test case.
-     */
-    public function __construct ()
-    {
-        // TODO Auto-generated constructor
-    }
-
-    /**
      * Tests Strong->render()
      */
     public function testRender ()
