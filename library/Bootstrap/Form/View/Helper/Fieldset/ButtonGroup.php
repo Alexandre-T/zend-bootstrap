@@ -42,9 +42,11 @@ class ButtonGroup extends AbstractHelper
                     case 'reset':
                     	$helper = $renderer->plugin('bs_reset');
                     	$result.= $helper($button);
+                    	break;
                     case 'submit':
                     	$helper = $renderer->plugin('bs_submit');
                     	$result.= $helper($button);
+                    	break;
                 }
             }
         }
