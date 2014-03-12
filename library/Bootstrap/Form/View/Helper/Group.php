@@ -13,6 +13,7 @@ class Group extends AbstractHelper
 {
 
     const DEFAULT_CLASS = 'form-group';
+    const ERROR_CLASS = 'has-error';
 
     /**
      * Renders the form group div tag
@@ -20,8 +21,11 @@ class Group extends AbstractHelper
      * @param string $content            
      * @return string
      */
-    public function render($content, $class = self::DEFAULT_CLASS)
+    public function render($content, $hasError = false, $class = self::DEFAULT_CLASS)
     {
+        if ($hasError){
+            $class .= ' ' . self::ERROR_CLASS;
+        }
         return $this->openTag($class) . $content . $this->closeTag();
     }
 
@@ -55,9 +59,9 @@ class Group extends AbstractHelper
      * @param string $content            
      * @return string
      */
-    public function __invoke($content, $class = self::DEFAULT_CLASS)
+    public function __invoke($content, $hasError = false, $class = self::DEFAULT_CLASS)
     {
-        return $this->render($content,$class);
+        return $this->render($content, $hasError, $class);
     }
 }
 

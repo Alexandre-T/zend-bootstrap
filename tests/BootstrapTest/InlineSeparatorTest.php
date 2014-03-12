@@ -95,10 +95,24 @@ class InlineSeparatorTest extends \PHPUnit_Framework_TestCase
      */
     public function test__invoke ()
     {
-        $inline = $this->inlineSeparator;
-        $this->assertTrue(is_callable($inline));
+        $inlineSeparator = $this->inlineSeparator;
+        $this->assertTrue(is_callable($inlineSeparator));
         
-        $this->markTestIncomplete("invokable test not finished");
+        $content  = '5  4';
+        $actual   = $inlineSeparator($content, ' ', ' ');
+        $expected = '<div class="row"><div class="col-sm-6">5 </div><div class="col-sm-6"> 4</div></div> ';
+        $this->assertEquals($expected, $actual);
+        
+        $content  = '5  4  3';
+        $actual   = $inlineSeparator($content, ' ', ' ');
+        $expected = '<div class="row"><div class="col-sm-4">5 </div><div class="col-sm-4"> 4 </div><div class="col-sm-4"> 3</div></div> ';
+        $this->assertEquals($expected, $actual);
+        
+        $content  = '5  4  3  2';
+        $actual   = $inlineSeparator($content, ' ', ' ');
+        $expected = '<div class="row"><div class="col-sm-3">5 </div><div class="col-sm-3"> 4 </div><div class="col-sm-3"> 3 </div><div class="col-sm-3"> 2</div></div> ';
+        $this->assertEquals($expected, $actual);
+        
     }
 }
 

@@ -33,6 +33,8 @@ use Zend\Form\Element\DateTimeSelect;
 use Zend\Form\Element\DateSelect;
 use Zend\Form\Element\MonthSelect;
 use Zend\Form\Fieldset;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\Input;
 require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
@@ -85,7 +87,9 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
-        $helpcore = array(HelpBlock::HELP_BLOCK => 'This is an Help block gen. by element option : '.HelpBlock::HELP_BLOCK);
+        $helpcore = array(
+                HelpBlock::HELP_BLOCK => 'This is an Help block gen. by element option : '.HelpBlock::HELP_BLOCK
+        );
         
         $this->form = new Form();
         $this->formComplex = new Form('form-complex');
@@ -111,8 +115,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         
         $email = new Email('exampleInputEmail1');
         $email->setLabel('Email address');
-        $email->setAttribute('placeholder', 'Enter Email');
-        $email->setOptions($helpcore);
+        $email->setAttribute('placeholder', 'Enter Email');        
+        $email->setOptions($helpcore);        
         
         $password = new Password('exampleInputPassword1');
         $password->setLabel('Password');
@@ -292,6 +296,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->formDemonstration->add($send);
         $this->formDemonstration->add($submit);
         
+        
         $fieldset = new Fieldset('fieldset-name');
         $fieldset->add($reset);
         $fieldset->add($send);
@@ -316,6 +321,23 @@ class FormTest extends \PHPUnit_Framework_TestCase
                                 'label' => 'Send'
                         )
                 ));
+        
+        //Error tests
+        
+        // Create a input
+        //$input = new Input('toto-name');
+        //$input->setRequired(true);
+        
+        //$inputFilter = new InputFilter();
+        //$inputFilter->add($input);
+        //$this->formDemonstration->setInputFilter($inputFilter);
+        
+        // Force a failure
+        $this->formDemonstration->setData(array()); // Empty data
+        $this->formDemonstration->isValid();        // Not valid
+        $this->formComplex->setData(array()); // Empty data
+        $this->formComplex->isValid();        // Not valid
+        
     }
 
     /**
@@ -482,8 +504,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
      * Tests Form->render() with a complex Form
      */
     public function testRenderEntityForm ()
-    {
-        $this->markTestSkipped("I have to correct some tests before this one");
+    {        
         $form = new CreateProduct();
         $actual = $this->formHelperHorizontal->render($form);
         $actual = preg_replace('/> </', '><', $actual);
@@ -499,8 +520,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderFormBasic ()
     {
-        $this->markTestSkipped("I have to correct some tests before this one");
         $actual = $this->formHelperBasic->render($this->formComplex);
+        $actual = preg_replace('/\s+/', ' ', $actual);
         $actual = preg_replace('/> </', '><', $actual);
         $expected = file_get_contents('resources/form-basic.html', true);
         $expected = preg_replace('/\s+/', ' ', $expected);

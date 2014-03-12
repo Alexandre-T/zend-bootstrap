@@ -2,6 +2,7 @@
 namespace Bootstrap\Form\View\Helper;
 use Bootstrap\Form\View\Helper\CheckboxTag as HelperCheckboxTag;
 use Bootstrap\Form\View\Helper\Element as HelperElement;
+use Bootstrap\Form\View\Helper\ElementErrors as HelperElementErrors;
 use Bootstrap\Form\View\Helper\InlineSeparator as HelperInlineSeparator;
 use Bootstrap\Form\View\Helper\Offset as HelperOffset;
 use Bootstrap\Form\View\Helper\RadioTag as HelperRadioTag;
@@ -100,6 +101,10 @@ class Row extends FormRow
      */
     public function render (ElementInterface $element, FormUtil $formUtil = null)
     {
+        $elementErrors = '';
+        $hasError     = false;
+        
+        
         $renderer = $this->getView();
         if (! method_exists($renderer, 'plugin')) {
             // Bail early if renderer is not pluggable
@@ -143,6 +148,11 @@ class Row extends FormRow
             $element->setAttribute('class', $classAttributes);
         }
         
+        if ($this->renderErrors) {
+        	$elementErrors = $elementErrorsHelper->render($element);
+        	$hasError     = !empty($elementErrors);        	
+        }
+        
         //Init
         $markup = '';
         $elementHelper->setFormUtil($this->formUtil);
@@ -157,9 +167,10 @@ class Row extends FormRow
                     $tmp     = $elementHelper->render($element);
                     $tmp     = $inlineSeparatorHelper->render($tmp,' <select','</select>');
                     $tmp     = $helpBlockHelper->render($element,$tmp);
+                    //$tmp    .= $elementErrors;
                     $markup .= $offsetHelper->render($element, $tmp, $this->formUtil);
                     unset($tmp);
-                    $markup  = $groupHelper->render($markup);
+                    $markup  = $groupHelper->render($markup,$hasError);
         	    }elseif (Util::isButton($element)){
         	        $markup  = $elementHelper->render($element);        	        
         	    }elseif ($element instanceof MultiCheckbox){
@@ -168,7 +179,7 @@ class Row extends FormRow
                         $markup = $labelHelper->render($label,$element,$this->formUtil) . $markup;
         	        }
         	        $markup  = $helpBlockHelper->render($element,$markup);
-        	        $markup  = $groupHelper->render($markup);
+        	        $markup  = $groupHelper->render($markup,$hasError);
         	        
         	    }elseif ($element instanceof Checkbox){
         	        $markup  = $elementHelper->render($element);
@@ -176,14 +187,14 @@ class Row extends FormRow
         	        $markup  = $labelHelper->render($markup,$element,$this->formUtil);
                     $markup  = $checkboxTagHelper->render($markup);                    
                     $markup  = $helpBlockHelper->render($element,$markup);                    
-                    $markup  = $groupHelper->render($markup);
+                    $markup  = $groupHelper->render($markup,$hasError);
         	    }else{
         	        if (!empty($label)){
                         $markup  = $labelHelper->render($label,$element,$this->formUtil);
         	        }
                     $markup .= $elementHelper->render($element);
                     $markup  = $helpBlockHelper->render($element,$markup);
-                    $markup  = $groupHelper->render($markup);
+                    $markup  = $groupHelper->render($markup,$hasError);
         	    }
         	    break;
         	case FormUtil::FORM_TYPE_INLINE :
@@ -192,18 +203,20 @@ class Row extends FormRow
         	    } elseif ($element instanceof MultiCheckbox) {
         	        $markup  = $elementHelper->render($element);
         	        $markup  = $radioTagHelper->render($markup);
-        	    	$markup  = $groupHelper->render($markup);
+        	    	$markup  = $groupHelper->render($markup,$hasError);
         	    }elseif ($element instanceof Checkbox){
         	    	$markup  = $elementHelper->render($element);
         	    	$markup .= ' '.$label;
         	    	$markup  = $labelHelper->render($markup,$element,$this->formUtil);
+        	    	//@todo : Add the errors border for the inline Form
         	    	$markup  = $checkboxTagHelper->render($markup);
+        	    	//@todo : Add the errorText in a box for the collection ?
         	    }else{
         	        if (!empty($label)){
         	           $markup  = $labelHelper->render($label,$element,$this->formUtil);
         	        }
         	    	$markup .= $elementHelper->render($element);
-        	    	$markup  = $groupHelper->render($markup);
+        	    	$markup  = $groupHelper->render($markup,$hasError);
         	    }
                 break;
         	case FormUtil::FORM_TYPE_HORIZONTAL :
@@ -216,11 +229,11 @@ class Row extends FormRow
                     $tmp     = $helpBlockHelper->render($element,$tmp);
                     $markup .= $offsetHelper->render($element, $tmp, $this->formUtil);
                     unset($tmp);
-                    $markup  = $groupHelper->render($markup);
+                    $markup  = $groupHelper->render($markup,$hasError);
         	    }elseif (Util::isButton($element)) {
                     $markup = $elementHelper->render($element);
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
-                    $markup = $groupHelper->render($markup);
+                    $markup = $groupHelper->render($markup,$hasError);
                 } elseif ($element instanceof MultiCheckbox) {
                     //Be carefull MultiCheckbox is an instance of checkbox, so this tests must prepend the Checkbox test !
                     $markup = $elementHelper->render($element);
@@ -229,154 +242,30 @@ class Row extends FormRow
                     if (!empty($label)){
                         $markup = $strongHelper->render($label, $this->formUtil) . $markup;
                     }
-                    $markup = $groupHelper->render($markup);
+                    $markup = $groupHelper->render($markup,$hasError);
                 } elseif ($element instanceof Checkbox) {                    
                     $markup = $elementHelper->render($element);
                     $markup .= $label;
                     $markup = $labelHelper->render($markup, $element, $this->formUtil);
                     $markup = $checkboxTagHelper->render($markup);
                     $markup = $helpBlockHelper->render($element,$markup);
+                    $markup.= $elementErrors;
                     $markup = $offsetHelper->render($element, $markup, $this->formUtil);
-                    $markup = $groupHelper->render($markup);
+                    $markup = $groupHelper->render($markup,$hasError);
                 } else {
                     if (! empty($label)) {
                         $markup = $labelHelper->render($label, $element, $this->formUtil);
                     }
                     $tmp  = $helpBlockHelper->render($element,$elementHelper->render($element));
+                    $tmp    .= $elementErrors;
                     $markup .= $offsetHelper->render($element, $tmp, $this->formUtil);
-                    $markup  = $groupHelper->render($markup);
+                    $markup  = $groupHelper->render($markup,$hasError);
                 }
         	    break;
         }
+        
         return $markup;
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /*
-        
-        
-        //FIXME rendering errors !
-        
-        
-        
-        
-        
-        // Position Label
-        if ($element instanceof Checkbox || $element instanceof Radio) {
-            $this->labelPosition = self::LABEL_APPEND;
-            unset($this->labelAttributes['for']);
-        } else {
-            $this->labelPosition = self::LABEL_TOTAL_PREPEND;
-            $id = $this->getId($element);
-            $this->labelAttributes['for'] = $id;
-            // if there is only name, we must have an id because of "for"
-            // attribute label cf. HTML5 Spec
-            $element->setAttribute('id', $id);
-        }
-        
-        if ($this->partial) {
-            $vars = array(
-                    'element' => $element,
-                    'label' => $label,
-                    'labelAttributes' => $this->labelAttributes,
-                    'labelPosition' => $this->labelPosition,
-                    'renderErrors' => $this->renderErrors
-            );
-            
-            return $this->view->render($this->partial, $vars);
-        }
-        
-        if ($this->renderErrors) {
-            $elementErrors = $elementErrorsHelper->render($element);
-        }
-        
-        $elementString = $elementHelper->render($element);
-        
-        if (isset($label) && '' !== $label) {
-            $label = $escapeHtmlHelper($label);
-            $labelAttributes = $element->getLabelAttributes();
-            
-            if (empty($labelAttributes)) {
-                $labelAttributes = $this->labelAttributes;
-            }
-            
-            // Multicheckbox elements have to be handled differently as the HTML
-            // standard does not allow nested
-            // labels. The semantic way is to group them inside a fieldset
-            $type = $element->getAttribute('type');
-            if ($type === 'multi_checkbox' || $type === 'radio') {
-                $markup = sprintf('<fieldset><legend>%s</legend>%s</fieldset>', 
-                        $label, $elementString);
-            } else {
-                if ($element->hasAttribute('id')) {
-                    $labelOpen = '';
-                    $labelClose = '';
-                    $label = $labelHelper($element, null, $this->formUtil);
-                } else {
-                    $labelOpen = $labelHelper->openTag($labelAttributes, null, 
-                            $this->formUtil);
-                    $labelClose = $labelHelper->closeTag();
-                }
-                
-                // Bootstrap Css Form does not have span
-                // if ($label !== '' && !$element->hasAttribute('id')) {
-                // $label = '<span>' . $label . '</span>';
-                // }
-                
-                // Button element is a special case, because label is always
-                // rendered inside it
-                if ($element instanceof Button) {
-                    $labelOpen = $labelClose = $label = '';
-                }
-                
-                switch ($this->labelPosition) {
-                    case self::LABEL_PREPEND:
-                        $markup = $labelOpen . $label . $elementString .
-                                 $labelClose;
-                        break;
-                    case self::LABEL_TOTAL_PREPEND:
-                        $markup = $labelOpen . $label . $labelClose .
-                                 $elementString;
-                        break;
-                    case self::LABEL_APPEND:
-                    default:
-                        $markup = $labelOpen . $elementString . $label .
-                                 $labelClose;
-                        break;
-                }
-            }
-            
-            if ($this->renderErrors) {
-                $markup .= $elementErrors;
-            }
-        } else {
-            if ($this->renderErrors) {
-                $markup = $elementString . $elementErrors;
-            } else {
-                $markup = $elementString;
-            }
-        }
-        
-        $formType = $this->formUtil->getDefaultFormType();
-        if ($markup && $this->getHelpBlock()) {
-            $content = $element->getOption('help-block');
-            $this->helpBlockHelper = $this->getHelpBlockHelper();
-            $markup = $this->helpBlockHelper->render($element, $markup);
-        }
-        
-        if ($markup && $this->getFormGroup()) {
-            // && ($formType == FormUtil::FORM_TYPE_HORIZONTAL )
-            $this->formGroupHelper = $this->getFormGroupHelper();
-            $markup = $this->formGroupHelper->render($element, $markup);
-        }
-        return $markup;*/
     }
 
     /**
@@ -584,6 +473,29 @@ class Row extends FormRow
         
         return $this->inlineSeparatorHelper;
     }
+    
+    /**
+     * Retrieve the FormElementErrors helper
+     *
+     * @return FormElementErrors
+     */
+    protected function getElementErrorsHelper()
+    {
+    	if ($this->elementErrorsHelper) {
+    		return $this->elementErrorsHelper;
+    	}
+    
+    	if (method_exists($this->view, 'plugin')) {
+    		$this->elementErrorsHelper = $this->view->plugin('bs_element_errors');
+    	}
+    
+    	if (!$this->elementErrorsHelper instanceof HelperElementErrors) {
+    		$this->elementErrorsHelper = new HelperElementErrors();
+    	}
+    
+    	return $this->elementErrorsHelper;
+    }
+    
     /*
      * (non-PHPdoc) @see \Zend\Form\View\Helper\FormRow::__invoke()
      */

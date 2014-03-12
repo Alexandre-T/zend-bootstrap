@@ -45,9 +45,19 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $expected = '<div class="form-group">Some text</div> ';
         $actual   = $this->group->render('Some text');
         $this->assertEquals($expected, $actual);
-        $expected = '<div class="foo bar">Some text</div> ';
-        $actual   = $this->group->render('Some text','foo bar');
+
+        $expected = '<div class="form-group has-error">Some text</div> ';
+        $actual   = $this->group->render('Some text',true);
         $this->assertEquals($expected, $actual);
+        
+        $expected = '<div class="foo bar">Some text</div> ';
+        $actual   = $this->group->render('Some text',false,'foo bar');
+        $this->assertEquals($expected, $actual);
+
+        $expected = '<div class="foo bar has-error">Some text</div> ';
+        $actual   = $this->group->render('Some text',true,'foo bar');
+        $this->assertEquals($expected, $actual);
+        
     }
 
     /**
@@ -82,9 +92,24 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
 
         $expected = '<div class="foo bar">Some text</div> ';
-        $actual   = $this->group->__invoke('Some text','foo bar');
+        $actual   = $this->group->__invoke('Some text',false, 'foo bar');
         $this->assertEquals($expected, $actual);
-        $actual   = $group('Some text','foo bar');
+
+        $actual   = $group('Some text',false,'foo bar');
+        $this->assertEquals($expected, $actual);
+        
+        
+        $expected = '<div class="form-group has-error">Some text</div> ';
+        $actual   = $this->group->__invoke('Some text',true);
+        $this->assertEquals($expected, $actual);
+        $actual   = $group('Some text',true);
+        $this->assertEquals($expected, $actual);
+        
+        $expected = '<div class="foo bar has-error">Some text</div> ';
+        $actual   = $this->group->__invoke('Some text',true, 'foo bar');
+        $this->assertEquals($expected, $actual);
+        
+        $actual   = $group('Some text',true,'foo bar');
         $this->assertEquals($expected, $actual);
         
     }

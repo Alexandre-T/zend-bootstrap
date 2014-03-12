@@ -4,6 +4,7 @@ namespace BootstrapTest\Form;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
+use Zend\Form\Element\Submit;
 
 class CreateProduct extends Form
 {
@@ -28,13 +29,9 @@ class CreateProduct extends Form
             'name' => 'csrf'
         ));
         
-        $this->add(array(
-            'name' => 'submit',
-            'attributes' => array(
-                'type' => 'submit',
-                'value' => 'Send'
-            )
-        ));
+        $submit = new Submit('submit');
+        $submit->setLabel('Send');
+        $this->add($submit);
     }
 }
 

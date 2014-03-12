@@ -111,9 +111,9 @@ class InlineSeparator extends AbstractHelper
      * @param string $content            
      * @return string
      */
-    public function __invoke($content, $class = self::DEFAULT_CLASS)
+    public function __invoke($content, $prepend = null, $append = null)
     {
-        return $this->render($content,$class);
+        return $this->render($content,$prepend,$append);
     }
 }
 
