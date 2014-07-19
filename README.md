@@ -1,4 +1,4 @@
 zend-bootstrap
 ==============
 
-Bootstrap Form overload designed Zend_Form to be compatible with CSS Bootstrap 
+Bootstrap Form overload designed Zend Form to be compatible with CSS Bootstrap 
